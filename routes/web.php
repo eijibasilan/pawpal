@@ -10,8 +10,8 @@ Route::get('/', function () {
 
 Route::prefix('user')->group(function () {
 	Route::get('dashboard', function () {
-		return Inertia::render('Dashboard');
-	})->middleware(['auth', 'verified'])->name('dashboard');
+		return Inertia::render('user/Dashboard');
+	})->middleware(['auth', 'verified'])->name('user.dashboard');
 
 	require __DIR__ . '/user/settings.php';
 	require __DIR__ . '/user/auth.php';
