@@ -36,4 +36,8 @@ export interface User {
     updated_at: string;
 }
 
+export interface LayoutOptions {
+    layout: ReturnType<typeof h>;
+}
+
 export type BreadcrumbItemType = BreadcrumbItem;

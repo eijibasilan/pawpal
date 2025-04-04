@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\User\ServiceController as UserServiceController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -12,6 +13,10 @@ Route::prefix('user')->group(function () {
 	Route::get('dashboard', function () {
 		return Inertia::render('user/Dashboard');
 	})->middleware(['auth', 'verified'])->name('user.dashboard');
+
+	Route::prefix('services')->group(function () {
+		Route::get('/', [UserServiceController::class, 'index'])->name('user.services');
+	});
 
 	require __DIR__ . '/user/settings.php';
 	require __DIR__ . '/user/auth.php';
