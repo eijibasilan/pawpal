@@ -8,15 +8,15 @@ import { Link, usePage } from '@inertiajs/vue3';
 const sidebarNavItems: NavItem[] = [
     {
         title: 'Profile',
-        href: '/settings/profile',
+        href: '/user/settings/profile',
     },
     {
         title: 'Password',
-        href: '/settings/password',
+        href: '/user/settings/password',
     },
     {
         title: 'Appearance',
-        href: '/settings/appearance',
+        href: '/user/settings/appearance',
     },
 ];
 
