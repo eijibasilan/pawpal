@@ -21,3 +21,12 @@ Route::prefix('user')->group(function () {
 	require __DIR__ . '/user/settings.php';
 	require __DIR__ . '/user/auth.php';
 });
+
+
+Route::prefix('admin')->group(function () {
+	Route::get('dashboard', function () {
+		return Inertia::render('admin/Dashboard');
+	})->middleware(['auth:admin', 'verified'])->name('admin.dashboard');
+
+	require __DIR__ . '/admin/auth.php';
+});
