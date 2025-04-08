@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import NavFooter from '@/components/NavFooter.vue';
-import NavMain from '@/components/NavMain.vue';
-import NavUser from '@/components/NavUser.vue';
+import AppLogo from '@/components/AppLogo.vue';
+import NavAdmin from '@/components/admin/NavAdmin.vue';
+import NavAdminFooter from '@/components/admin/NavAdminFooter.vue';
+import NavAdminMain from '@/components/admin/NavAdminMain.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
 import { LayoutGrid } from 'lucide-vue-next';
-import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
-        href: '/user/dashboard',
+        href: '/admin/dashboard',
         icon: LayoutGrid,
     },
 ];
@@ -36,7 +36,7 @@ const footerNavItems: NavItem[] = [
             <SidebarMenu>
                 <SidebarMenuItem>
                     <SidebarMenuButton size="lg" as-child>
-                        <Link :href="route('home')">
+                        <Link :href="route('admin.login')">
                             <AppLogo />
                         </Link>
                     </SidebarMenuButton>
@@ -45,12 +45,12 @@ const footerNavItems: NavItem[] = [
         </SidebarHeader>
 
         <SidebarContent>
-            <NavMain :items="mainNavItems" />
+            <NavAdminMain :items="mainNavItems" />
         </SidebarContent>
 
         <SidebarFooter>
-            <NavFooter :items="footerNavItems" />
-            <NavUser />
+            <NavAdminFooter :items="footerNavItems" />
+            <NavAdmin />
         </SidebarFooter>
     </Sidebar>
     <slot />

@@ -5,8 +5,7 @@ import AppearanceTabs from '@/components/AppearanceTabs.vue';
 import HeadingSmall from '@/components/HeadingSmall.vue';
 import { type BreadcrumbItem } from '@/types';
 
-import SettingsLayout from '@/layouts/user/settings/Layout.vue';
-import UserLayout from '@/layouts/user/UserLayout.vue';
+import UserSettingsLayout from '@/layouts/user/UserSettingsLayout.vue';
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {
@@ -17,7 +16,7 @@ const breadcrumbItems: BreadcrumbItem[] = [
 </script>
 
 <template>
-    <UserLayout :breadcrumbs="breadcrumbItems">
+    <UserSettingsLayout :breadcrumbs="breadcrumbItems">
         <Head title="Appearance settings" />
 
         <SettingsLayout>
@@ -26,5 +25,5 @@ const breadcrumbItems: BreadcrumbItem[] = [
                 <AppearanceTabs />
             </div>
         </SettingsLayout>
-    </UserLayout>
+    </UserSettingsLayout>
 </template>

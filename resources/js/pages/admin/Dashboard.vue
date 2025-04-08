@@ -3,11 +3,10 @@
 </template>
 
 <script setup lang="ts">
-//import AdminLayout from '@/layouts/admin/AdminLayout.vue';
-import AppHeaderLayout from '@/layouts/app/AppHeaderLayout.vue';
+import AdminLayout from '@/layouts/admin/AdminLayout.vue';
 import { h } from 'vue';
 
 defineOptions({
-    layout: h(AppHeaderLayout),
+    layout: h(AdminLayout),
 });
 </script>

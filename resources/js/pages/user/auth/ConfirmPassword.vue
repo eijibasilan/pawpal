@@ -3,7 +3,7 @@ import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import AuthSimpleLayout from '@/layouts/user/auth/AuthSimpleLayout.vue';
+import UserAuthLayout from '@/layouts/user/UserAuthLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
 
@@ -21,7 +21,7 @@ const submit = () => {
 </script>
 
 <template>
-    <AuthSimpleLayout
+    <UserAuthLayout
         title="Confirm your password"
         description="This is a secure area of the application. Please confirm your password before continuing."
     >
@@ -52,5 +52,5 @@ const submit = () => {
                 </div>
             </div>
         </form>
-    </AuthSimpleLayout>
+    </UserAuthLayout>
 </template>
