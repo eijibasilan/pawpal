@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import AppLogo from '@/components/AppLogo.vue';
-import NavAdmin from '@/components/admin/NavAdmin.vue';
-import NavAdminFooter from '@/components/admin/NavAdminFooter.vue';
-import NavAdminMain from '@/components/admin/NavAdminMain.vue';
+import Nav from '@/components/admin/Nav.vue';
+import NavFooter from '@/components/admin/NavFooter.vue';
+import NavMain from '@/components/admin/NavMain.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
@@ -45,12 +45,12 @@ const footerNavItems: NavItem[] = [
         </SidebarHeader>
 
         <SidebarContent>
-            <NavAdminMain :items="mainNavItems" />
+            <NavMain :items="mainNavItems" />
         </SidebarContent>
 
         <SidebarFooter>
-            <NavAdminFooter :items="footerNavItems" />
-            <NavAdmin />
+            <NavFooter :items="footerNavItems" />
+            <Nav />
         </SidebarFooter>
     </Sidebar>
     <slot />
