@@ -18,8 +18,8 @@ Route::prefix('user')->group(function () {
 		Route::get('/', [UserServiceController::class, 'index'])->name('user.services');
 	});
 
-	require __DIR__ . '/user/settings.php';
 	require __DIR__ . '/user/auth.php';
+	require __DIR__ . '/user/settings.php';
 });
 
 
@@ -29,4 +29,5 @@ Route::prefix('admin')->group(function () {
 	})->middleware(['auth:admin', 'verified'])->name('admin.dashboard');
 
 	require __DIR__ . '/admin/auth.php';
+	require __DIR__ . '/admin/settings.php';
 });

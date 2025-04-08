@@ -18,7 +18,7 @@ import UserMenuContent from '@/components/UserMenuContent.vue';
 import { getInitials } from '@/composables/useInitials';
 import type { BreadcrumbItem, NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { Dessert, LayoutGrid, Menu } from 'lucide-vue-next';
+import { Dessert, LayoutGrid, Home, Menu, LogIn, UserPlus } from 'lucide-vue-next';
 import { computed } from 'vue';
 
 interface Props {
@@ -40,28 +40,37 @@ const activeItemStyles = computed(
 
 const mainNavItems: NavItem[] = [
     {
+        title: 'Home',
+        href: '/',
+        icon: Home,
+    },
+    {
         title: 'Dashboard',
         href: '/user/dashboard',
         icon: LayoutGrid,
+		isHidden: computed(()=>!page.props.auth.user).value
     },
     {
         title: 'Services',
         href: '/user/services',
         icon: Dessert,
+		isHidden: computed(()=>!page.props.auth.user).value
     },
 ];
 
 const rightNavItems: NavItem[] = [
-    //{
-    //    title: 'Repository',
-    //    href: 'https://github.com/laravel/vue-starter-kit',
-    //    icon: Folder,
-    //},
-    //{
-    //    title: 'Documentation',
-    //    href: 'https://laravel.com/docs/starter-kits',
-    //    icon: BookOpen,
-    //},
+    {
+        title: 'Login',
+		href: '/user/login',
+        icon: LogIn,
+		isHidden: computed(()=>page.props.auth.user).value
+    },
+    {
+        title: 'Register',
+		href: '/user/register',
+        icon: UserPlus,
+		isHidden: computed(()=>page.props.auth.user).value
+    },
 ];
 </script>
 
@@ -89,7 +98,7 @@ const rightNavItems: NavItem[] = [
                                         :key="item.title"
                                         :href="item.href"
                                         class="flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm font-medium hover:bg-accent"
-                                        :class="activeItemStyles(item.href)"
+                                        :class="`${activeItemStyles(item.href)} ${item?.isHidden  ? 'hidden': ''}`"
                                     >
                                         <component v-if="item.icon" :is="item.icon" class="h-5 w-5" />
                                         {{ item.title }}
@@ -100,9 +109,8 @@ const rightNavItems: NavItem[] = [
                                         v-for="item in rightNavItems"
                                         :key="item.title"
                                         :href="item.href"
-                                        target="_blank"
                                         rel="noopener noreferrer"
-                                        class="flex items-center space-x-2 text-sm font-medium"
+                                        :class="`${item.isHidden ? 'hidden' :''} flex items-center space-x-2 text-sm font-medium`"
                                     >
                                         <component v-if="item.icon" :is="item.icon" class="h-5 w-5" />
                                         <span>{{ item.title }}</span>
@@ -113,7 +121,7 @@ const rightNavItems: NavItem[] = [
                     </Sheet>
                 </div>
 
-                <Link :href="route('user.dashboard')" class="flex items-center gap-x-2">
+                <Link :href="route('home')" class="flex items-center gap-x-2">
                     <AppLogo />
                 </Link>
 
@@ -121,7 +129,7 @@ const rightNavItems: NavItem[] = [
                 <div class="hidden h-full lg:flex lg:flex-1">
                     <NavigationMenu class="ml-10 flex h-full items-stretch">
                         <NavigationMenuList class="flex h-full items-stretch space-x-2">
-                            <NavigationMenuItem v-for="(item, index) in mainNavItems" :key="index" class="relative flex h-full items-center">
+                            <NavigationMenuItem v-for="(item, index) in mainNavItems" :key="index" :class="`${item.isHidden ? 'hidden': ''}relative flex h-full items-center`">
                                 <Link :href="item.href">
                                     <NavigationMenuLink
                                         :class="[navigationMenuTriggerStyle(), activeItemStyles(item.href), 'h-9 cursor-pointer px-3']"
@@ -147,11 +155,11 @@ const rightNavItems: NavItem[] = [
 
                         <div class="hidden space-x-1 lg:flex">
                             <template v-for="item in rightNavItems" :key="item.title">
-                                <TooltipProvider :delay-duration="0">
+                                <TooltipProvider :delay-duration="0" :class="item?.isHidden ? 'hidden' : ''">
                                     <Tooltip>
                                         <TooltipTrigger>
                                             <Button variant="ghost" size="icon" as-child class="group h-9 w-9 cursor-pointer">
-                                                <a :href="item.href" target="_blank" rel="noopener noreferrer">
+                                                <a :href="item.href"  rel="noopener noreferrer">
                                                     <span class="sr-only">{{ item.title }}</span>
                                                     <component :is="item.icon" class="size-5 opacity-80 group-hover:opacity-100" />
                                                 </a>
@@ -166,7 +174,7 @@ const rightNavItems: NavItem[] = [
                         </div>
                     </div>
 
-                    <DropdownMenu>
+                    <DropdownMenu v-if="$page.props.auth.user"">
                         <DropdownMenuTrigger :as-child="true">
                             <Button
                                 variant="ghost"
@@ -182,7 +190,7 @@ const rightNavItems: NavItem[] = [
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" class="w-56">
-                            <UserMenuContent :user="auth.user" />
+                            <UserMenuContent :user="auth.user" :guard="'user'" />
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
