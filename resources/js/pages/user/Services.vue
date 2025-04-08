@@ -20,14 +20,14 @@
 import Heading from '@/components/Heading.vue';
 import Button from '@/components/ui/button/Button.vue';
 import { Card, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import AppLayout from '@/layouts/AppLayout.vue';
+import UserLayout from '@/layouts/user/UserLayout.vue';
 import { BreadcrumbItem, LayoutOptions, Service } from '@/types';
 import { h } from 'vue';
 
 const props = defineProps<{ services: Service[] }>();
 
 defineOptions({
-    layout: h(AppLayout, {
+    layout: h(UserLayout, {
         breadcrumbs: [
             {
                 title: 'Services',

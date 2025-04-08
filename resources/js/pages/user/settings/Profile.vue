@@ -7,8 +7,8 @@ import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import AppLayout from '@/layouts/AppLayout.vue';
-import SettingsLayout from '@/layouts/settings/Layout.vue';
+import SettingsLayout from '@/layouts/user/settings/Layout.vue';
+import UserLayout from '@/layouts/user/UserLayout.vue';
 import { type BreadcrumbItem, type SharedData, type User } from '@/types';
 
 interface Props {
@@ -41,7 +41,7 @@ const submit = () => {
 </script>
 
 <template>
-    <AppLayout :breadcrumbs="breadcrumbs">
+    <UserLayout :breadcrumbs="breadcrumbs">
         <Head title="Profile settings" />
 
         <SettingsLayout>
@@ -104,5 +104,5 @@ const submit = () => {
 
             <DeleteUser />
         </SettingsLayout>
-    </AppLayout>
+    </UserLayout>
 </template>
