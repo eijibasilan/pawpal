@@ -27,37 +27,10 @@ export interface SharedData extends PageProps {
     sidebarOpen: boolean;
 }
 
-export interface User {
-    id: number;
-    name: string;
-    email: string;
-    avatar?: string;
-    email_verified_at: string | null;
-    created_at: string;
-    updated_at: string;
-}
-
-export interface Admin {
-    id: number;
-    name: string;
-    email: string;
-    avatar?: string;
-    email_verified_at: string | null;
-    created_at: string;
-    updated_at: string;
-}
-
-export interface Service {
-    id: number;
-    name: string;
-    description?: string;
-    created_at: string;
-    updated_at: string;
-    deleted_at: string;
-}
-
 export interface LayoutOptions {
     layout: ReturnType<typeof h>;
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;
+
+export * from './schema';
