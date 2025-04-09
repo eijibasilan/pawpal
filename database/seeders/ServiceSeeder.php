@@ -12,7 +12,7 @@ class ServiceSeeder extends Seeder
 	 */
 	public function run(): void
 	{
-		$data = [
+		$rows = [
 			[
 				'name' => 'Vaccination',
 			],
@@ -27,6 +27,7 @@ class ServiceSeeder extends Seeder
 			],
 		];
 
-		Service::insert($data);
+		foreach ($rows as $row)
+			Service::create($row);
 	}
 }
