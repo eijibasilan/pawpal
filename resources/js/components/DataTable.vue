@@ -1,9 +1,7 @@
 <script setup lang="ts" generic="TData, TValue">
-import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import type { ColumnDef } from '@tanstack/vue-table';
-import { FlexRender, getCoreRowModel, getPaginationRowModel, useVueTable } from '@tanstack/vue-table';
-import { Plus } from 'lucide-vue-next';
+import { FlexRender, getCoreRowModel, useVueTable } from '@tanstack/vue-table';
 
 const props = defineProps<{
     noDataText?: string;
@@ -19,15 +17,11 @@ const table = useVueTable({
         return props.columns;
     },
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
 });
 </script>
 
 <template>
     <div>
-        <Button variant="ghost" size="icon">
-            <Plus />
-        </Button>
         <div class="mt-2 rounded-md border">
             <Table>
                 <TableHeader>
@@ -52,10 +46,6 @@ const table = useVueTable({
                     </template>
                 </TableBody>
             </Table>
-        </div>
-        <div class="flex items-center justify-end space-x-2 py-4">
-            <Button variant="outline" size="sm" :disabled="!table.getCanPreviousPage()" @click="table.previousPage()"> Previous </Button>
-            <Button variant="outline" size="sm" :disabled="!table.getCanNextPage()" @click="table.nextPage()"> Next </Button>
         </div>
     </div>
 </template>

@@ -55,4 +55,8 @@ export interface PaginationResponse<T> {
     total: number;
 }
 
+export interface CustomDialogEvent {
+    closeDialog: void;
+}
+
 export * from './schema';
