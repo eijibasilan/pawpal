@@ -110,7 +110,7 @@ const rightNavItems: NavItem[] = [
                                         :key="item.title"
                                         :href="item.href"
                                         rel="noopener noreferrer"
-                                        :class="`${item.isHidden ? 'hidden' :''} flex items-center space-x-2 text-sm font-medium`"
+                                        :class="`${item.isHidden ? 'hidden' :''}   flex items-center space-x-2 text-sm font-medium`"
                                     >
                                         <component v-if="item.icon" :is="item.icon" class="h-5 w-5" />
                                         <span>{{ item.title }}</span>
@@ -129,7 +129,7 @@ const rightNavItems: NavItem[] = [
                 <div class="hidden h-full lg:flex lg:flex-1">
                     <NavigationMenu class="ml-10 flex h-full items-stretch">
                         <NavigationMenuList class="flex h-full items-stretch space-x-2">
-                            <NavigationMenuItem v-for="(item, index) in mainNavItems" :key="index" :class="`${item.isHidden ? 'hidden': ''}relative flex h-full items-center`">
+                            <NavigationMenuItem v-for="(item, index) in mainNavItems" :key="index" :class="`${item.isHidden ? 'hidden': ''} relative flex h-full items-center`">
                                 <Link :href="item.href">
                                     <NavigationMenuLink
                                         :class="[navigationMenuTriggerStyle(), activeItemStyles(item.href), 'h-9 cursor-pointer px-3']"
@@ -155,10 +155,10 @@ const rightNavItems: NavItem[] = [
 
                         <div class="hidden space-x-1 lg:flex">
                             <template v-for="item in rightNavItems" :key="item.title">
-                                <TooltipProvider :delay-duration="0" :class="item?.isHidden ? 'hidden' : ''">
+                                <TooltipProvider :delay-duration="0">
                                     <Tooltip>
                                         <TooltipTrigger>
-                                            <Button variant="ghost" size="icon" as-child class="group h-9 w-9 cursor-pointer">
+                                            <Button variant="ghost" size="icon" as-child class="group h-9 w-9 cursor-pointer"  :class="item?.isHidden ? 'hidden' : ''">
                                                 <a :href="item.href"  rel="noopener noreferrer">
                                                     <span class="sr-only">{{ item.title }}</span>
                                                     <component :is="item.icon" class="size-5 opacity-80 group-hover:opacity-100" />
