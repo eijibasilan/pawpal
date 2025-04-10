@@ -3,51 +3,43 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\UpsertProductRequest;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-	/**
-	 * Display a listing of the resource.
-	 */
 	public function index(Request $request)
 	{
-		$data = Product::with('category')->paginate($request->input('perPage', 5), "*", null, $request->input('page', 1));
 
-		return Inertia::render('admin/Products', ['pagination' => $data]);
+		return Inertia::render('admin/Products', [
+			'pagination' => Inertia::always(Inertia::merge(Product::with('category')->paginate($request->input('perPage', 5), "*", null, $request->input('page', 1)))),
+			'productCategories' => Inertia::lazy(fn() => ProductCategory::all())
+		]);
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 */
-	public function store(Request $request)
+	public function store(UpsertProductRequest $request)
 	{
-		//
+		Product::create($request->all());
+
+		return redirect('/admin/products');
 	}
 
-	/**
-	 * Display the specified resource.
-	 */
-	public function show(string $id)
+	public function update(UpsertProductRequest $request, string $id)
 	{
-		//
+		$data = Product::findOrFail($id);
+		$data->update($request->all());
+
+		return redirect('/admin/products');
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 */
-	public function update(Request $request, string $id)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 */
 	public function destroy(string $id)
 	{
-		//
+		$row = Product::findOrFail($id);
+		$row->delete();
+
+		return redirect('/admin/products');
 	}
 }

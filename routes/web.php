@@ -1,6 +1,4 @@
 <?php
-
-use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\User\ServiceController as UserServiceController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -29,8 +27,11 @@ Route::prefix('admin')->group(function () {
 		return Inertia::render('admin/Dashboard');
 	})->middleware(['auth:admin', 'verified'])->name('admin.dashboard');
 
-	Route::apiResource('products', ProductController::class)->except('show');
-
 	require __DIR__ . '/admin/auth.php';
-	require __DIR__ . '/admin/settings.php';
+
+	Route::middleware('auth:admin')->group(function () {
+		require __DIR__ . '/admin/settings.php';
+		require __DIR__ . '/admin/inventory.php';
+	});
+
 });
