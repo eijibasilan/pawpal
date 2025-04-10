@@ -15,7 +15,7 @@ class ProductController extends Controller
 	{
 
 		return Inertia::render('admin/Products', [
-			'pagination' => Inertia::always(Inertia::merge(Product::with('category')->paginate($request->input('perPage', 5), "*", null, $request->input('page', 1)))),
+			'pagination' => Inertia::always(Inertia::merge(Product::with('category')->paginate(request('perPage', 5), "*", null, request('page', 1)))),
 			'productCategories' => Inertia::lazy(fn() => ProductCategory::all())
 		]);
 	}
