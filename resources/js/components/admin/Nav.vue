@@ -8,7 +8,7 @@ import { usePage } from '@inertiajs/vue3';
 import { ChevronsUpDown } from 'lucide-vue-next';
 
 const page = usePage<SharedData>();
-const admin = page.props.auth.user as Admin;
+const admin = page.props.auth.admin as Admin;
 const { isMobile, state } = useSidebar();
 </script>
 

@@ -10,7 +10,10 @@ use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guestAdmin')->group(function () {
-	Route::get('/', [AuthenticatedSessionController::class, 'create'])
+	Route::get('/', [AuthenticatedSessionController::class, 'index'])
+		->name('admin.index');
+
+	Route::get('/login', [AuthenticatedSessionController::class, 'create'])
 		->name('admin.login');
 
 	Route::post('login', [AuthenticatedSessionController::class, 'store']);

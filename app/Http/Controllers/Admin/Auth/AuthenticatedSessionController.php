@@ -13,9 +13,15 @@ use Inertia\Response;
 class AuthenticatedSessionController extends Controller
 {
 
+
+	public function index()
+	{
+		return Inertia::render('admin/index', );
+	}
+
 	public function create(Request $request): Response
 	{
-		return Inertia::render('admin/index', [
+		return Inertia::render('admin/Login', [
 			'canResetPassword' => Route::has('password.request'),
 			'status' => $request->session()->get(key: 'status'),
 		]);
