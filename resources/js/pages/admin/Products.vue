@@ -89,7 +89,6 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { ToastAction } from '@/components/ui/toast';
 import { useToast } from '@/components/ui/toast/use-toast';
 import WarningAlert from '@/components/WarningAlert.vue';
 import AdminLayout from '@/layouts/admin/AdminLayout.vue';
@@ -189,22 +188,11 @@ const submit = () => {
 
     form[method](`/admin/products${routeParams}`, {
         onSuccess: () => {
-            console.log('success');
-
             toast({
                 duration: 1000,
                 title: 'Success!!',
                 description: `The data has been ${selectedAction.value}`,
                 variant: 'default',
-                action: h(
-                    ToastAction,
-                    {
-                        altText: 'Try again',
-                    },
-                    {
-                        default: () => 'Try again',
-                    },
-                ),
             });
         },
         onError: () => {
@@ -213,15 +201,6 @@ const submit = () => {
                 title: 'Uh oh! Something went wrong.',
                 description: 'There was a problem with your request.',
                 variant: 'destructive',
-                action: h(
-                    ToastAction,
-                    {
-                        altText: 'Try again',
-                    },
-                    {
-                        default: () => 'Try again',
-                    },
-                ),
             });
         },
         onFinish: () => {
@@ -234,9 +213,25 @@ const submit = () => {
 const deleteRow = () => {
     form.delete(`/admin/products/${selectedRow.value?.id}`, {
         preserveScroll: true,
-        //onSuccess: () => closeModal(),
-        //onError: () => passwordInput.value?.focus(),
-        onFinish: () => (warningAlertVisibility.value = false),
+        onSuccess: () => {
+            toast({
+                duration: 1000,
+                title: 'Success!!',
+                description: `The data has been deleted`,
+                variant: 'default',
+            });
+        },
+        onError: () => {
+            toast({
+                duration: 1000,
+                title: 'Uh oh! Something went wrong.',
+                description: 'There was a problem with your request.',
+                variant: 'destructive',
+            });
+        },
+        onFinish: () => {
+            warningAlertVisibility.value = false;
+        },
     });
 };
 

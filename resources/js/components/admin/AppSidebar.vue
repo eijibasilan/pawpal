@@ -6,7 +6,7 @@ import NavMain from '@/components/admin/NavMain.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { LayoutGrid, PawPrint, UserCog } from 'lucide-vue-next';
+import { LayoutGrid, PawPrint, UserCog, Users } from 'lucide-vue-next';
 
 const mainNavItems: NavItem[] = [
     {
@@ -23,6 +23,11 @@ const mainNavItems: NavItem[] = [
         title: 'Roles',
         href: '/admin/roles',
         icon: UserCog,
+    },
+    {
+        title: 'Admin Accounts',
+        href: '/admin/accounts',
+        icon: Users,
     },
 ];
 

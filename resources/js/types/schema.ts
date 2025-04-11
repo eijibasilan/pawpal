@@ -22,6 +22,7 @@ export interface Admin {
     email: string;
     avatar?: string;
     email_verified_at: string | null;
+    roles: Role[];
     created_at: string;
     updated_at: string;
 }

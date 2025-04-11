@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\User\ServiceController as UserServiceController;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,7 @@ Route::prefix('admin')->group(function () {
 
 	Route::middleware('auth:admin')->group(function () {
 		Route::apiResource('roles', RoleController::class)->except('show');
+		Route::apiResource('accounts', AdminController::class)->except('show');
 
 		require __DIR__ . '/admin/settings.php';
 		require __DIR__ . '/admin/inventory.php';
