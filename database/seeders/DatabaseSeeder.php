@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
 
 		$this->call([
 			AdminSeeder::class,
-			ServiceSeeder::class,
+			VetServiceSeeder::class,
 			RoleAndPermissionSeeder::class,
 			ProductCategorySeeder::class
 		]);

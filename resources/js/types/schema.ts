@@ -22,26 +22,44 @@ export interface Admin {
     email: string;
     avatar?: string;
     email_verified_at: string | null;
-    roles: Role[];
     created_at: string;
     updated_at: string;
+    roles: Role[];
 }
 
-export interface Service {
+export interface VetService {
     id: number;
     name: string;
     description?: string;
     created_at: string;
     updated_at: string;
+}
+
+export interface VetService {
+    id: number;
+    name: string;
+    description?: string;
+    created_at: string;
+    updated_at: string;
+    types: VetServiceType[];
+}
+
+export interface VetServiceType {
+    id: number;
+    name: string;
+    description?: string;
+    created_at: string;
+    updated_at: string;
+    service: VetService;
 }
 
 export interface ProductCategory {
     id: number;
     name: string;
     description?: string;
-    products: Product[];
     created_at: string;
     updated_at: string;
+    products: Product[];
 }
 
 export interface Product {
@@ -49,7 +67,7 @@ export interface Product {
     name: string;
     quantity: number;
     unit: string;
-    category: ProductCategory;
     created_at: string;
     updated_at: string;
+    category: ProductCategory;
 }

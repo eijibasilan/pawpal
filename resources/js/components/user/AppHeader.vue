@@ -18,7 +18,7 @@ import UserMenuContent from '@/components/UserMenuContent.vue';
 import { getInitials } from '@/composables/useInitials';
 import type { BreadcrumbItem, NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { Dessert, LayoutGrid, Home, Menu, LogIn, UserPlus } from 'lucide-vue-next';
+import { BriefcaseMedical, LayoutGrid, Home, Menu, LogIn, UserPlus } from 'lucide-vue-next';
 import { computed } from 'vue';
 
 interface Props {
@@ -51,9 +51,9 @@ const mainNavItems: NavItem[] = [
 		isHidden: computed(()=>!page.props.auth.user).value
     },
     {
-        title: 'Services',
-        href: '/user/services',
-        icon: Dessert,
+        title: 'Vet Services',
+        href: '/user/vet-services',
+        icon: BriefcaseMedical,
 		isHidden: computed(()=>!page.props.auth.user).value
     },
 ];

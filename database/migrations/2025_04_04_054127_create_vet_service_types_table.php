@@ -10,10 +10,11 @@ return new class extends Migration {
 	 */
 	public function up(): void
 	{
-		Schema::create('services', function (Blueprint $table) {
+		Schema::create('vet_service_types', function (Blueprint $table) {
 			$table->id();
-			$table->string('name')->unique();
+			$table->string('name');
 			$table->text('description')->nullable();
+			$table->foreignId('vet_service_id')->constrained();
 			$table->timestamps();
 		});
 	}
@@ -23,6 +24,6 @@ return new class extends Migration {
 	 */
 	public function down(): void
 	{
-		Schema::dropIfExists('services');
+		Schema::dropIfExists('vet_service_types');
 	}
 };

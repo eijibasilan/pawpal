@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpsertServiceRequest extends FormRequest
+class UpsertVetServiceRequest extends FormRequest
 {
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class UpsertServiceRequest extends FormRequest
 	public function rules(): array
 	{
 		$rules = [
-			"name" => "required|min:3|unique:services,name,",
+			"name" => "required|min:3|unique:vet_services,name,",
 			"description" => "nullable|string",
 		];
 

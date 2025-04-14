@@ -1,7 +1,7 @@
 <template>
     <AdminLayout>
         <div class="m-3">
-            <Heading :title="'Services'" :description="'Manage your services here.'" />
+            <Heading :title="'Veterinary Services'" :description="'Manage your vet services here.'" />
 
             <Button variant="ghost" size="icon" @click="openUpsertDialog('insert')">
                 <Plus class="h-4 w-4" />
@@ -14,7 +14,7 @@
             <DialogContent class="sm:max-w-[425px]" @close-dialog="() => (dialogVisibility = false)">
                 <form @submit.prevent="submit">
                     <DialogHeader>
-                        <DialogTitle>{{ selectedAction.toUpperCase() }} SERVICE</DialogTitle>
+                        <DialogTitle>{{ selectedAction.toUpperCase() }} VET SERVICE</DialogTitle>
                         <DialogDescription> </DialogDescription>
                     </DialogHeader>
                     <div class="grid grid-cols-1 gap-3">
@@ -47,9 +47,9 @@
 
         <WarningAlert
             :visibility="warningAlertVisibility"
-            :title="'Delete Service'"
+            :title="'Delete Vet Service'"
             :loading-confirmed="form.processing"
-            :description="'Are you sure you want to delete this service'"
+            :description="'Are you sure you want to delete this veterinary service'"
             @cancelled="warningAlertVisibility = false"
             @confirmed="deleteRow()"
         />
@@ -69,7 +69,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/toast/use-toast';
 import WarningAlert from '@/components/WarningAlert.vue';
 import AdminLayout from '@/layouts/admin/AdminLayout.vue';
-import { PaginationResponse, Service, UpsertAction } from '@/types';
+import { PaginationResponse, UpsertAction, VetService } from '@/types';
 import { useForm } from '@inertiajs/vue3';
 import { ColumnDef } from '@tanstack/vue-table';
 import { Loader2, Plus } from 'lucide-vue-next';
@@ -77,14 +77,14 @@ import { h, ref } from 'vue';
 
 const { toast } = useToast();
 const selectedAction = ref<UpsertAction>('insert');
-const selectedRow = ref<Service>();
+const selectedRow = ref<VetService>();
 const warningAlertVisibility = ref<boolean>(false);
 
-const props = defineProps<{ pagination: PaginationResponse<Service> }>();
+const props = defineProps<{ pagination: PaginationResponse<VetService> }>();
 
 const dialogVisibility = ref<boolean>(false);
 
-const columns = ref<ColumnDef<Service>[]>([
+const columns = ref<ColumnDef<VetService>[]>([
     {
         accessorKey: 'name',
         header: () => h('div', { class: 'text-center' }, 'Name'),
@@ -102,9 +102,9 @@ const columns = ref<ColumnDef<Service>[]>([
         cell: ({ row }) =>
             h(TableActions, {
                 class: 'text-center',
-                onUpdate: () => openUpsertDialog('update', row.original as Service),
+                onUpdate: () => openUpsertDialog('update', row.original as VetService),
                 onDelete: () => {
-                    selectedRow.value = row.original as Service;
+                    selectedRow.value = row.original as VetService;
                     warningAlertVisibility.value = true;
                 },
             }),
@@ -116,7 +116,7 @@ const form = useForm({
     description: '',
 });
 
-const openUpsertDialog = (action: UpsertAction, data?: Service) => {
+const openUpsertDialog = (action: UpsertAction, data?: VetService) => {
     if (data) selectedRow.value = data;
 
     form.name = data?.name ?? '';
@@ -129,7 +129,7 @@ const submit = () => {
     const method = selectedAction.value === 'insert' ? 'post' : 'patch';
     const routeParams = selectedAction.value === 'update' ? `/${selectedRow.value?.id}` : '';
 
-    form[method](`/admin/services${routeParams}`, {
+    form[method](`/admin/vet-services${routeParams}`, {
         onSuccess: () => {
             toast({
                 duration: 1000,
@@ -154,7 +154,7 @@ const submit = () => {
 };
 
 const deleteRow = () => {
-    form.delete(`/admin/services/${selectedRow.value?.id}`, {
+    form.delete(`/admin/vet-services/${selectedRow.value?.id}`, {
         preserveScroll: true,
         onSuccess: () => {
             toast({

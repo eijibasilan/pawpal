@@ -2,8 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
-use App\Http\Controllers\User\ServiceController as UserServiceController;
+use App\Http\Controllers\User\VetServiceController as UserVetServiceController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -17,8 +16,8 @@ Route::prefix('user')->group(function () {
 		return Inertia::render('user/Dashboard');
 	})->middleware(['auth', 'verified'])->name('user.dashboard');
 
-	Route::prefix('services')->group(function () {
-		Route::get('/', [UserServiceController::class, 'index'])->name('user.services');
+	Route::prefix('vet-services')->group(function () {
+		Route::get('/', [UserVetServiceController::class, 'index'])->name('user.services');
 	});
 
 	require __DIR__ . '/user/auth.php';
@@ -36,8 +35,8 @@ Route::prefix('admin')->group(function () {
 	Route::middleware('auth:admin')->group(function () {
 		Route::apiResource('roles', RoleController::class)->except('show');
 		Route::apiResource('accounts', AdminController::class)->except('show');
-		Route::apiResource('services', AdminServiceController::class)->except('show');
 
+		require __DIR__ . '/admin/vetServices.php';
 		require __DIR__ . '/admin/settings.php';
 		require __DIR__ . '/admin/inventory.php';
 	});

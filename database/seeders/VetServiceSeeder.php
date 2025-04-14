@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Service;
+use App\Models\VetService;
 use Illuminate\Database\Seeder;
 
-class ServiceSeeder extends Seeder
+class VetServiceSeeder extends Seeder
 {
 	/**
 	 * Run the database seeds.
@@ -28,6 +28,6 @@ class ServiceSeeder extends Seeder
 		];
 
 		foreach ($rows as $row)
-			Service::create($row);
+			VetService::create($row);
 	}
 }
