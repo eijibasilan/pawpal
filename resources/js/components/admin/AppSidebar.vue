@@ -6,13 +6,18 @@ import NavMain from '@/components/admin/NavMain.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { LayoutGrid, PawPrint, UserCog, Users } from 'lucide-vue-next';
+import { Dessert, LayoutGrid, PawPrint, UserCog, Users } from 'lucide-vue-next';
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
         href: '/admin/dashboard',
         icon: LayoutGrid,
+    },
+    {
+        title: 'Services',
+        href: '/admin/services',
+        icon: Dessert,
     },
     {
         title: 'Inventory',

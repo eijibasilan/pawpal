@@ -59,4 +59,6 @@ export interface CustomDialogEvent {
     closeDialog: void;
 }
 
+export type UpsertAction = 'update' | 'insert';
+
 export * from './schema';

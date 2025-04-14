@@ -1,12 +1,9 @@
 <template>
-    <div>admins dashboard</div>
+    <AdminLayout>
+        <div>admins dashboard</div>
+    </AdminLayout>
 </template>
 
 <script setup lang="ts">
 import AdminLayout from '@/layouts/admin/AdminLayout.vue';
-import { h } from 'vue';
-
-defineOptions({
-    layout: h(AdminLayout),
-});
 </script>

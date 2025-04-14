@@ -1,82 +1,84 @@
 <template>
-    <div class="m-3">
-        <Heading :title="'Inventory'" :description="'Manage your inventories here.'" />
+    <AdminLayout>
+        <div class="m-3">
+            <Heading :title="'Inventory'" :description="'Manage your inventories here.'" />
 
-        <Button variant="ghost" size="icon" @click="openUpsertDialog('insert')">
-            <Loader2 class="h-4 w-4 animate-spin" v-if="dialogLoading" />
-            <Plus class="h-4 w-4" v-else />
-        </Button>
+            <Button variant="ghost" size="icon" @click="openUpsertDialog('insert')">
+                <Loader2 class="h-4 w-4 animate-spin" v-if="dialogLoading" />
+                <Plus class="h-4 w-4" v-else />
+            </Button>
 
-        <DataTable :columns="columns" :data="props.pagination.data" />
-    </div>
+            <DataTable :columns="columns" :data="props.pagination.data" />
+        </div>
 
-    <Dialog :open="dialogVisibility">
-        <DialogContent class="sm:max-w-[425px]" @close-dialog="() => (dialogVisibility = false)">
-            <form @submit.prevent="submit">
-                <DialogHeader>
-                    <DialogTitle>{{ selectedAction.toUpperCase() }} INVENTORY</DialogTitle>
-                    <DialogDescription> </DialogDescription>
-                </DialogHeader>
-                <div class="grid grid-cols-1 gap-3">
-                    <div class="grid gap-2">
-                        <Label for="name">Name</Label>
-                        <Input id="name" class="mt-1 block w-full" v-model="form.name" required autocomplete="name" placeholder="name" />
-                        <InputError class="mt-2" :message="form.errors.name" />
+        <Dialog :open="dialogVisibility">
+            <DialogContent class="sm:max-w-[425px]" @close-dialog="() => (dialogVisibility = false)">
+                <form @submit.prevent="submit">
+                    <DialogHeader>
+                        <DialogTitle>{{ selectedAction.toUpperCase() }} INVENTORY</DialogTitle>
+                        <DialogDescription> </DialogDescription>
+                    </DialogHeader>
+                    <div class="grid grid-cols-1 gap-3">
+                        <div class="grid gap-2">
+                            <Label for="name">Name</Label>
+                            <Input id="name" class="mt-1 block w-full" v-model="form.name" required autocomplete="name" placeholder="name" />
+                            <InputError class="mt-2" :message="form.errors.name" />
+                        </div>
+                        <div class="grid gap-2">
+                            <Label for="quantity">Quantity</Label>
+                            <Input
+                                type="number"
+                                id="quantity"
+                                class="mt-1 block w-full"
+                                v-model="form.quantity"
+                                required
+                                autocomplete="name"
+                                placeholder="quantity"
+                            />
+                            <InputError class="mt-2" :message="form.errors.quantity" />
+                        </div>
+                        <div class="grid gap-2">
+                            <Label for="unit">Unit</Label>
+                            <Input id="unit" class="mt-1 block w-full" v-model="form.unit" required autocomplete="name" placeholder="unit" />
+                            <InputError class="mt-2" :message="form.errors.unit" />
+                        </div>
+                        <div class="grid gap-2">
+                            <Label for="unit">Category</Label>
+                            <Select v-model="form.product_category_id">
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select a category" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectLabel>Category</SelectLabel>
+                                        <SelectItem :value="category.id" v-for="category in props.productCategories" :key="category.id">
+                                            {{ category.name }}
+                                        </SelectItem>
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                            <InputError class="mt-2" :message="form.errors.product_category_id" />
+                        </div>
                     </div>
-                    <div class="grid gap-2">
-                        <Label for="quantity">Quantity</Label>
-                        <Input
-                            type="number"
-                            id="quantity"
-                            class="mt-1 block w-full"
-                            v-model="form.quantity"
-                            required
-                            autocomplete="name"
-                            placeholder="quantity"
-                        />
-                        <InputError class="mt-2" :message="form.errors.quantity" />
-                    </div>
-                    <div class="grid gap-2">
-                        <Label for="unit">Unit</Label>
-                        <Input id="unit" class="mt-1 block w-full" v-model="form.unit" required autocomplete="name" placeholder="unit" />
-                        <InputError class="mt-2" :message="form.errors.unit" />
-                    </div>
-                    <div class="grid gap-2">
-                        <Label for="unit">Category</Label>
-                        <Select v-model="form.product_category_id">
-                            <SelectTrigger>
-                                <SelectValue placeholder="Select a category" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    <SelectLabel>Category</SelectLabel>
-                                    <SelectItem :value="category.id" v-for="category in props.productCategories" :key="category.id">
-                                        {{ category.name }}
-                                    </SelectItem>
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
-                        <InputError class="mt-2" :message="form.errors.product_category_id" />
-                    </div>
-                </div>
-                <DialogFooter class="mt-5">
-                    <Button type="submit" :disabled="form.processing">
-                        <Loader2 v-if="form.processing" class="h-4 w-4 animate-spin" />
-                        Save
-                    </Button>
-                </DialogFooter>
-            </form>
-        </DialogContent>
-    </Dialog>
+                    <DialogFooter class="mt-5">
+                        <Button type="submit" :disabled="form.processing">
+                            <Loader2 v-if="form.processing" class="h-4 w-4 animate-spin" />
+                            Save
+                        </Button>
+                    </DialogFooter>
+                </form>
+            </DialogContent>
+        </Dialog>
 
-    <WarningAlert
-        :visibility="warningAlertVisibility"
-        :title="'Delete Product'"
-        :loading-confirmed="form.processing"
-        :description="'Are you sure you want to delete this product'"
-        @cancelled="warningAlertVisibility = false"
-        @confirmed="deleteRow()"
-    />
+        <WarningAlert
+            :visibility="warningAlertVisibility"
+            :title="'Delete Product'"
+            :loading-confirmed="form.processing"
+            :description="'Are you sure you want to delete this product'"
+            @cancelled="warningAlertVisibility = false"
+            @confirmed="deleteRow()"
+        />
+    </AdminLayout>
 </template>
 
 <script setup lang="ts">
@@ -92,16 +94,14 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { useToast } from '@/components/ui/toast/use-toast';
 import WarningAlert from '@/components/WarningAlert.vue';
 import AdminLayout from '@/layouts/admin/AdminLayout.vue';
-import { PaginationResponse, Product, ProductCategory } from '@/types';
+import { PaginationResponse, Product, ProductCategory, UpsertAction } from '@/types';
 import { router, useForm } from '@inertiajs/vue3';
 import { ColumnDef } from '@tanstack/vue-table';
 import { Loader2, Plus } from 'lucide-vue-next';
 import { h, ref } from 'vue';
 
-type upsertAction = 'update' | 'insert';
-
 const { toast } = useToast();
-const selectedAction = ref<upsertAction>('insert');
+const selectedAction = ref<UpsertAction>('insert');
 const selectedRow = ref<Product>();
 const dialogLoading = ref<boolean>(false);
 const warningAlertVisibility = ref<boolean>(false);
@@ -163,7 +163,7 @@ const form = useForm({
     unit: '',
 });
 
-const openUpsertDialog = (action: upsertAction, data?: Product) => {
+const openUpsertDialog = (action: UpsertAction, data?: Product) => {
     if (data) selectedRow.value = data;
 
     form.name = data?.name ?? '';
@@ -234,8 +234,4 @@ const deleteRow = () => {
         },
     });
 };
-
-defineOptions({
-    layout: h(AdminLayout),
-});
 </script>
