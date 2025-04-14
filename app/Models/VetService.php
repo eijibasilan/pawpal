@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class VetService extends Model
 {
@@ -10,4 +11,9 @@ class VetService extends Model
 		'name',
 		'description'
 	];
+
+	public function types(): HasMany
+	{
+		return $this->hasMany(VetServiceType::class, 'vet_service_id');
+	}
 }

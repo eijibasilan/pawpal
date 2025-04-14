@@ -1,6 +1,11 @@
 <template>
     <AdminLayout>
         <div class="m-3">
+            <pre>
+
+				{{ props.pagination.data }}
+			</pre
+            >
             <Heading :title="'Veterinary Services'" :description="'Manage your vet services here.'" />
 
             <Button variant="ghost" size="icon" @click="openUpsertDialog('insert')">
