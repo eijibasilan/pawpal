@@ -1,10 +1,11 @@
 <template>
     <AdminLayout>
         <div class="m-3">
-            <Heading :title="'Veterinary Services'" :description="'Manage your vet services here.'" />
+            <Heading :title="'Veterinary Services'" :description="'Manage your vet service types here.'" />
 
             <Button variant="ghost" size="icon" @click="openUpsertDialog('insert')">
-                <Plus class="h-4 w-4" />
+                <Loader2 class="h-4 w-4 animate-spin" v-if="dialogLoading" />
+                <Plus class="h-4 w-4" v-else />
             </Button>
 
             <DataTable :columns="columns" :data="props.pagination.data" />
@@ -34,6 +35,23 @@
                             />
                             <InputError class="mt-2" :message="form.errors.description" />
                         </div>
+                        <div class="grid gap-2">
+                            <Label for="unit">Service</Label>
+                            <Select v-model="form.vet_service_id">
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select a vet service" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectLabel>Vet Services</SelectLabel>
+                                        <SelectItem :value="vetService.id" v-for="vetService in props.vetServices" :key="vetService.id">
+                                            {{ vetService.name }}
+                                        </SelectItem>
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                            <InputError class="mt-2" :message="form.errors.vet_service_id" />
+                        </div>
                     </div>
                     <DialogFooter class="mt-5">
                         <Button type="submit" :disabled="form.processing">
@@ -49,7 +67,7 @@
             :visibility="warningAlertVisibility"
             :title="'Delete Vet Service'"
             :loading-confirmed="form.processing"
-            :description="'Are you sure you want to delete this veterinary service'"
+            :description="'Are you sure you want to delete this veterinary service type'"
             @cancelled="warningAlertVisibility = false"
             @confirmed="deleteRow()"
         />
@@ -65,26 +83,28 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/toast/use-toast';
 import WarningAlert from '@/components/WarningAlert.vue';
 import AdminLayout from '@/layouts/admin/AdminLayout.vue';
-import { PaginationResponse, UpsertAction, VetService } from '@/types';
-import { useForm } from '@inertiajs/vue3';
+import { PaginationResponse, UpsertAction, VetService, VetServiceType } from '@/types';
+import { router, useForm } from '@inertiajs/vue3';
 import { ColumnDef } from '@tanstack/vue-table';
 import { Loader2, Plus } from 'lucide-vue-next';
 import { h, ref } from 'vue';
 
 const { toast } = useToast();
 const selectedAction = ref<UpsertAction>('insert');
-const selectedRow = ref<VetService>();
+const selectedRow = ref<VetServiceType>();
+const dialogLoading = ref<boolean>(false);
 const warningAlertVisibility = ref<boolean>(false);
 
-const props = defineProps<{ pagination: PaginationResponse<VetService> }>();
+const props = defineProps<{ pagination: PaginationResponse<VetServiceType>; vetServices?: VetService[] }>();
 
 const dialogVisibility = ref<boolean>(false);
 
-const columns = ref<ColumnDef<VetService>[]>([
+const columns = ref<ColumnDef<VetServiceType>[]>([
     {
         accessorKey: 'name',
         header: () => h('div', { class: 'text-center' }, 'Name'),
@@ -96,15 +116,24 @@ const columns = ref<ColumnDef<VetService>[]>([
         cell: ({ row }) => h('div', { class: 'text-center' }, row.getValue('description')),
     },
     {
+        accessorKey: 'service',
+        header: () => h('div', { class: 'text-center' }, 'Service'),
+        cell: ({ row }) => {
+            const service = row.getValue('service') as VetService;
+
+            return h('div', { class: 'text-center' }, service.name);
+        },
+    },
+    {
         id: 'actions',
         enableHiding: false,
         header: () => h('div', { class: 'text-center' }, 'Actions'),
         cell: ({ row }) =>
             h(TableActions, {
                 class: 'text-center',
-                onUpdate: () => openUpsertDialog('update', row.original as VetService),
+                onUpdate: () => openUpsertDialog('update', row.original as VetServiceType),
                 onDelete: () => {
-                    selectedRow.value = row.original as VetService;
+                    selectedRow.value = row.original as VetServiceType;
                     warningAlertVisibility.value = true;
                 },
             }),
@@ -114,22 +143,32 @@ const columns = ref<ColumnDef<VetService>[]>([
 const form = useForm({
     name: '',
     description: '',
+    vet_service_id: 0,
 });
 
-const openUpsertDialog = (action: UpsertAction, data?: VetService) => {
+const openUpsertDialog = (action: UpsertAction, data?: VetServiceType) => {
     if (data) selectedRow.value = data;
 
     form.name = data?.name ?? '';
     form.description = data?.description ?? '';
+    form.vet_service_id = data?.service.id ?? 0;
+
     selectedAction.value = action;
-    dialogVisibility.value = true;
+    dialogLoading.value = true;
+    router.reload({
+        only: ['vetServices'],
+        onSuccess: () => {
+            dialogLoading.value = false;
+            dialogVisibility.value = true;
+        },
+    });
 };
 
 const submit = () => {
     const method = selectedAction.value === 'insert' ? 'post' : 'patch';
     const routeParams = selectedAction.value === 'update' ? `/${selectedRow.value?.id}` : '';
 
-    form[method](`/admin/vet-services${routeParams}`, {
+    form[method](`/admin/vet-service-types${routeParams}`, {
         onSuccess: () => {
             toast({
                 duration: 1000,
@@ -154,7 +193,7 @@ const submit = () => {
 };
 
 const deleteRow = () => {
-    form.delete(`/admin/vet-services/${selectedRow.value?.id}`, {
+    form.delete(`/admin/vet-service-types/${selectedRow.value?.id}`, {
         preserveScroll: true,
         onSuccess: () => {
             toast({

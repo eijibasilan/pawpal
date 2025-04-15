@@ -1,5 +1,5 @@
 <template>
-    <Collapsible class="group/collapsible" v-if="item.items?.length">
+    <Collapsible classs="group/collapsible" v-if="item.items?.length" :class="item.isHidden ? 'hidden' : ''">
         <SidebarMenuItem>
             <CollapsibleTrigger asChild>
                 <SidebarMenuButton :tooltip="item.title">
@@ -16,7 +16,7 @@
     </Collapsible>
     <SidebarMenuItem :class="item.isHidden ? 'hidden' : ''" v-else>
         <SidebarMenuButton as-child :is-active="item.href === page.url" :tooltip="item.title">
-            <Link :href="item.href">
+            <Link :href="item?.href ?? ''">
                 <component :is="item.icon" />
                 <span>{{ item.title }}</span>
             </Link>
