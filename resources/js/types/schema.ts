@@ -63,3 +63,12 @@ export interface Product {
     updated_at: string;
     category: ProductCategory;
 }
+
+export interface VetAppointmentSchedule {
+    id: number;
+    scheduled_date: string;
+    start_time: string;
+    end_time: string;
+    doctor: Admin;
+    service: VetService;
+}

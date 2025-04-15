@@ -6,7 +6,7 @@ import NavMain from '@/components/admin/NavMain.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { AudioWaveform, BriefcaseMedical, Layers, LayoutGrid, PawPrint, User, UserCog, Users } from 'lucide-vue-next';
+import { AudioWaveform, BriefcaseMedical, Calendar, Layers, LayoutGrid, PawPrint, User, UserCog, Users } from 'lucide-vue-next';
 
 const mainNavItems: NavItem[] = [
     {
@@ -27,6 +27,11 @@ const mainNavItems: NavItem[] = [
                 title: 'Services Types',
                 href: '/admin/vet-service-types',
                 icon: Layers,
+            },
+            {
+                title: 'Schedules',
+                href: '/admin/vet-appointment-schedules',
+                icon: Calendar,
             },
         ],
     },

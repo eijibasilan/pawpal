@@ -12,7 +12,7 @@ return new class extends Migration {
 	{
 		Schema::create('vet_appointment_schedules', function (Blueprint $table) {
 			$table->id();
-			$table->date('schedule');
+			$table->date('scheduled_date');
 			$table->time('start_time');
 			$table->time('end_time')->nullable();
 			$table->foreignId('vet_service_id')->constrained();
