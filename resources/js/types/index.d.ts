@@ -17,6 +17,7 @@ export interface NavItem {
     icon?: LucideIcon;
     isActive?: boolean;
     isHidden?: boolean;
+    items?: NavItem[];
 }
 
 export interface SharedData extends PageProps {
