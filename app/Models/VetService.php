@@ -16,4 +16,9 @@ class VetService extends Model
 	{
 		return $this->hasMany(VetServiceType::class, 'vet_service_id');
 	}
+
+	public function appointment_schedules(): HasMany
+	{
+		return $this->hasMany(VetAppointmentSchedule::class, );
+	}
 }

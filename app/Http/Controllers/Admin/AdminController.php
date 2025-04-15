@@ -7,6 +7,9 @@ use App\Http\Requests\Admin\UpsertAdminRequest;
 use App\Models\Admin;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\DB;
+
+use function Illuminate\Log\log;
 
 class AdminController extends Controller
 {
@@ -26,8 +29,11 @@ class AdminController extends Controller
 	 */
 	public function store(UpsertAdminRequest $request)
 	{
-		Role::create($request->all());
-
+		DB::transaction(function () use ($request) {
+			$data = Admin::create($request->all());
+			log($request->roles);
+			$data->assignRole($request->roles);
+		});
 		return redirect('/admin/accounts');
 	}
 
@@ -36,10 +42,13 @@ class AdminController extends Controller
 	 */
 	public function update(UpsertAdminRequest $request, string $id)
 	{
-		$data = Role::findOrFail($id);
-		$data->update($request->all());
+		DB::transaction(function () use ($request, $id) {
+			$data = Admin::findOrFail($id);
+			$data->update($request->all());
 
-		return redirect('/admin/roles');
+			$data->syncRoles($request->roles);
+		});
+		return redirect('/admin/accounts');
 	}
 
 	/**
@@ -47,9 +56,9 @@ class AdminController extends Controller
 	 */
 	public function destroy(string $id)
 	{
-		$row = Role::findOrFail($id);
+		$row = Admin::findOrFail($id);
 		$row->delete();
 
-		return redirect('/admin/roles');
+		return redirect('/admin/accounts');
 	}
 }

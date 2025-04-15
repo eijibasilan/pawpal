@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -44,5 +45,10 @@ class Admin extends Authenticatable
 			'email_verified_at' => 'datetime',
 			'password' => 'hashed',
 		];
+	}
+
+	public function vet_appointment_schedules(): HasMany
+	{
+		return $this->hasMany(VetAppointmentSchedule::class);
 	}
 }

@@ -4,7 +4,8 @@
             <Heading :title="'Admin Accounts'" :description="'Manage your admin accounts here.'" />
 
             <Button variant="ghost" size="icon" @click="openUpsertDialog('insert')">
-                <Plus class="h-4 w-4" />
+                <Loader2 class="h-4 w-4 animate-spin" v-if="dialogLoading" />
+                <Plus class="h-4 w-4" v-else />
             </Button>
 
             <DataTable :columns="columns" :data="props.pagination.data" />
@@ -23,7 +24,64 @@
                             <Input id="name" class="mt-1 block w-full" v-model="form.name" required autocomplete="name" placeholder="name" />
                             <InputError class="mt-2" :message="form.errors.name" />
                         </div>
+                        <div class="grid gap-2">
+                            <Label for="email">Email</Label>
+                            <Input
+                                id="email"
+                                type="email"
+                                class="mt-1 block w-full"
+                                v-model="form.email"
+                                required
+                                autocomplete="email"
+                                placeholder="email"
+                            />
+                            <InputError class="mt-2" :message="form.errors.email" />
+                        </div>
+                        <div class="grid gap-2">
+                            <Label for="password">Password</Label>
+                            <Input
+                                id="password"
+                                ref="passwordInput"
+                                v-model="form.password"
+                                type="password"
+                                class="mt-1 block w-full"
+                                autocomplete="new-password"
+                                placeholder="password"
+                            />
+                            <InputError :message="form.errors.password" />
+                        </div>
+
+                        <div class="grid gap-2">
+                            <Label for="password_confirmation">Confirm password</Label>
+                            <Input
+                                id="password_confirmation"
+                                v-model="form.password_confirmation"
+                                type="password"
+                                class="mt-1 block w-full"
+                                autocomplete="new-password"
+                                placeholder="Confirm password"
+                            />
+                            <InputError :message="form.errors.password_confirmation" />
+                        </div>
+                        <div class="grid gap-2">
+                            <Label for="roles">Roles</Label>
+                            <Select v-model="form.roles" :multiple="true">
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Assign roles for this user" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectLabel>Role</SelectLabel>
+                                        <SelectItem :value="role.id" v-for="role in props.roles" :key="role.id">
+                                            {{ role.name }}
+                                        </SelectItem>
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                            <InputError class="mt-2" :message="form.errors.roles" />
+                        </div>
                     </div>
+
                     <DialogFooter class="mt-5">
                         <Button type="submit" :disabled="form.processing">
                             <Loader2 v-if="form.processing" class="h-4 w-4 animate-spin" />
@@ -54,12 +112,12 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { ToastAction } from '@/components/ui/toast';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/components/ui/toast/use-toast';
 import WarningAlert from '@/components/WarningAlert.vue';
 import AdminLayout from '@/layouts/admin/AdminLayout.vue';
 import { Admin, PaginationResponse, Role, UpsertAction } from '@/types';
-import { useForm } from '@inertiajs/vue3';
+import { router, useForm } from '@inertiajs/vue3';
 import { ColumnDef } from '@tanstack/vue-table';
 import { Loader2, Plus } from 'lucide-vue-next';
 import { h, ref } from 'vue';
@@ -68,8 +126,8 @@ const { toast } = useToast();
 const selectedAction = ref<UpsertAction>('insert');
 const selectedRow = ref<Admin>();
 const warningAlertVisibility = ref<boolean>(false);
-
-const props = defineProps<{ pagination: PaginationResponse<Admin> }>();
+const dialogLoading = ref<boolean>(false);
+const props = defineProps<{ pagination: PaginationResponse<Admin>; roles?: Role[] }>();
 
 const dialogVisibility = ref<boolean>(false);
 
@@ -90,7 +148,9 @@ const columns = ref<ColumnDef<Admin>[]>([
         cell: ({ row }) => {
             const roles = row.getValue('roles') as Role[];
 
-            return h('div', { class: 'text-center' }, roles[0]?.name);
+            const data = roles.map((role) => role.name).join(',');
+
+            return h('div', { class: 'text-center' }, data);
         },
     },
     {
@@ -109,16 +169,32 @@ const columns = ref<ColumnDef<Admin>[]>([
     },
 ]);
 
-const form = useForm({
+const form = useForm<{ name: string; email: string; password?: string; password_confirmation?: string; roles: number[] }>({
     name: '',
+    email: '',
+    roles: [],
+    password: '',
+    password_confirmation: '',
 });
 
 const openUpsertDialog = (action: UpsertAction, data?: Admin) => {
     if (data) selectedRow.value = data;
 
     form.name = data?.name ?? '';
+    form.email = data?.email ?? '';
+    form.roles = data?.roles.map((role) => role.id) ?? [];
+
     selectedAction.value = action;
     dialogVisibility.value = true;
+
+    dialogLoading.value = true;
+    router.reload({
+        only: ['roles'],
+        onSuccess: () => {
+            dialogLoading.value = false;
+            dialogVisibility.value = true;
+        },
+    });
 };
 
 const submit = () => {
@@ -127,22 +203,11 @@ const submit = () => {
 
     form[method](`/admin/accounts${routeParams}`, {
         onSuccess: () => {
-            console.log('success');
-
             toast({
                 duration: 1000,
                 title: 'Success!!',
                 description: `The data has been ${selectedAction.value}`,
                 variant: 'default',
-                action: h(
-                    ToastAction,
-                    {
-                        altText: 'Try again',
-                    },
-                    {
-                        default: () => 'Try again',
-                    },
-                ),
             });
         },
         onError: () => {
@@ -151,15 +216,6 @@ const submit = () => {
                 title: 'Uh oh! Something went wrong.',
                 description: 'There was a problem with your request.',
                 variant: 'destructive',
-                action: h(
-                    ToastAction,
-                    {
-                        altText: 'Try again',
-                    },
-                    {
-                        default: () => 'Try again',
-                    },
-                ),
             });
         },
         onFinish: () => {
