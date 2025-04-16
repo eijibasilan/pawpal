@@ -1,4 +1,3 @@
-import { CalendarDate } from '@internationalized/date';
 export interface Role {
     id: number;
     name: string;
@@ -67,7 +66,7 @@ export interface Product {
 
 export interface VetAppointmentSchedule {
     id: number;
-    scheduled_date: CalendarDate;
+    scheduled_date: string;
     start_time: string;
     end_time: string;
     doctor: Admin;

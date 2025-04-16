@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class VetAppointmentSchedule extends Model
 {
 	protected $fillable = [
-		'schedule',
+		'scheduled_date',
 		'start_time',
 		'end_time',
 		'vet_service_id',

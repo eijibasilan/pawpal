@@ -18,8 +18,9 @@
                         <DialogTitle>{{ selectedAction.toUpperCase() }} SCHEDULE</DialogTitle>
                         <DialogDescription> </DialogDescription>
                     </DialogHeader>
-                    <div class="grid grid-cols-1 gap-3">
+                    <div class="mt-4 grid grid-cols-1 gap-3">
                         <div class="grid gap-2">
+                            <Label for="scheduled_date">Date</Label>
                             <Popover>
                                 <PopoverTrigger as-child>
                                     <Button
@@ -36,8 +37,34 @@
                                     <Calendar v-model="form.scheduled_date" initial-focus :min-value="today(getLocalTimeZone())" />
                                 </PopoverContent>
                             </Popover>
+                            <InputError class="mt-2" :message="form.errors.scheduled_date" />
                         </div>
-
+                        <div class="grid gap-2">
+                            <Label for="start_time">Start Time</Label>
+                            <Input
+                                id="start_time"
+                                type="time"
+                                class="mt-1 block w-full"
+                                v-model="form.start_time"
+                                required
+                                autocomplete="start_time"
+                                placeholder="Start Time"
+                            />
+                            <InputError class="mt-2" :message="form.errors.start_time" />
+                        </div>
+                        <div class="grid gap-2">
+                            <Label for="start_time">End Time</Label>
+                            <Input
+                                id="start_time"
+                                type="time"
+                                class="mt-1 block w-full"
+                                v-model="form.end_time"
+                                required
+                                autocomplete="end_time"
+                                placeholder="End Time"
+                            />
+                            <InputError class="mt-2" :message="form.errors.end_time" />
+                        </div>
                         <div class="grid gap-2">
                             <Label for="unit">Doctors</Label>
                             <Select v-model="form.doctor_id">
@@ -76,7 +103,7 @@
                     </div>
                     <DialogFooter class="mt-5">
                         <Button type="submit" :disabled="form.processing">
-                            <Loader2 v-if="form.processing" class="h-4 w-4 animate-spin" />
+                            <Loader2 v-if="formProcessing" class="h-4 w-4 animate-spin" />
                             Save
                         </Button>
                     </DialogFooter>
@@ -103,6 +130,7 @@ import TableActions from '@/components/TableActions.vue';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -112,7 +140,7 @@ import { useDateFormat } from '@/composables/useDateFormat';
 import AdminLayout from '@/layouts/admin/AdminLayout.vue';
 import { Admin, PaginationResponse, UpsertAction, VetAppointmentSchedule, VetService } from '@/types';
 import { router, useForm } from '@inertiajs/vue3';
-import { DateFormatter, type DateValue, getLocalTimeZone, today } from '@internationalized/date';
+import { DateFormatter, type DateValue, getLocalTimeZone, parseDate, today } from '@internationalized/date';
 import { ColumnDef } from '@tanstack/vue-table';
 import { CalendarIcon, Loader2, Plus } from 'lucide-vue-next';
 
@@ -126,6 +154,7 @@ const { toast } = useToast();
 const selectedAction = ref<UpsertAction>('insert');
 const selectedRow = ref<VetAppointmentSchedule>();
 const dialogLoading = ref<boolean>(false);
+const formProcessing = ref<boolean>(false);
 const warningAlertVisibility = ref<boolean>(false);
 
 const props = defineProps<{ pagination: PaginationResponse<VetAppointmentSchedule>; vetServices?: VetService[]; doctors?: Admin[] }>();
@@ -134,9 +163,37 @@ const dialogVisibility = ref<boolean>(false);
 
 const columns = ref<ColumnDef<VetAppointmentSchedule>[]>([
     {
-        accessorKey: 'name',
-        header: () => h('div', { class: 'text-center' }, 'Name'),
-        cell: ({ row }) => h('div', { class: 'text-center' }, row.getValue('name')),
+        accessorKey: 'scheduled_date',
+        header: () => h('div', { class: 'text-center' }, 'Scheduled Date'),
+        cell: ({ row }) => h('div', { class: 'text-center' }, row.getValue('scheduled_date')),
+    },
+    {
+        accessorKey: 'start_time',
+        header: () => h('div', { class: 'text-center' }, 'Start Time'),
+        cell: ({ row }) => h('div', { class: 'text-center' }, row.getValue('start_time')),
+    },
+    {
+        accessorKey: 'end_time',
+        header: () => h('div', { class: 'text-center' }, 'End Time'),
+        cell: ({ row }) => h('div', { class: 'text-center' }, row.getValue('end_time')),
+    },
+    {
+        accessorKey: 'doctor',
+        header: () => h('div', { class: 'text-center' }, 'Doctor'),
+        cell: ({ row }) => {
+            const admin = row.getValue('doctor') as Admin;
+
+            return h('div', { class: 'text-center' }, admin.name);
+        },
+    },
+    {
+        accessorKey: 'service',
+        header: () => h('div', { class: 'text-center' }, 'Service'),
+        cell: ({ row }) => {
+            const service = row.getValue('service') as VetService;
+
+            return h('div', { class: 'text-center' }, service.name);
+        },
     },
     {
         id: 'actions',
@@ -156,11 +213,15 @@ const columns = ref<ColumnDef<VetAppointmentSchedule>[]>([
 
 const form = useForm<{
     scheduled_date: DateValue;
+    start_time: string;
+    end_time: string;
     doctor_id: number;
     vet_service_id: number;
     [key: string]: any; // Add this index signature
 }>({
     scheduled_date: today(getLocalTimeZone()),
+    start_time: '',
+    end_time: '',
     doctor_id: 0,
     vet_service_id: 0,
 });
@@ -168,7 +229,11 @@ const form = useForm<{
 const openUpsertDialog = (action: UpsertAction, data?: VetAppointmentSchedule) => {
     if (data) selectedRow.value = data;
 
-    form.scheduled_date = data?.scheduled_date ?? today(getLocalTimeZone());
+    form.scheduled_date = data?.scheduled_date ? parseDate(data.scheduled_date) : today(getLocalTimeZone());
+    form.start_time = data?.start_time ? data.start_time.split(':').slice(0, 2).join(':') : '';
+    form.end_time = data?.end_time ? data.end_time.split(':').slice(0, 2).join(':') : '';
+    form.doctor_id = data?.doctor.id ?? 0;
+    form.vet_service_id = data?.service.id ?? 0;
 
     dialogLoading.value = true;
     selectedAction.value = action;
@@ -188,6 +253,8 @@ const submit = () => {
     const method = selectedAction.value === 'insert' ? 'post' : 'patch';
     const routeParams = selectedAction.value === 'update' ? `/${selectedRow.value?.id}` : '';
 
+    formProcessing.value = true;
+
     router[method](`/admin/vet-appointment-schedules${routeParams}`, payload, {
         onSuccess: () => {
             toast({
@@ -197,7 +264,8 @@ const submit = () => {
                 variant: 'default',
             });
         },
-        onError: () => {
+        onError: (errors) => {
+            form.errors = { ...errors };
             toast({
                 duration: 1000,
                 title: 'Uh oh! Something went wrong.',
@@ -207,6 +275,7 @@ const submit = () => {
         },
         onFinish: () => {
             form.reset('scheduled_date');
+            formProcessing.value = false;
             dialogVisibility.value = false;
         },
     });
