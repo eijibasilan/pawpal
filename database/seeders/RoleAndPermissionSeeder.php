@@ -38,6 +38,7 @@ class RoleAndPermissionSeeder extends Seeder
 
 		$roles = [
 			"Super Admin",
+			"Doctor",
 		];
 
 		foreach ($roles as $role)

@@ -17,11 +17,11 @@ class VetAppointmentScheduleController extends Controller
 	public function index()
 	{
 		return Inertia::render('admin/VetAppointmentSchedules', [
-			'pagination' => Inertia::always(Inertia::merge(VetAppointmentSchedule::with('category')->paginate(request('perPage', 5), "*", null, request('page', 1)))),
+			'pagination' => Inertia::always(Inertia::merge(VetAppointmentSchedule::with('service')->paginate(request('perPage', 5), "*", null, request('page', 1)))),
 			'vetServices' => Inertia::lazy(fn() => VetService::all()),
-			'doctors' => Inertia::always(fn() => Admin::with('roles')->get()->filter(
-				fn($admin) => $admin->roles->where('name', 'Doctor')->toArray()
-			))
+			'doctors' => Inertia::lazy(fn() => Admin::whereHas('roles', function ($query) {
+				$query->where('name', 'Doctor');
+			})->get())
 		]);
 	}
 
