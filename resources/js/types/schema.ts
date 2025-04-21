@@ -1,3 +1,13 @@
+export interface Upload {
+    id: number;
+    file_name: string;
+    file_extension: string;
+    file_type?: string;
+    url: string;
+    created_at: string;
+    updated_at: string;
+}
+
 export interface Role {
     id: number;
     name: string;
@@ -34,6 +44,7 @@ export interface VetService {
     created_at: string;
     updated_at: string;
     types: VetServiceType[];
+    uploads: Upload[];
 }
 
 export interface VetServiceType {

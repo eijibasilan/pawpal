@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class VetService extends Model
 {
 	protected $fillable = [
 		'name',
-		'description'
+		'description',
 	];
 
 	public function types(): HasMany
@@ -20,5 +21,10 @@ class VetService extends Model
 	public function appointment_schedules(): HasMany
 	{
 		return $this->hasMany(VetAppointmentSchedule::class, );
+	}
+
+	public function uploads(): MorphMany
+	{
+		return $this->morphMany(Upload::class, 'uploadable');
 	}
 }

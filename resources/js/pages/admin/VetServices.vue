@@ -11,7 +11,7 @@
         </div>
 
         <Dialog :open="dialogVisibility">
-            <DialogContent class="sm:max-w-[425px]" @close-dialog="() => (dialogVisibility = false)">
+            <DialogContent class="max-h-[90dvh] overflow-y-auto sm:max-w-[425px]" @close-dialog="() => (dialogVisibility = false)">
                 <form @submit.prevent="submit">
                     <DialogHeader>
                         <DialogTitle>{{ selectedAction.toUpperCase() }} VET SERVICE</DialogTitle>
@@ -34,7 +34,33 @@
                             />
                             <InputError class="mt-2" :message="form.errors.description" />
                         </div>
+                        <div class="grid gap-2">
+                            <Label for="images">Images</Label>
+                            <Input
+                                id="images"
+                                type="file"
+                                class="mt-1 block w-full"
+                                accept="image/png, image/jpeg"
+                                multiple
+                                @change="handleFileUpload"
+                                autocomplete="images"
+                                placeholder="images"
+                            />
+                            <InputError class="mt-2" :message="form.errors.images" />
+                        </div>
+                        <!-- Images -->
+                        <div>
+                            <div v-for="(image, key) in selectedRow?.uploads" :key="key" class="mb-4">
+                                <div class="flex justify-between">
+                                    <img :src="`${usePage().props.appUrl}${image.url}`" alt="" class="max-w-[80%]" />
+                                    <Button variant="ghost" size="icon" @click="showDeleteImageWarning(image)">
+                                        <X class="h-4 w-4 text-red-500" />
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                     <DialogFooter class="mt-5">
                         <Button type="submit" :disabled="form.processing">
                             <Loader2 v-if="form.processing" class="h-4 w-4 animate-spin" />
@@ -53,6 +79,15 @@
             @cancelled="warningAlertVisibility = false"
             @confirmed="deleteRow()"
         />
+
+        <WarningAlert
+            :visibility="warningDeleteFileVisibility"
+            :title="'Delete this image'"
+            :loading-confirmed="form.processing"
+            :description="'Are you sure you want to delete this image'"
+            @cancelled="warningDeleteFileVisibility = false"
+            @confirmed="deleteImage()"
+        />
     </AdminLayout>
 </template>
 
@@ -69,16 +104,19 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/toast/use-toast';
 import WarningAlert from '@/components/WarningAlert.vue';
 import AdminLayout from '@/layouts/admin/AdminLayout.vue';
-import { PaginationResponse, UpsertAction, VetService } from '@/types';
-import { useForm } from '@inertiajs/vue3';
+import { PaginationResponse, Upload, UpsertAction, VetService } from '@/types';
+import { useForm, usePage } from '@inertiajs/vue3';
 import { ColumnDef } from '@tanstack/vue-table';
-import { Loader2, Plus } from 'lucide-vue-next';
+import { Loader2, Plus, X } from 'lucide-vue-next';
 import { h, ref } from 'vue';
 
 const { toast } = useToast();
 const selectedAction = ref<UpsertAction>('insert');
 const selectedRow = ref<VetService>();
 const warningAlertVisibility = ref<boolean>(false);
+const warningDeleteFileVisibility = ref<boolean>(false);
+
+const selectedImage = ref<Upload>();
 
 const props = defineProps<{ pagination: PaginationResponse<VetService> }>();
 
@@ -111,9 +149,10 @@ const columns = ref<ColumnDef<VetService>[]>([
     },
 ]);
 
-const form = useForm({
+const form = useForm<{ name: string; description?: string; images: File[] }>({
     name: '',
     description: '',
+    images: [],
 });
 
 const openUpsertDialog = (action: UpsertAction, data?: VetService) => {
@@ -123,6 +162,27 @@ const openUpsertDialog = (action: UpsertAction, data?: VetService) => {
     form.description = data?.description ?? '';
     selectedAction.value = action;
     dialogVisibility.value = true;
+};
+
+const handleFileUpload = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    const files: FileList | null = target.files;
+
+    if (files) {
+        form.images.length = 0;
+
+        for (let i = 0; i < files.length; i++) {
+            const file = files.item(i);
+            if (file) {
+                form.images.push(file);
+            }
+        }
+    }
+};
+
+const showDeleteImageWarning = (image: Upload) => {
+    selectedImage.value = image;
+    warningDeleteFileVisibility.value = true;
 };
 
 const submit = () => {
@@ -174,6 +234,31 @@ const deleteRow = () => {
         },
         onFinish: () => {
             warningAlertVisibility.value = false;
+        },
+    });
+};
+
+const deleteImage = () => {
+    form.delete(`/admin/vet-services/image/${selectedImage.value?.id}`, {
+        preserveScroll: true,
+        onSuccess: () => {
+            toast({
+                duration: 1000,
+                title: 'Success!!',
+                description: `The image has been deleted`,
+                variant: 'default',
+            });
+        },
+        onError: () => {
+            toast({
+                duration: 1000,
+                title: 'Uh oh! Something went wrong.',
+                description: 'There was a problem with your request.',
+                variant: 'destructive',
+            });
+        },
+        onFinish: () => {
+            warningDeleteFileVisibility.value = false;
         },
     });
 };

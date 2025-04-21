@@ -10,13 +10,13 @@ return new class extends Migration {
 	 */
 	public function up(): void
 	{
-		Schema::create('vet_services', function (Blueprint $table) {
+		Schema::create('uploads', function (Blueprint $table) {
 			$table->id();
-			$table->string(column: 'file_name')->nullable();
+			$table->string('file_name')->nullable();
 			$table->string('file_extension')->nullable();
+			$table->string('file_type')->nullable();
 			$table->string('url')->nullable();
 			$table->morphs('uploadable');
-			$table->softDeletes();
 			$table->timestamps();
 		});
 	}
@@ -26,6 +26,6 @@ return new class extends Migration {
 	 */
 	public function down(): void
 	{
-		Schema::dropIfExists('vet_services');
+		Schema::dropIfExists('uploads');
 	}
 };
