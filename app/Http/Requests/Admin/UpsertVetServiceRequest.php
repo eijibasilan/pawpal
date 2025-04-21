@@ -25,7 +25,7 @@ class UpsertVetServiceRequest extends FormRequest
 			"name" => "required|min:3|unique:vet_services,name,",
 			"description" => "nullable|string",
 			'images' => 'nullable|array',
-			'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+			'images.*' => 'image|mimes:jpeg,png,jpg,jfif,gif|max:2048'
 		];
 
 		if ($this->method() === 'PUT' || $this->method() === 'PATCH') {
