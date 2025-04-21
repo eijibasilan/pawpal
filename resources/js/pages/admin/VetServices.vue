@@ -112,7 +112,7 @@ import { h, ref } from 'vue';
 
 const { toast } = useToast();
 const selectedAction = ref<UpsertAction>('insert');
-const selectedRow = ref<VetService>();
+const selectedRow = ref<VetService | null>();
 const warningAlertVisibility = ref<boolean>(false);
 const warningDeleteFileVisibility = ref<boolean>(false);
 
@@ -149,17 +149,19 @@ const columns = ref<ColumnDef<VetService>[]>([
     },
 ]);
 
-const form = useForm<{ name: string; description?: string; images: File[] }>({
+const form = useForm<{ name: string; description?: string; images: File[]; _method?: string }>({
     name: '',
     description: '',
     images: [],
+    _method: '',
 });
 
 const openUpsertDialog = (action: UpsertAction, data?: VetService) => {
-    if (data) selectedRow.value = data;
+    selectedRow.value = data ?? null;
 
     form.name = data?.name ?? '';
     form.description = data?.description ?? '';
+    form._method = action === 'update' ? 'patch' : '';
     selectedAction.value = action;
     dialogVisibility.value = true;
 };
@@ -186,12 +188,9 @@ const showDeleteImageWarning = (image: Upload) => {
 };
 
 const submit = () => {
-    const method = selectedAction.value === 'insert' ? 'post' : 'patch';
     const routeParams = selectedAction.value === 'update' ? `/${selectedRow.value?.id}` : '';
 
-    console.log(form);
-    //return;
-    form[method](`/admin/vet-services${routeParams}`, {
+    form.post(`/admin/vet-services${routeParams}`, {
         onSuccess: () => {
             toast({
                 duration: 1000,
