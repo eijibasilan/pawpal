@@ -12,7 +12,7 @@
         </div>
 
         <Dialog :open="dialogVisibility">
-            <DialogContent class="sm:max-w-[425px]" @close-dialog="() => (dialogVisibility = false)">
+            <DialogContent class="max-h-[90dvh] overflow-y-auto sm:max-w-[425px]" @close-dialog="() => (dialogVisibility = false)">
                 <form @submit.prevent="submit">
                     <DialogHeader>
                         <DialogTitle>{{ selectedAction.toUpperCase() }} INVENTORY</DialogTitle>
@@ -59,6 +59,40 @@
                             </Select>
                             <InputError class="mt-2" :message="form.errors.product_category_id" />
                         </div>
+                        <div class="grid gap-2">
+                            <Label for="images">Images</Label>
+                            <Input
+                                id="images"
+                                type="file"
+                                class="mt-1 block w-full"
+                                accept="image/png, image/jpeg"
+                                multiple
+                                @change="handleFileUpload"
+                                autocomplete="images"
+                                placeholder="images"
+                            />
+                            <InputError class="mt-2" :message="form.errors.images" />
+                        </div>
+                        <!-- Images -->
+                        <div>
+                            <div v-for="(image, key) in selectedRow?.uploads" :key="key" class="mb-4">
+                                <div class="flex justify-between">
+                                    <img :src="`${usePage().props.appUrl}${image.url}`" alt="" class="max-w-[80%]" />
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        @click.prevent="
+                                            () => {
+                                                selectedImage = image;
+                                                warningDeleteFileVisibility = true;
+                                            }
+                                        "
+                                    >
+                                        <X class="h-4 w-4 text-red-500" />
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <DialogFooter class="mt-5">
                         <Button type="submit" :disabled="form.processing">
@@ -78,6 +112,15 @@
             @cancelled="warningAlertVisibility = false"
             @confirmed="deleteRow()"
         />
+
+        <WarningAlert
+            :visibility="warningDeleteFileVisibility"
+            :title="'Delete this image'"
+            :loading-confirmed="form.processing"
+            :description="'Are you sure you want to delete this image'"
+            @cancelled="warningDeleteFileVisibility = false"
+            @confirmed="deleteImage()"
+        />
     </AdminLayout>
 </template>
 
@@ -94,17 +137,20 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { useToast } from '@/components/ui/toast/use-toast';
 import WarningAlert from '@/components/WarningAlert.vue';
 import AdminLayout from '@/layouts/admin/AdminLayout.vue';
-import { PaginationResponse, Product, ProductCategory, UpsertAction } from '@/types';
-import { router, useForm } from '@inertiajs/vue3';
+import { PaginationResponse, Product, ProductCategory, Upload, UpsertAction } from '@/types';
+import { router, useForm, usePage } from '@inertiajs/vue3';
 import { ColumnDef } from '@tanstack/vue-table';
-import { Loader2, Plus } from 'lucide-vue-next';
+import { Loader2, Plus, X } from 'lucide-vue-next';
 import { h, ref } from 'vue';
 
 const { toast } = useToast();
 const selectedAction = ref<UpsertAction>('insert');
-const selectedRow = ref<Product>();
+const selectedRow = ref<Product | null>();
 const dialogLoading = ref<boolean>(false);
 const warningAlertVisibility = ref<boolean>(false);
+const warningDeleteFileVisibility = ref<boolean>(false);
+
+const selectedImage = ref<Upload>();
 
 const props = defineProps<{ pagination: PaginationResponse<Product>; productCategories?: ProductCategory[] }>();
 
@@ -156,18 +202,21 @@ const columns = ref<ColumnDef<Product>[]>([
     },
 ]);
 
-const form = useForm({
+const form = useForm<{ name: string; product_category_id: number; quantity: number; unit: string; images: File[]; _method?: string }>({
     name: '',
     product_category_id: 0,
     quantity: 0,
     unit: '',
+    images: [],
+    _method: '',
 });
 
 const openUpsertDialog = (action: UpsertAction, data?: Product) => {
-    if (data) selectedRow.value = data;
+    selectedRow.value = data ?? null;
 
     form.name = data?.name ?? '';
     form.product_category_id = data?.category.id ?? 0;
+    form._method = action === 'update' ? 'patch' : '';
     form.quantity = data?.quantity ?? 0;
     form.unit = data?.unit ?? '';
 
@@ -182,11 +231,26 @@ const openUpsertDialog = (action: UpsertAction, data?: Product) => {
     });
 };
 
+const handleFileUpload = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    const files: FileList | null = target.files;
+
+    if (files) {
+        form.images.length = 0;
+
+        for (let i = 0; i < files.length; i++) {
+            const file = files.item(i);
+            if (file) {
+                form.images.push(file);
+            }
+        }
+    }
+};
+
 const submit = () => {
-    const method = selectedAction.value === 'insert' ? 'post' : 'patch';
     const routeParams = selectedAction.value === 'update' ? `/${selectedRow.value?.id}` : '';
 
-    form[method](`/admin/products${routeParams}`, {
+    form.post(`/admin/products${routeParams}`, {
         onSuccess: () => {
             toast({
                 duration: 1000,
@@ -230,7 +294,35 @@ const deleteRow = () => {
             });
         },
         onFinish: () => {
+            form.reset('name', 'images');
             warningAlertVisibility.value = false;
+        },
+    });
+};
+
+const deleteImage = () => {
+    form.delete(`/admin/products/image/${selectedImage.value?.id}`, {
+        preserveScroll: true,
+        onSuccess: () => {
+            toast({
+                duration: 1000,
+                title: 'Success!!',
+                description: `The image has been deleted`,
+                variant: 'default',
+            });
+        },
+        onError: () => {
+            toast({
+                duration: 1000,
+                title: 'Uh oh! Something went wrong.',
+                description: 'There was a problem with your request.',
+                variant: 'destructive',
+            });
+        },
+        onFinish: () => {
+            warningDeleteFileVisibility.value = false;
+
+            selectedRow.value = props.pagination.data.find((item) => item.id === selectedRow.value?.id);
         },
     });
 };

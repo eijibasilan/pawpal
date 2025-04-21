@@ -73,6 +73,7 @@ export interface Product {
     created_at: string;
     updated_at: string;
     category: ProductCategory;
+    uploads: Upload[];
 }
 
 export interface VetAppointmentSchedule {

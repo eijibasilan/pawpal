@@ -26,6 +26,8 @@ class UpsertProductRequest extends FormRequest
 			"product_category_id" => "required|exists:product_categories,id",
 			"quantity" => "required|numeric",
 			"unit" => "nullable|string",
+			'images' => 'required|array',
+			'images.*' => 'image|mimes:jpeg,png,jpg,jfif,gif|max:2048'
 		];
 
 		if ($this->method() === 'PUT' || $this->method() === 'PATCH') {

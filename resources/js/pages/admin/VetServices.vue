@@ -208,7 +208,7 @@ const submit = () => {
             });
         },
         onFinish: () => {
-            form.reset('name');
+            form.reset('name', 'images');
             dialogVisibility.value = false;
         },
     });
