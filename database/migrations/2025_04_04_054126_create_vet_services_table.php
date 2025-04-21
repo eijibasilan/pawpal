@@ -12,11 +12,8 @@ return new class extends Migration {
 	{
 		Schema::create('vet_services', function (Blueprint $table) {
 			$table->id();
-			$table->string(column: 'file_name')->nullable();
-			$table->string('file_extension')->nullable();
-			$table->string('url')->nullable();
-			$table->morphs('uploadable');
-			$table->softDeletes();
+			$table->string('name')->unique();
+			$table->text('description')->nullable();
 			$table->timestamps();
 		});
 	}
