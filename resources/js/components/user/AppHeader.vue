@@ -18,7 +18,7 @@ import UserMenuContent from '@/components/UserMenuContent.vue';
 import { getInitials } from '@/composables/useInitials';
 import type { BreadcrumbItem, NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { BriefcaseMedical, LayoutGrid, Home, Menu, LogIn, UserPlus } from 'lucide-vue-next';
+import { BriefcaseMedical, LayoutGrid, Home, Menu, LogIn, UserPlus, Info, Bot } from 'lucide-vue-next';
 import { computed } from 'vue';
 
 interface Props {
@@ -43,6 +43,16 @@ const mainNavItems: NavItem[] = [
         title: 'Home',
         href: '/',
         icon: Home,
+    },
+    {
+        title: 'About',
+        href: '/about-us',
+        icon: Info,
+    },
+    {
+        title: 'Help Centre',
+        href: '/help-centre',
+        icon: Info,
     },
     {
         title: 'Dashboard',

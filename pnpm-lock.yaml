@@ -11,6 +11,9 @@ importers:
       '@inertiajs/vue3':
         specifier: ^2.0.0-beta.3
         version: 2.0.6(vue@3.5.13(typescript@5.8.2))
+      '@internationalized/date':
+        specifier: ^3.8.0
+        version: 3.8.0
       '@tanstack/vue-table':
         specifier: ^8.21.2
         version: 8.21.2(vue@3.5.13(typescript@5.8.2))
@@ -18,7 +21,7 @@ importers:
         specifier: ^5.2.1
         version: 5.2.3(vite@6.2.5(@types/node@22.14.0)(jiti@1.21.7)(yaml@2.7.1))(vue@3.5.13(typescript@5.8.2))
       '@vueuse/core':
-        specifier: ^12.0.0
+        specifier: ^12.8.2
         version: 12.8.2(typescript@5.8.2)
       autoprefixer:
         specifier: ^10.4.20
@@ -365,8 +368,8 @@ packages:
     peerDependencies:
       vue: ^3.0.0
 
-  '@internationalized/date@3.7.0':
-    resolution: {integrity: sha512-VJ5WS3fcVx0bejE/YHfbDKR/yawZgKqn/if+oEeLqNwBtPzVB06olkfcnojTmEMX+gTpH+FlQ69SHNitJ8/erQ==}
+  '@internationalized/date@3.8.0':
+    resolution: {integrity: sha512-J51AJ0fEL68hE4CwGPa6E0PO6JDaVLd8aln48xFCSy7CZkZc96dGEGmLs2OEEbBxcsVZtfrqkXJwI2/MSG8yKw==}
 
   '@internationalized/number@3.6.0':
     resolution: {integrity: sha512-PtrRcJVy7nw++wn4W2OuePQQfTqDzfusSuY1QTtui4wa7r+rGVtR75pO8CyKvHvzyQYi3Q1uO5sY0AsB4e65Bw==}
@@ -1997,7 +2000,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  '@internationalized/date@3.7.0':
+  '@internationalized/date@3.8.0':
     dependencies:
       '@swc/helpers': 0.5.15
 
@@ -3076,7 +3079,7 @@ snapshots:
     dependencies:
       '@floating-ui/dom': 1.6.13
       '@floating-ui/vue': 1.1.6(vue@3.5.13(typescript@5.8.2))
-      '@internationalized/date': 3.7.0
+      '@internationalized/date': 3.8.0
       '@internationalized/number': 3.6.0
       '@tanstack/vue-virtual': 3.13.6(vue@3.5.13(typescript@5.8.2))
       '@vueuse/core': 12.8.2(typescript@5.8.2)
