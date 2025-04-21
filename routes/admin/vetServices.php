@@ -1,5 +1,3 @@
-Route::get('verify-email', EmailVerificationPromptController::class)
-->name('user.verification.notice');
 <?php
 
 use App\Http\Controllers\Admin\VetAppointmentScheduleController;

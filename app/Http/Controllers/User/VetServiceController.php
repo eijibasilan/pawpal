@@ -9,7 +9,7 @@ class VetServiceController extends Controller
 {
 	public function index()
 	{
-		$rows = VetService::with('types')->get();
+		$rows = VetService::with('uploads', 'types')->get();
 
 		return Inertia::render('user/VetServices', ['vetServices' => $rows]);
 	}

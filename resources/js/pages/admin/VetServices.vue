@@ -53,7 +53,7 @@
                             <div v-for="(image, key) in selectedRow?.uploads" :key="key" class="mb-4">
                                 <div class="flex justify-between">
                                     <img :src="`${usePage().props.appUrl}${image.url}`" alt="" class="max-w-[80%]" />
-                                    <Button variant="ghost" size="icon" @click="showDeleteImageWarning(image)">
+                                    <Button variant="ghost" size="icon" @click.prevent="showDeleteImageWarning(image)">
                                         <X class="h-4 w-4 text-red-500" />
                                     </Button>
                                 </div>
@@ -189,6 +189,8 @@ const submit = () => {
     const method = selectedAction.value === 'insert' ? 'post' : 'patch';
     const routeParams = selectedAction.value === 'update' ? `/${selectedRow.value?.id}` : '';
 
+    console.log(form);
+    //return;
     form[method](`/admin/vet-services${routeParams}`, {
         onSuccess: () => {
             toast({
@@ -259,6 +261,8 @@ const deleteImage = () => {
         },
         onFinish: () => {
             warningDeleteFileVisibility.value = false;
+
+            selectedRow.value = props.pagination.data.find((item) => item.id === selectedRow.value?.id);
         },
     });
 };
