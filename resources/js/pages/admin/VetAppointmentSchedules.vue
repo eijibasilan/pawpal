@@ -87,7 +87,7 @@
                             <Label for="unit">Vet Service</Label>
                             <Select v-model="form.vet_service_id">
                                 <SelectTrigger>
-                                    <SelectValue placeholder="Assign a doctor" />
+                                    <SelectValue placeholder="Select a service" />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectGroup>
@@ -98,7 +98,7 @@
                                     </SelectGroup>
                                 </SelectContent>
                             </Select>
-                            <InputError class="mt-2" :message="form.errors.doctor_id" />
+                            <InputError class="mt-2" :message="form.errors.vet_service_id" />
                         </div>
                     </div>
                     <DialogFooter class="mt-5">

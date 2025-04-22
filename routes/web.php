@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\User\VetServiceController as UserVetServiceController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -13,12 +12,7 @@ Route::prefix('user')->group(function () {
 		return Inertia::render('user/Dashboard');
 	})->middleware(['auth', 'verified'])->name('user.dashboard');
 
-	Route::middleware('auth')->group(function () {
-		Route::prefix('vet-services')->group(function () {
-			Route::get('/', [UserVetServiceController::class, 'index'])->name('user.services');
-		});
-	});
-
+	require __DIR__ . '/user/vetServices.php';
 	require __DIR__ . '/user/auth.php';
 	require __DIR__ . '/user/settings.php';
 });

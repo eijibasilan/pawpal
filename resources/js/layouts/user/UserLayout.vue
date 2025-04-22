@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AppContent from '@/components/AppContent.vue';
 import AppShell from '@/components/AppShell.vue';
+import Toaster from '@/components/ui/toast/Toaster.vue';
 import AppHeader from '@/components/user/AppHeader.vue';
 import type { BreadcrumbItemType } from '@/types';
 
@@ -14,6 +15,7 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
+    <Toaster />
     <AppShell class="flex-col">
         <AppHeader :breadcrumbs="breadcrumbs" />
         <AppContent>

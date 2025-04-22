@@ -14,9 +14,8 @@ use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-	public function index(Request $request)
+	public function index()
 	{
-
 		return Inertia::render('admin/Products', [
 			'pagination' => Inertia::always(Inertia::merge(Product::with('uploads', 'category')->paginate(request('perPage', 5), "*", null, request('page', 1)))),
 			'productCategories' => Inertia::lazy(fn() => ProductCategory::all())
