@@ -1,147 +1,143 @@
 <script setup lang="ts">
 import UserLayout from '@/layouts/user/UserLayout.vue';
-import { h, ref } from 'vue';
-
-defineOptions({
-    layout: h(UserLayout),
-});
+import { ref } from 'vue';
 
 const faqs = ref([
     {
-        category: "General Questions",
+        category: 'General Questions',
         items: [
             {
-                question: "What are your clinic hours?",
-                answer: "Our clinic is open Monday through Sunday from 9:00 AM to 8:00 PM, including public holidays. Our team is ready to assist you and your pets during these hours.",
-                isOpen: false
+                question: 'What are your clinic hours?',
+                answer: 'Our clinic is open Monday through Sunday from 9:00 AM to 8:00 PM, including public holidays. Our team is ready to assist you and your pets during these hours.',
+                isOpen: false,
             },
             {
-                question: "What payment methods do you accept?",
-                answer: "We accept cash and GCash payments. Payment is required at the time of service.",
-                isOpen: false
+                question: 'What payment methods do you accept?',
+                answer: 'We accept cash and GCash payments. Payment is required at the time of service.',
+                isOpen: false,
             },
             {
-                question: "Do you accept pet insurance?",
-                answer: "No, we currently do not accept pet insurance. All payments must be made directly through cash or GCash.",
-                isOpen: false
+                question: 'Do you accept pet insurance?',
+                answer: 'No, we currently do not accept pet insurance. All payments must be made directly through cash or GCash.',
+                isOpen: false,
             },
             {
-                question: "Where are you located?",
+                question: 'Where are you located?',
                 answer: "Our clinic is located at 1 King Charles corner king alexander kingspoint subdivision, Novaliches, Philippines. We're easily accessible by public transportation and have parking available for our clients.",
-                isOpen: false
+                isOpen: false,
             },
             {
-                question: "Do I need to make an appointment?",
-                answer: "While we accept walk-ins, we recommend scheduling an appointment to minimize waiting time. Emergency cases are always given priority.",
-                isOpen: false
+                question: 'Do I need to make an appointment?',
+                answer: 'While we accept walk-ins, we recommend scheduling an appointment to minimize waiting time. Emergency cases are always given priority.',
+                isOpen: false,
             },
             {
-                question: "What areas do you service?",
-                answer: "We serve the greater Manila area and surrounding neighborhoods. For specific location queries, please contact our clinic.",
-                isOpen: false
+                question: 'What areas do you service?',
+                answer: 'We serve the greater Manila area and surrounding neighborhoods. For specific location queries, please contact our clinic.',
+                isOpen: false,
             },
             {
-                question: "Do you have emergency services?",
-                answer: "Yes, we provide emergency veterinary services during our operating hours. Please call ahead if possible so we can prepare for your arrival.",
-                isOpen: false
+                question: 'Do you have emergency services?',
+                answer: 'Yes, we provide emergency veterinary services during our operating hours. Please call ahead if possible so we can prepare for your arrival.',
+                isOpen: false,
             },
             {
-                question: "Are there parking facilities available?",
-                answer: "Yes, we have dedicated parking spaces for our clients directly in front of the clinic.",
-                isOpen: false
-            }
-        ]
+                question: 'Are there parking facilities available?',
+                answer: 'Yes, we have dedicated parking spaces for our clients directly in front of the clinic.',
+                isOpen: false,
+            },
+        ],
     },
     {
-        category: "Pet Care Services",
+        category: 'Pet Care Services',
         items: [
             {
-                question: "What veterinary services do you offer?",
-                answer: "We provide comprehensive veterinary care including wellness exams, vaccinations, dental care, and treatment for illnesses and injuries.",
-                isOpen: false
+                question: 'What veterinary services do you offer?',
+                answer: 'We provide comprehensive veterinary care including wellness exams, vaccinations, dental care, and treatment for illnesses and injuries.',
+                isOpen: false,
             },
             {
-                question: "Do you offer grooming services?",
-                answer: "Yes, we provide professional grooming services including bathing, haircuts, nail trimming, and ear cleaning.",
-                isOpen: false
+                question: 'Do you offer grooming services?',
+                answer: 'Yes, we provide professional grooming services including bathing, haircuts, nail trimming, and ear cleaning.',
+                isOpen: false,
             },
             {
                 question: "What should I bring for my pet's first visit?",
-                answer: "Please bring any previous medical records, vaccination history, and current medications.",
-                isOpen: false
+                answer: 'Please bring any previous medical records, vaccination history, and current medications.',
+                isOpen: false,
             },
             {
-                question: "Do you offer pet boarding services?",
-                answer: "Yes, we provide comfortable boarding facilities with 24/7 supervision and daily exercise routines.",
-                isOpen: false
+                question: 'Do you offer pet boarding services?',
+                answer: 'Yes, we provide comfortable boarding facilities with 24/7 supervision and daily exercise routines.',
+                isOpen: false,
             },
             {
-                question: "What vaccination services are available?",
-                answer: "We offer all core and optional vaccinations for both dogs and cats, following international vaccination guidelines.",
-                isOpen: false
+                question: 'What vaccination services are available?',
+                answer: 'We offer all core and optional vaccinations for both dogs and cats, following international vaccination guidelines.',
+                isOpen: false,
             },
             {
-                question: "Do you provide dental cleaning services?",
-                answer: "Yes, we offer professional dental cleaning, tooth extractions, and oral health assessments.",
-                isOpen: false
+                question: 'Do you provide dental cleaning services?',
+                answer: 'Yes, we offer professional dental cleaning, tooth extractions, and oral health assessments.',
+                isOpen: false,
             },
             {
-                question: "What surgical procedures do you perform?",
-                answer: "We currently only perform spaying and neutering surgeries for cats and dogs. For other surgical procedures, we can provide referrals to specialized veterinary clinics.",
-                isOpen: false
+                question: 'What surgical procedures do you perform?',
+                answer: 'We currently only perform spaying and neutering surgeries for cats and dogs. For other surgical procedures, we can provide referrals to specialized veterinary clinics.',
+                isOpen: false,
             },
             {
-                question: "Do you offer microchipping?",
-                answer: "No, we currently do not offer microchipping services. We can provide referrals to other veterinary clinics that offer this service.",
-                isOpen: false
-            }
-        ]
+                question: 'Do you offer microchipping?',
+                answer: 'No, we currently do not offer microchipping services. We can provide referrals to other veterinary clinics that offer this service.',
+                isOpen: false,
+            },
+        ],
     },
     {
-        category: "Prescriptions",
+        category: 'Prescriptions',
         items: [
             {
-                question: "How do prescriptions work?",
-                answer: "Prescriptions are provided after a veterinary consultation. For ongoing medications, we offer repeat prescription services.",
-                isOpen: false
+                question: 'How do prescriptions work?',
+                answer: 'Prescriptions are provided after a veterinary consultation. For ongoing medications, we offer repeat prescription services.',
+                isOpen: false,
             },
             {
-                question: "How do I request a repeat prescription?",
+                question: 'How do I request a repeat prescription?',
                 answer: "Contact our clinic at least 48 hours in advance for repeat prescriptions. We'll review your pet's records before issuing.",
-                isOpen: false
+                isOpen: false,
             },
             {
-                question: "Can I get prescriptions without a consultation?",
-                answer: "No, all prescriptions require a recent veterinary consultation to ensure appropriate treatment.",
-                isOpen: false
+                question: 'Can I get prescriptions without a consultation?',
+                answer: 'No, all prescriptions require a recent veterinary consultation to ensure appropriate treatment.',
+                isOpen: false,
             },
             {
-                question: "How long are prescriptions valid for?",
-                answer: "Prescription validity varies depending on the medication and condition. Your vet will advise on the specific duration.",
-                isOpen: false
+                question: 'How long are prescriptions valid for?',
+                answer: 'Prescription validity varies depending on the medication and condition. Your vet will advise on the specific duration.',
+                isOpen: false,
             },
             {
-                question: "Do you offer prescription delivery?",
-                answer: "We do not offer direct delivery services. Prescriptions can be picked up in-store, or you may arrange delivery through third-party delivery apps of your choice.",
-                isOpen: false
+                question: 'Do you offer prescription delivery?',
+                answer: 'We do not offer direct delivery services. Prescriptions can be picked up in-store, or you may arrange delivery through third-party delivery apps of your choice.',
+                isOpen: false,
             },
             {
-                question: "What happens if my pet needs a prescription change?",
+                question: 'What happens if my pet needs a prescription change?',
                 answer: "A consultation will be required to assess your pet's response to the current medication before making any changes.",
-                isOpen: false
+                isOpen: false,
             },
             {
-                question: "How do I store prescribed medications?",
-                answer: "Storage requirements vary by medication. We provide specific storage instructions with each prescription.",
-                isOpen: false
+                question: 'How do I store prescribed medications?',
+                answer: 'Storage requirements vary by medication. We provide specific storage instructions with each prescription.',
+                isOpen: false,
             },
             {
-                question: "What if my pet has an adverse reaction to medication?",
-                answer: "Contact us immediately if your pet shows any unusual reactions to prescribed medications.",
-                isOpen: false
-            }
-        ]
-    }
+                question: 'What if my pet has an adverse reaction to medication?',
+                answer: 'Contact us immediately if your pet shows any unusual reactions to prescribed medications.',
+                isOpen: false,
+            },
+        ],
+    },
 ]);
 
 const toggleFAQ = (categoryIndex: number, itemIndex: number) => {
@@ -150,39 +146,38 @@ const toggleFAQ = (categoryIndex: number, itemIndex: number) => {
 </script>
 
 <template>
-    <div class="faq-container">
-        <div class="header-section">
-            <h1>Frequently Asked Questions</h1>
-            <p class="subtitle">Find answers to common questions about our services</p>
-        </div>
+    <UserLayout>
+        <div class="faq-container">
+            <div class="header-section">
+                <h1>Frequently Asked Questions</h1>
+                <p class="subtitle">Find answers to common questions about our services</p>
+            </div>
 
-        <div class="faq-list">
-            <div v-for="(category, categoryIndex) in faqs" :key="categoryIndex" class="faq-category">
-                <h2 class="category-title">{{ category.category }}</h2>
-                <div v-for="(faq, index) in category.items" 
-                     :key="index" 
-                     class="faq-item"
-                     :class="{ 'is-open': faq.isOpen }">
-                    <div class="faq-question" @click="toggleFAQ(categoryIndex, index)">
-                        <h3>{{ faq.question }}</h3>
-                        <span class="toggle-icon">{{ faq.isOpen ? '−' : '+' }}</span>
-                    </div>
-                    <div class="faq-answer" v-show="faq.isOpen">
-                        <p>{{ faq.answer }}</p>
+            <div class="faq-list">
+                <div v-for="(category, categoryIndex) in faqs" :key="categoryIndex" class="faq-category">
+                    <h2 class="category-title">{{ category.category }}</h2>
+                    <div v-for="(faq, index) in category.items" :key="index" class="faq-item" :class="{ 'is-open': faq.isOpen }">
+                        <div class="faq-question" @click="toggleFAQ(categoryIndex, index)">
+                            <h3>{{ faq.question }}</h3>
+                            <span class="toggle-icon">{{ faq.isOpen ? '−' : '+' }}</span>
+                        </div>
+                        <div class="faq-answer" v-show="faq.isOpen">
+                            <p>{{ faq.answer }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="contact-section">
-            <h2>Still have questions?</h2>
-            <p>Our team is here to help! Contact us for more information.</p>
-            <div class="contact-buttons">
-                <a href="tel:099110992" class="contact-button phone">Call Us</a>
-                <a href="#" class="contact-button email">Email Us</a>
+            <div class="contact-section">
+                <h2>Still have questions?</h2>
+                <p>Our team is here to help! Contact us for more information.</p>
+                <div class="contact-buttons">
+                    <a href="tel:099110992" class="contact-button phone">Call Us</a>
+                    <a href="#" class="contact-button email">Email Us</a>
+                </div>
             </div>
         </div>
-    </div>
+    </UserLayout>
 </template>
 
 <style scoped>

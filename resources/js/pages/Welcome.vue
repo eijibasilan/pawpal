@@ -1,22 +1,18 @@
 <script setup lang="ts">
 import UserLayout from '@/layouts/user/UserLayout.vue';
-import { h, ref, onMounted, onUnmounted } from 'vue';
-
-defineOptions({
-    layout: h(UserLayout),
-});
+import { onMounted, onUnmounted, ref } from 'vue';
 
 const currentPage = ref(0);
 const currentDeal = ref(0);
 
-let autoSlideInterval;
-let resumeTimeout;
+let autoSlideInterval: any;
+let resumeTimeout: any;
 
 const startAutoSlide = () => {
     clearInterval(autoSlideInterval);
     autoSlideInterval = setInterval(() => {
         nextDeal();
-    }, 3000);  // Auto slides every 3 seconds
+    }, 3000); // Auto slides every 3 seconds
 };
 
 const handleIndicatorClick = (index: number) => {
@@ -24,15 +20,15 @@ const handleIndicatorClick = (index: number) => {
     stopAutoSlide();
     resumeTimeout = setTimeout(() => {
         startAutoSlide();
-    }, 8000);  // Resumes auto-slide after 8 seconds
+    }, 8000); // Resumes auto-slide after 8 seconds
 };
 
 onMounted(() => {
-    startAutoSlide();  // Starts the auto-slide when component mounts
+    startAutoSlide(); // Starts the auto-slide when component mounts
 });
 
 onUnmounted(() => {
-    stopAutoSlide();  // Cleans up when component unmounts
+    stopAutoSlide(); // Cleans up when component unmounts
 });
 
 const nextBrands = () => {
@@ -58,208 +54,213 @@ const prevDeal = () => {
 };
 </script>
 
-<!-- Wag galawin sa taas-->
-<!-- HTML Here:-->
-
 <template>
-    <div class="page-wrapper">
-        <div class="content-overlay">
-            <!-- Main content -->
-            <div class="hero-section">
-                <div class="hero-image-container">
-                    <img src="/images/cute-pets.jpg" alt="Cute pets" class="hero-image">
+    <UserLayout>
+        <div class="page-wrapper">
+            <div class="content-overlay">
+                <!-- Main content -->
+                <div class="hero-section">
+                    <div class="hero-image-container">
+                        <img src="/images/cute-pets.jpg" alt="Cute pets" class="hero-image" />
+                    </div>
+                    <h1 class="main-title">You & Your Pets Are Invited!</h1>
+                    <p class="subtitle">Get a chance to win exciting prizes!</p>
                 </div>
-                <h1 class="main-title">You & Your Pets Are Invited!</h1>
-                <p class="subtitle">Get a chance to win exciting prizes!</p>
-            </div>
 
-            <!-- Deals Section -->
-            <div class="deals-section">
-                <div class="deals-slider">
-                    <button class="slider-nav prev" @click="prevDeal">‹</button>
-                    <div class="deals-container">
-                        <!-- First slide -->
-                        <div class="deal-slide" v-show="currentDeal === 0">
-                            <div class="deal-content">
-                                <div class="deal-image-container">
-                                    <img src="/images/deals/calibra.jpg" alt="Calibra" class="deal-image">
+                <!-- Deals Section -->
+                <div class="deals-section">
+                    <div class="deals-slider">
+                        <button class="slider-nav prev" @click="prevDeal">‹</button>
+                        <div class="deals-container">
+                            <!-- First slide -->
+                            <div class="deal-slide" v-show="currentDeal === 0">
+                                <div class="deal-content">
+                                    <div class="deal-image-container">
+                                        <img src="/images/deals/calibra.jpg" alt="Calibra" class="deal-image" />
+                                    </div>
+                                    <button class="shop-button">Shop CALIBRA®</button>
                                 </div>
-                                <button class="shop-button">Shop CALIBRA®</button>
                             </div>
-                        </div>
-                        
-                        <!-- Second slide -->
-                        <div class="deal-slide" v-show="currentDeal === 1">
-                            <div class="deal-content">
-                                <div class="deal-image-container">
-                                    <img src="/images/deals/royal.png" alt="Royal Canin" class="deal-image">
-                                </div>
-                                <button class="shop-button">Shop ROYAL CANIN®</button>
-                            </div>
-                        </div>
-                        
-                        <!-- Third slide -->
-                        <div class="deal-slide" v-show="currentDeal === 2">
-                            <div class="deal-content">
-                                <div class="deal-image-container">
-                                    <img src="/images/deals/farmina.jpg" alt="farmina" class="deal-image">
-                                </div>
-                                <button class="shop-button">Shop FARMINA®</button>
-                            </div>
-                        </div>
-                        
-                        <!-- Fourth slide -->
-                        <div class="deal-slide" v-show="currentDeal === 3">
-                            <div class="deal-content">
-                                <div class="deal-image-container">
-                                    <img src="/images/deals/gourmet.jpg" alt="gourmet" class="deal-image">
-                                </div>
-                                <button class="shop-button">Shop GOURMET®</button>
-                            </div>
-                        </div>
-                        
-                        <!-- Fifth slide -->
-                        <div class="deal-slide" v-show="currentDeal === 4">
-                            <div class="deal-content">
-                                <div class="deal-image-container">
-                                    <img src="/images/deals/spring.jpg" alt="spring" class="deal-image">
-                                </div>
-                                <button class="shop-button">Shop Special Offers®</button>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="slider-nav next" @click="nextDeal">›</button>
-                    
-                    <div class="slide-indicators">
-                        <button 
-                            v-for="n in 5" 
-                            :key="n"
-                            :class="['indicator', { active: currentDeal === n - 1 }]"
-                            @click="handleIndicatorClick(n - 1)"
-                        ></button>
-                    </div>
-                </div>
-            </div>
 
-            <div class="services-section">
-                <div class="service-card">
-                    <span class="service-icon">🐾</span>
-                    <h3>Pet Wellness & Grooming</h3>
-                </div>
-                <div class="service-card">
-                    <span class="service-icon">🏠</span>
-                    <h3>Pet Hotel & Boarding</h3>
-                </div>
-                <div class="service-card">
-                    <span class="service-icon">🦴</span>
-                    <h3>Pet Food & Accessories</h3>
-                </div>
-            </div>
-            
-            <div class="brands-section">
-                <h2 class="brands-title">Featured Brands</h2>
-                <div class="brands-container">
-                    <button class="nav-button prev" @click="prevBrands">‹</button>
-                    <div class="brands-grid">
-                        <div class="brand-item" v-show="currentPage === 0">
-                            <img src="/images/brands/bearing.png" alt="Bearing" />
-                            <p>Bearing</p>
+                            <!-- Second slide -->
+                            <div class="deal-slide" v-show="currentDeal === 1">
+                                <div class="deal-content">
+                                    <div class="deal-image-container">
+                                        <img src="/images/deals/royal.png" alt="Royal Canin" class="deal-image" />
+                                    </div>
+                                    <button class="shop-button">Shop ROYAL CANIN®</button>
+                                </div>
+                            </div>
+
+                            <!-- Third slide -->
+                            <div class="deal-slide" v-show="currentDeal === 2">
+                                <div class="deal-content">
+                                    <div class="deal-image-container">
+                                        <img src="/images/deals/farmina.jpg" alt="farmina" class="deal-image" />
+                                    </div>
+                                    <button class="shop-button">Shop FARMINA®</button>
+                                </div>
+                            </div>
+
+                            <!-- Fourth slide -->
+                            <div class="deal-slide" v-show="currentDeal === 3">
+                                <div class="deal-content">
+                                    <div class="deal-image-container">
+                                        <img src="/images/deals/gourmet.jpg" alt="gourmet" class="deal-image" />
+                                    </div>
+                                    <button class="shop-button">Shop GOURMET®</button>
+                                </div>
+                            </div>
+
+                            <!-- Fifth slide -->
+                            <div class="deal-slide" v-show="currentDeal === 4">
+                                <div class="deal-content">
+                                    <div class="deal-image-container">
+                                        <img src="/images/deals/spring.jpg" alt="spring" class="deal-image" />
+                                    </div>
+                                    <button class="shop-button">Shop Special Offers®</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="brand-item" v-show="currentPage === 0">
-                            <img src="/images/brands/special.png" alt="Special" />
-                            <p>Special Dog/Cat</p>
-                        </div>
-                        <div class="brand-item" v-show="currentPage === 0">
-                            <img src="/images/brands/pedigree.png" alt="Pedigree" />
-                            <p>Pedigree</p>
-                        </div>
-                        <div class="brand-item" v-show="currentPage === 0">
-                            <img src="/images/brands/goodest.png" alt="Goodest" />
-                            <p>Goodest</p>
-                        </div>
-                        <div class="brand-item" v-show="currentPage === 0">
-                            <img src="/images/brands/whiskas.png" alt="Whiskas" />
-                            <p>Whiskas</p>
-                        </div>
-                        <div class="brand-item" v-show="currentPage === 0">
-                            <img src="/images/brands/royalcanin.png" alt="RoyalCanin" />
-                            <p>Royal Canin</p>
-                        </div>
-                        <div class="brand-item" v-show="currentPage === 0">
-                            <img src="/images/brands/monello.png" alt="Monello" />
-                            <p>Monello</p>
-                        </div>
-                        <div class="brand-item" v-show="currentPage === 1">
-                            <img src="/images/brands/maxwell.png" alt="Maxwell" />
-                            <p>Maxwell</p>
-                        </div>
-                        <div class="brand-item" v-show="currentPage === 1">
-                            <img src="/images/brands/snacky.png" alt="Snacky" />
-                            <p>Snacky</p>
-                        </div>
-                        <div class="brand-item" v-show="currentPage === 1">
-                            <img src="/images/brands/doggo.png" alt="Doggo" />
-                            <p>Doggo</p>
+                        <button class="slider-nav next" @click="nextDeal">›</button>
+
+                        <div class="slide-indicators">
+                            <button
+                                v-for="n in 5"
+                                :key="n"
+                                :class="['indicator', { active: currentDeal === n - 1 }]"
+                                @click="handleIndicatorClick(n - 1)"
+                            ></button>
                         </div>
                     </div>
-                    <button class="nav-button next" @click="nextBrands">›</button>
                 </div>
-            </div>
-            
-            <!-- Keep only the footer section -->
-            <!-- Inside the footer-section div, after footer-content div -->
-            <div class="footer-section">
-                <div class="footer-content">
-                    <div class="footer-column">
-                        <h3>Shopping with us</h3>
-                        <ul>
-                            <li><a href="/about-us" >About Us</a></li>
-                            <li><a href="/prescription" >Prescription Regulations</a></li>
+
+                <div class="services-section">
+                    <div class="service-card">
+                        <span class="service-icon">🐾</span>
+                        <h3>Pet Wellness & Grooming</h3>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-icon">🏠</span>
+                        <h3>Pet Hotel & Boarding</h3>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-icon">🦴</span>
+                        <h3>Pet Food & Accessories</h3>
+                    </div>
+                </div>
+
+                <div class="brands-section">
+                    <h2 class="brands-title">Featured Brands</h2>
+                    <div class="brands-container">
+                        <button class="nav-button prev" @click="prevBrands">‹</button>
+                        <div class="brands-grid">
+                            <div class="brand-item" v-show="currentPage === 0">
+                                <img src="/images/brands/bearing.png" alt="Bearing" />
+                                <p>Bearing</p>
+                            </div>
+                            <div class="brand-item" v-show="currentPage === 0">
+                                <img src="/images/brands/special.png" alt="Special" />
+                                <p>Special Dog/Cat</p>
+                            </div>
+                            <div class="brand-item" v-show="currentPage === 0">
+                                <img src="/images/brands/pedigree.png" alt="Pedigree" />
+                                <p>Pedigree</p>
+                            </div>
+                            <div class="brand-item" v-show="currentPage === 0">
+                                <img src="/images/brands/goodest.png" alt="Goodest" />
+                                <p>Goodest</p>
+                            </div>
+                            <div class="brand-item" v-show="currentPage === 0">
+                                <img src="/images/brands/whiskas.png" alt="Whiskas" />
+                                <p>Whiskas</p>
+                            </div>
+                            <div class="brand-item" v-show="currentPage === 0">
+                                <img src="/images/brands/royalcanin.png" alt="RoyalCanin" />
+                                <p>Royal Canin</p>
+                            </div>
+                            <div class="brand-item" v-show="currentPage === 0">
+                                <img src="/images/brands/monello.png" alt="Monello" />
+                                <p>Monello</p>
+                            </div>
+                            <div class="brand-item" v-show="currentPage === 1">
+                                <img src="/images/brands/maxwell.png" alt="Maxwell" />
+                                <p>Maxwell</p>
+                            </div>
+                            <div class="brand-item" v-show="currentPage === 1">
+                                <img src="/images/brands/snacky.png" alt="Snacky" />
+                                <p>Snacky</p>
+                            </div>
+                            <div class="brand-item" v-show="currentPage === 1">
+                                <img src="/images/brands/doggo.png" alt="Doggo" />
+                                <p>Doggo</p>
+                            </div>
+                        </div>
+                        <button class="nav-button next" @click="nextBrands">›</button>
+                    </div>
+                </div>
+
+                <!-- Keep only the footer section -->
+                <!-- Inside the footer-section div, after footer-content div -->
+                <div class="footer-section">
+                    <div class="footer-content">
+                        <div class="footer-column">
+                            <h3>Shopping with us</h3>
+                            <ul>
+                                <li><a href="/about-us">About Us</a></li>
+                                <li><a href="/prescription">Prescription Regulations</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="footer-column">
+                            <h3>Help & support</h3>
+                            <ul>
+                                <li><a href="/help-centre">Help Centre</a></li>
+                                <li><a href="/contact">Contact Us</a></li>
+                                <li><a href="/faq">FAQ</a></li>
+                                <li><a href="/how-to-register-your-pet">How To Register Your Pet</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="footer-column">
+                            <h3>Educational</h3>
+                            <ul>
+                                <li><a href="/pet-care">Pet Care Hub</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="footer-column">
+                            <h3>Connect with us</h3>
+                            <ul>
+                                <li>
+                                    <a href="tel:01379640052"><i class="fas fa-phone"></i> 0929 494 4937</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.facebook.com/PeppaPetsPH" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+                                </li>
+                                <li>
+                                    <a href="https://instagram.com/peppapets" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Add this footer-bottom section -->
+                    <div class="footer-bottom">
+                        <ul class="policy-links">
+                            <li><a href="/terms-and-conditions">Terms & Conditions</a></li>
+                            <li><a href="/terms-of-use">Terms of Website Use</a></li>
+                            <li><a href="/cookie-policy">Cookie Policy</a></li>
+                            <li><a href="/privacy-policy">Privacy Policy</a></li>
+                            <li><a href="/vet-medicines">Registered Internet Retailer of Veterinary Medicines</a></li>
+                            <li><a href="/secretary">Secretary of State</a></li>
+                            <li><a href="/sitemap">Sitemap</a></li>
                         </ul>
                     </div>
-                    
-                    <div class="footer-column">
-                        <h3>Help & support</h3>
-                        <ul>
-                            <li><a href="/help-centre">Help Centre</a></li>
-                            <li><a href="/contact">Contact Us</a></li>
-                            <li><a href="/faq">FAQ</a></li>
-                            <li><a href="/how-to-register-your-pet">How To Register Your Pet</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h3>Educational</h3>
-                        <ul>
-                            <li><a href="/pet-care">Pet Care Hub</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h3>Connect with us</h3>
-                        <ul>
-                            <li><a href="tel:01379640052"><i class="fas fa-phone"></i> 0929 494 4937</a></li>
-                            <li><a href="https://www.facebook.com/PeppaPetsPH" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></li>
-                            <li><a href="https://instagram.com/peppapets" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <!-- Add this footer-bottom section -->
-                <div class="footer-bottom">
-                    <ul class="policy-links">
-                        <li><a href="/terms-and-conditions">Terms & Conditions</a></li>
-                        <li><a href="/terms-of-use">Terms of Website Use</a></li>
-                        <li><a href="/cookie-policy">Cookie Policy</a></li>
-                        <li><a href="/privacy-policy">Privacy Policy</a></li>
-                        <li><a href="/vet-medicines">Registered Internet Retailer of Veterinary Medicines</a></li>
-                        <li><a href="/secretary">Secretary of State</a></li>
-                        <li><a href="/sitemap">Sitemap</a></li>
-                    </ul>
                 </div>
             </div>
         </div>
-    </div>
+    </UserLayout>
 </template>
 
 <style scoped>
@@ -332,7 +333,9 @@ const prevDeal = () => {
     color: #ffffff;
 }
 
-.service-card, .contact-section, .hero-section {
+.service-card,
+.contact-section,
+.hero-section {
     background-color: rgba(255, 255, 255, 0.95);
 }
 
@@ -411,7 +414,7 @@ const prevDeal = () => {
     padding: 2rem;
     border-radius: 10px;
     text-align: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
 }
 
@@ -449,7 +452,8 @@ const prevDeal = () => {
     margin-bottom: 1rem;
 }
 
-.address, .social {
+.address,
+.social {
     color: #666;
     margin-bottom: 0.5rem;
 }
@@ -465,7 +469,9 @@ const prevDeal = () => {
 
 <style scoped>
 /* Update contact section styles */
-.phone, .address, .social {
+.phone,
+.address,
+.social {
     font-weight: 700;
     color: #333;
     margin-bottom: 1rem;
@@ -500,8 +506,8 @@ const prevDeal = () => {
 <style scoped>
 .contact-title {
     color: #4682b4;
-    font-size: 2rem;    /* Reduced from 2.5rem */
-    font-weight: 700;   /* Slightly reduced weight but still bold */
+    font-size: 2rem; /* Reduced from 2.5rem */
+    font-weight: 700; /* Slightly reduced weight but still bold */
     margin-bottom: 1.5rem;
     text-transform: uppercase;
 }
@@ -594,7 +600,7 @@ const prevDeal = () => {
         gap: 1rem;
         text-align: center;
     }
-    
+
     .policy-links li {
         flex: 0 0 auto;
     }
@@ -788,7 +794,7 @@ const prevDeal = () => {
 
 .slide-indicators {
     position: absolute;
-    bottom: 80px;  /* Changed from 20px to move indicators up */
+    bottom: 80px; /* Changed from 20px to move indicators up */
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -802,7 +808,7 @@ const prevDeal = () => {
     height: 12px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.3);
-    border: 2px solid white;  /* Added white border for better visibility */
+    border: 2px solid white; /* Added white border for better visibility */
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -811,7 +817,6 @@ const prevDeal = () => {
     background: white;
     transform: scale(1.2);
 }
-
 
 .shop-button {
     background: #ffd700;
@@ -850,6 +855,4 @@ const prevDeal = () => {
     position: relative;
     z-index: 2;
 }
-
-
 </style>

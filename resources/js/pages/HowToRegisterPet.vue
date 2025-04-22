@@ -1,52 +1,52 @@
 <script setup lang="ts">
 import UserLayout from '@/layouts/user/UserLayout.vue';
-import { h } from 'vue';
-
-defineOptions({
-    layout: h(UserLayout),
-});
 </script>
 
 <template>
-    <div class="guide-container">
-        <h1>How to register your pet</h1>
+    <UserLayout>
+        <div class="guide-container">
+            <h1>How to register your pet</h1>
 
-        <div class="info-box">
-            <p>To ensure the best care for your pet, registration is required before accessing our veterinary services. You can either register your pet in advance through your account or during the service booking process.</p>
+            <div class="info-box">
+                <p>
+                    To ensure the best care for your pet, registration is required before accessing our veterinary services. You can either register
+                    your pet in advance through your account or during the service booking process.
+                </p>
+            </div>
+
+            <div class="guide-sections">
+                <section class="guide-section">
+                    <h2>How to register a pet during service booking</h2>
+                    <ol>
+                        <li>During the service booking process, you'll reach a 'Pet Information' section.</li>
+                        <li>Look for and click the 'Register New Pet' button to open the registration form.</li>
+                        <li>Fill in your pet's details carefully, including name, species, breed, and medical history.</li>
+                        <li>Review all information and click 'Save' to complete the registration.</li>
+                    </ol>
+                </section>
+
+                <section class="guide-section">
+                    <h2>Register your pet through your account</h2>
+                    <ol>
+                        <li>Sign in to your account and navigate to the 'Pet Profile' section.</li>
+                        <li>Select 'Add Pet' and complete all required information in the registration form.</li>
+                        <li>Once saved, your pet will appear in your profile and be available for future bookings.</li>
+                    </ol>
+                    <p class="note">Remember to keep your pet's information up to date by regularly reviewing and updating their profile.</p>
+                </section>
+
+                <section class="guide-section">
+                    <h2>Managing registered pets</h2>
+                    <ol>
+                        <li>Access your pet profiles through the 'Pet Profile' section of your account.</li>
+                        <li>You can edit information, update medical history, or add vaccination records at any time.</li>
+                        <li>For multiple pets, you can easily switch between profiles using the pet selector.</li>
+                    </ol>
+                    <p class="note">Important: Please ensure all medical information is accurate and current for the safety of your pet.</p>
+                </section>
+            </div>
         </div>
-
-        <div class="guide-sections">
-            <section class="guide-section">
-                <h2>How to register a pet during service booking</h2>
-                <ol>
-                    <li>During the service booking process, you'll reach a 'Pet Information' section.</li>
-                    <li>Look for and click the 'Register New Pet' button to open the registration form.</li>
-                    <li>Fill in your pet's details carefully, including name, species, breed, and medical history.</li>
-                    <li>Review all information and click 'Save' to complete the registration.</li>
-                </ol>
-            </section>
-
-            <section class="guide-section">
-                <h2>Register your pet through your account</h2>
-                <ol>
-                    <li>Sign in to your account and navigate to the 'Pet Profile' section.</li>
-                    <li>Select 'Add Pet' and complete all required information in the registration form.</li>
-                    <li>Once saved, your pet will appear in your profile and be available for future bookings.</li>
-                </ol>
-                <p class="note">Remember to keep your pet's information up to date by regularly reviewing and updating their profile.</p>
-            </section>
-
-            <section class="guide-section">
-                <h2>Managing registered pets</h2>
-                <ol>
-                    <li>Access your pet profiles through the 'Pet Profile' section of your account.</li>
-                    <li>You can edit information, update medical history, or add vaccination records at any time.</li>
-                    <li>For multiple pets, you can easily switch between profiles using the pet selector.</li>
-                </ol>
-                <p class="note">Important: Please ensure all medical information is accurate and current for the safety of your pet.</p>
-            </section>
-        </div>
-    </div>
+    </UserLayout>
 </template>
 
 <style scoped>

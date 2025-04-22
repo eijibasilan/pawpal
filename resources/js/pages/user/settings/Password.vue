@@ -6,9 +6,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import UserLayout from '@/layouts/user/UserLayout.vue';
 import UserSettingsLayout from '@/layouts/user/UserSettingsLayout.vue';
-import { LayoutOptions, type BreadcrumbItem } from '@/types';
+import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
-import { h, ref } from 'vue';
+import { ref } from 'vue';
 
 const passwordInput = ref<HTMLInputElement | null>(null);
 const currentPasswordInput = ref<HTMLInputElement | null>(null);
@@ -41,80 +41,78 @@ const updatePassword = () => {
     });
 };
 
-defineOptions({
-    layout: h(UserLayout, {
-        breadcrumbs: [
-            {
-                title: 'Password settings',
-                href: '/settings/password',
-            },
-        ] as BreadcrumbItem[],
-    }),
-} as LayoutOptions);
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: 'Password settings',
+        href: '/settings/password',
+    },
+];
 </script>
 
 <template>
     <Head title="Password settings" />
 
-    <UserSettingsLayout>
-        <div class="space-y-6">
-            <HeadingSmall title="Update password" description="Ensure your account is using a long, random password to stay secure" />
+    <UserLayout :breadcrumbs="breadcrumbs">
+        <UserSettingsLayout>
+            <div class="space-y-6">
+                <HeadingSmall title="Update password" description="Ensure your account is using a long, random password to stay secure" />
 
-            <form @submit.prevent="updatePassword" class="space-y-6">
-                <div class="grid gap-2">
-                    <Label for="current_password">Current password</Label>
-                    <Input
-                        id="current_password"
-                        ref="currentPasswordInput"
-                        v-model="form.current_password"
-                        type="password"
-                        class="mt-1 block w-full"
-                        autocomplete="current-password"
-                        placeholder="Current password"
-                    />
-                    <InputError :message="form.errors.current_password" />
-                </div>
+                <form @submit.prevent="updatePassword" class="space-y-6">
+                    <div class="grid gap-2">
+                        <Label for="current_password">Current password</Label>
+                        <Input
+                            id="current_password"
+                            ref="currentPasswordInput"
+                            v-model="form.current_password"
+                            type="password"
+                            class="mt-1 block w-full"
+                            autocomplete="current-password"
+                            placeholder="Current password"
+                        />
+                        <InputError :message="form.errors.current_password" />
+                    </div>
 
-                <div class="grid gap-2">
-                    <Label for="password">New password</Label>
-                    <Input
-                        id="password"
-                        ref="passwordInput"
-                        v-model="form.password"
-                        type="password"
-                        class="mt-1 block w-full"
-                        autocomplete="new-password"
-                        placeholder="New password"
-                    />
-                    <InputError :message="form.errors.password" />
-                </div>
+                    <div class="grid gap-2">
+                        <Label for="password">New password</Label>
+                        <Input
+                            id="password"
+                            ref="passwordInput"
+                            v-model="form.password"
+                            type="password"
+                            class="mt-1 block w-full"
+                            autocomplete="new-password"
+                            placeholder="New password"
+                        />
+                        <InputError :message="form.errors.password" />
+                    </div>
 
-                <div class="grid gap-2">
-                    <Label for="password_confirmation">Confirm password</Label>
-                    <Input
-                        id="password_confirmation"
-                        v-model="form.password_confirmation"
-                        type="password"
-                        class="mt-1 block w-full"
-                        autocomplete="new-password"
-                        placeholder="Confirm password"
-                    />
-                    <InputError :message="form.errors.password_confirmation" />
-                </div>
+                    <div class="grid gap-2">
+                        <Label for="password_confirmation">Confirm password</Label>
+                        <Input
+                            id="password_confirmation"
+                            v-model="form.password_confirmation"
+                            type="password"
+                            class="mt-1 block w-full"
+                            autocomplete="new-password"
+                            placeholder="Confirm password"
+                        />
+                        <InputError :message="form.errors.password_confirmation" />
+                    </div>
 
-                <div class="flex items-center gap-4">
-                    <Button :disabled="form.processing">Save password</Button>
+                    <div class="flex items-center gap-4">
+                        <Button :disabled="form.processing">Save password</Button>
 
-                    <Transition
-                        enter-active-class="transition ease-in-out"
-                        enter-from-class="opacity-0"
-                        leave-active-class="transition ease-in-out"
-                        leave-to-class="opacity-0"
-                    >
-                        <p v-show="form.recentlySuccessful" class="text-sm text-neutral-600">Saved.</p>
-                    </Transition>
-                </div>
-            </form>
-        </div>
-    </UserSettingsLayout>
+                        <Transition
+                            enter-active-class="transition ease-in-out"
+                            enter-from-class="opacity-0"
+                            leave-active-class="transition ease-in-out"
+                            leave-to-class="opacity-0"
+                        >
+                            <p v-show="form.recentlySuccessful" class="text-sm text-neutral-600">Saved.</p>
+                        </Transition>
+                    </div>
+                </form>
+            </div>
+        </UserSettingsLayout>
+    </UserLayout>
 </template>

@@ -1,101 +1,101 @@
 <script setup lang="ts">
 import UserLayout from '@/layouts/user/UserLayout.vue';
-import { h } from 'vue';
-
-defineOptions({
-    layout: h(UserLayout),
-});
 </script>
 
 <template>
-    <div class="secretary-container">
-        <h1>Secretary of State Registration</h1>
+    <UserLayout>
+        <div class="secretary-container">
+            <h1>Secretary of State Registration</h1>
 
-        <div class="intro-section">
-            <p>PawPal is a registered business entity in compliance with all necessary regulations and requirements set forth by the Securities and Exchange Commission (SEC) of the Philippines.</p>
-        </div>
+            <div class="intro-section">
+                <p>
+                    PawPal is a registered business entity in compliance with all necessary regulations and requirements set forth by the Securities
+                    and Exchange Commission (SEC) of the Philippines.
+                </p>
+            </div>
 
-        <div class="registration-section">
-            <section>
-                <h2>Business Registration</h2>
-                <div class="registration-info">
-                    <div class="info-card">
-                        <h3>Company Details</h3>
-                        <ul>
-                            <li>Registered Name: PawPal Corporation</li>
-                            <li>Registration Number: SEC-2024-0123</li>
-                            <li>Date of Incorporation: January 2024</li>
-                            <li>Business Type: Corporation</li>
-                        </ul>
+            <div class="registration-section">
+                <section>
+                    <h2>Business Registration</h2>
+                    <div class="registration-info">
+                        <div class="info-card">
+                            <h3>Company Details</h3>
+                            <ul>
+                                <li>Registered Name: PawPal Corporation</li>
+                                <li>Registration Number: SEC-2024-0123</li>
+                                <li>Date of Incorporation: January 2024</li>
+                                <li>Business Type: Corporation</li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <section>
-                <h2>Compliance Information</h2>
-                <div class="compliance-grid">
-                    <div class="compliance-card">
-                        <h3>Business Permits</h3>
-                        <ul>
-                            <li>Mayor's Permit</li>
-                            <li>BIR Registration</li>
-                            <li>Barangay Clearance</li>
-                            <li>Fire Safety Permit</li>
-                        </ul>
+                <section>
+                    <h2>Compliance Information</h2>
+                    <div class="compliance-grid">
+                        <div class="compliance-card">
+                            <h3>Business Permits</h3>
+                            <ul>
+                                <li>Mayor's Permit</li>
+                                <li>BIR Registration</li>
+                                <li>Barangay Clearance</li>
+                                <li>Fire Safety Permit</li>
+                            </ul>
+                        </div>
+                        <div class="compliance-card">
+                            <h3>Professional Licenses</h3>
+                            <ul>
+                                <li>Veterinary Practice License</li>
+                                <li>Pharmacy License</li>
+                                <li>Sanitary Permit</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="compliance-card">
-                        <h3>Professional Licenses</h3>
-                        <ul>
-                            <li>Veterinary Practice License</li>
-                            <li>Pharmacy License</li>
-                            <li>Sanitary Permit</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
+                </section>
 
-            <section>
-                <h2>Corporate Governance</h2>
-                <ul>
-                    <li>Regular submission of annual reports</li>
-                    <li>Compliance with SEC regulations</li>
-                    <li>Updated business documentation</li>
-                    <li>Regular audit compliance</li>
-                </ul>
-            </section>
-
-            <section>
-                <h2>Business Operations</h2>
-                <div class="operations-info">
-                    <p>Our operations comply with:</p>
+                <section>
+                    <h2>Corporate Governance</h2>
                     <ul>
-                        <li>Consumer Protection Laws</li>
-                        <li>Animal Welfare Regulations</li>
-                        <li>Health and Safety Standards</li>
-                        <li>Environmental Guidelines</li>
+                        <li>Regular submission of annual reports</li>
+                        <li>Compliance with SEC regulations</li>
+                        <li>Updated business documentation</li>
+                        <li>Regular audit compliance</li>
                     </ul>
-                </div>
-            </section>
+                </section>
 
-            <section>
-                <h2>Contact Information</h2>
-                <div class="contact-details">
-                    <div class="contact-card">
-                        <h3>Business Office</h3>
-                        <p>123 1 King Charles corner king alexander kingspoint subdivision, Novaliches, Philippines</p>
-                        <p>Phone: 0929 494 4937</p>
-                        <p>Email: peppapets.ph@gmail.com</p>
+                <section>
+                    <h2>Business Operations</h2>
+                    <div class="operations-info">
+                        <p>Our operations comply with:</p>
+                        <ul>
+                            <li>Consumer Protection Laws</li>
+                            <li>Animal Welfare Regulations</li>
+                            <li>Health and Safety Standards</li>
+                            <li>Environmental Guidelines</li>
+                        </ul>
                     </div>
-                    <div class="contact-card">
-                        <h3>Operating Hours</h3>
-                        <p>Monday to Friday: 9:00 AM - 5:00 PM</p>
-                        <p>Saturday: 9:00 AM - 12:00 PM</p>
-                        <p>Sunday: Closed</p>
+                </section>
+
+                <section>
+                    <h2>Contact Information</h2>
+                    <div class="contact-details">
+                        <div class="contact-card">
+                            <h3>Business Office</h3>
+                            <p>123 1 King Charles corner king alexander kingspoint subdivision, Novaliches, Philippines</p>
+                            <p>Phone: 0929 494 4937</p>
+                            <p>Email: peppapets.ph@gmail.com</p>
+                        </div>
+                        <div class="contact-card">
+                            <h3>Operating Hours</h3>
+                            <p>Monday to Friday: 9:00 AM - 5:00 PM</p>
+                            <p>Saturday: 9:00 AM - 12:00 PM</p>
+                            <p>Sunday: Closed</p>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
         </div>
-    </div>
+    </UserLayout>
 </template>
 
 <style scoped>
@@ -151,7 +151,9 @@ h3 {
     margin-bottom: 1rem;
 }
 
-.info-card, .compliance-card, .contact-card {
+.info-card,
+.compliance-card,
+.contact-card {
     background-color: white;
     padding: 1.5rem;
     border-radius: 6px;

@@ -1,45 +1,55 @@
 <script setup lang="ts">
 import UserLayout from '@/layouts/user/UserLayout.vue';
-import { h } from 'vue';
-
-defineOptions({
-    layout: h(UserLayout),
-});
 </script>
 
 <template>
-    <div class="about-container">
-        <div class="hero-section">
-            <div class="content-wrapper">
-                <h1 class="title">About Us</h1>
-                <div class="hero-content">
-                    <div class="image-container">
-                        <img src="/images/about/hero-image.jpg" alt="Person with pet" class="hero-image">
-                        <!-- Removed circle-overlay div -->
-                    </div>
-                    <div class="text-content">
-                        <p class="welcome-text">Welcome to PawPal</p>
-                        <div class="description">
-                            <p>Welcome to Peppa Pets PH, where your pet's comfort, health, and happiness come first.</p>
+    <UserLayout>
+        <div class="about-container">
+            <div class="hero-section">
+                <div class="content-wrapper">
+                    <h1 class="title">About Us</h1>
+                    <div class="hero-content">
+                        <div class="image-container">
+                            <img src="/images/about/hero-image.jpg" alt="Person with pet" class="hero-image" />
+                            <!-- Removed circle-overlay div -->
+                        </div>
+                        <div class="text-content">
+                            <p class="welcome-text">Welcome to PawPal</p>
+                            <div class="description">
+                                <p>Welcome to Peppa Pets PH, where your pet's comfort, health, and happiness come first.</p>
 
-                            <p>At Peppa Pets, we provide a complete experience tailored to your furry friend's needs. Whether it's a relaxing grooming session, a cozy stay at our pet hotel, expert veterinary care, or quality pet supplies—everything we do is rooted in love and care for animals.</p>
+                                <p>
+                                    At Peppa Pets, we provide a complete experience tailored to your furry friend's needs. Whether it's a relaxing
+                                    grooming session, a cozy stay at our pet hotel, expert veterinary care, or quality pet supplies—everything we do
+                                    is rooted in love and care for animals.
+                                </p>
 
-                            <p>We understand that pets are family, which is why we offer compassionate and personalized services. With our experienced groomers, trusted vets, and caring staff, you can be confident your pets are in good hands. Open daily from 9:00 AM to 8:00 PM, we make it easy for you to give your pet the care they deserve.</p>
+                                <p>
+                                    We understand that pets are family, which is why we offer compassionate and personalized services. With our
+                                    experienced groomers, trusted vets, and caring staff, you can be confident your pets are in good hands. Open daily
+                                    from 9:00 AM to 8:00 PM, we make it easy for you to give your pet the care they deserve.
+                                </p>
 
-                            <p>From stylish grooming to top-notch boarding and health care, Peppa Pets is your one-stop destination for everything your beloved companion needs.</p>
+                                <p>
+                                    From stylish grooming to top-notch boarding and health care, Peppa Pets is your one-stop destination for
+                                    everything your beloved companion needs.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="dedicated-section">
-            <h2>Dedicated To You & Your Pet</h2>
-            <div class="dedicated-content">
-                Our friendly team is here to help you every step of the way. Whether you need advice on pet nutrition, help with choosing the right products, or support with your order, we're just a call or click away. We're passionate about pets and committed to providing you with the best possible service.
+            <div class="dedicated-section">
+                <h2>Dedicated To You & Your Pet</h2>
+                <div class="dedicated-content">
+                    Our friendly team is here to help you every step of the way. Whether you need advice on pet nutrition, help with choosing the
+                    right products, or support with your order, we're just a call or click away. We're passionate about pets and committed to
+                    providing you with the best possible service.
+                </div>
             </div>
         </div>
-    </div>
+    </UserLayout>
 </template>
 
 <style scoped>

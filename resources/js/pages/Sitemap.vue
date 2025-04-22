@@ -1,80 +1,77 @@
 <script setup lang="ts">
 import UserLayout from '@/layouts/user/UserLayout.vue';
-import { h } from 'vue';
-
-defineOptions({
-    layout: h(UserLayout),
-});
 </script>
 
 <template>
-    <div class="sitemap-container">
-        <h1>Sitemap</h1>
+    <UserLayout>
+        <div class="sitemap-container">
+            <h1>Sitemap</h1>
 
-        <div class="sitemap-section">
-            <section>
-                <h2>Main Pages</h2>
-                <ul class="sitemap-list">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/about-us">About Us</a></li>
-                    <li><a href="/contact">Contact Us</a></li>
-                    <li><a href="/help-centre">Help Centre</a></li>
-                </ul>
-            </section>
+            <div class="sitemap-section">
+                <section>
+                    <h2>Main Pages</h2>
+                    <ul class="sitemap-list">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/about-us">About Us</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
+                        <li><a href="/help-centre">Help Centre</a></li>
+                    </ul>
+                </section>
 
-            <section>
-                <h2>Pet Services</h2>
-                <ul class="sitemap-list">
-                    <li>
-                        <a href="/services">Our Services</a>
-                        <ul>
-                            <li><a href="/services/veterinary">Veterinary Care</a></li>
-                            <li><a href="/services/grooming">Pet Grooming</a></li>
-                            <li><a href="/services/vaccination">Vaccination</a></li>
-                            <li><a href="/services/dental">Dental Care</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="/book-appointment">Book Appointment</a></li>
-                </ul>
-            </section>
+                <section>
+                    <h2>Pet Services</h2>
+                    <ul class="sitemap-list">
+                        <li>
+                            <a href="/services">Our Services</a>
+                            <ul>
+                                <li><a href="/services/veterinary">Veterinary Care</a></li>
+                                <li><a href="/services/grooming">Pet Grooming</a></li>
+                                <li><a href="/services/vaccination">Vaccination</a></li>
+                                <li><a href="/services/dental">Dental Care</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/book-appointment">Book Appointment</a></li>
+                    </ul>
+                </section>
 
-            <section>
-                <h2>Pet Care Resources</h2>
-                <ul class="sitemap-list">
-                    <li><a href="/pet-care">Pet Care Hub</a></li>
-                    <li><a href="/faq">FAQ</a></li>
-                    <li><a href="/how-to-register-your-pet">How To Register Your Pet</a></li>
-                </ul>
-            </section>
+                <section>
+                    <h2>Pet Care Resources</h2>
+                    <ul class="sitemap-list">
+                        <li><a href="/pet-care">Pet Care Hub</a></li>
+                        <li><a href="/faq">FAQ</a></li>
+                        <li><a href="/how-to-register-your-pet">How To Register Your Pet</a></li>
+                    </ul>
+                </section>
 
-            <section>
-                <h2>Account & Support</h2>
-                <ul class="sitemap-list">
-                    <li>
-                        <a href="/account">My Account</a>
-                        <ul>
-                            <li><a href="/account/profile">Profile Settings</a></li>
-                            <li><a href="/account/pets">My Pets</a></li>
-                            <li><a href="/account/appointments">My Appointments</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="/prescription">Prescription Regulations</a></li>
-                </ul>
-            </section>
+                <section>
+                    <h2>Account & Support</h2>
+                    <ul class="sitemap-list">
+                        <li>
+                            <a href="/account">My Account</a>
+                            <ul>
+                                <li><a href="/account/profile">Profile Settings</a></li>
+                                <li><a href="/account/pets">My Pets</a></li>
+                                <li><a href="/account/appointments">My Appointments</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/prescription">Prescription Regulations</a></li>
+                    </ul>
+                </section>
 
-            <section>
-                <h2>Legal Information</h2>
-                <ul class="sitemap-list">
-                    <li><a href="/terms-and-conditions">Terms & Conditions</a></li>
-                    <li><a href="/terms-of-use">Terms of Website Use</a></li>
-                    <li><a href="/privacy-policy">Privacy Policy</a></li>
-                    <li><a href="/cookie-policy">Cookie Policy</a></li>
-                    <li><a href="/vet-medicines">Registered Internet Retailer of Veterinary Medicines</a></li>
-                    <li><a href="/secretary">Secretary of State</a></li>
-                </ul>
-            </section>
+                <section>
+                    <h2>Legal Information</h2>
+                    <ul class="sitemap-list">
+                        <li><a href="/terms-and-conditions">Terms & Conditions</a></li>
+                        <li><a href="/terms-of-use">Terms of Website Use</a></li>
+                        <li><a href="/privacy-policy">Privacy Policy</a></li>
+                        <li><a href="/cookie-policy">Cookie Policy</a></li>
+                        <li><a href="/vet-medicines">Registered Internet Retailer of Veterinary Medicines</a></li>
+                        <li><a href="/secretary">Secretary of State</a></li>
+                    </ul>
+                </section>
+            </div>
         </div>
-    </div>
+    </UserLayout>
 </template>
 
 <style scoped>
