@@ -19,7 +19,7 @@ import { getInitials } from '@/composables/useInitials';
 import type { BreadcrumbItem, NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
 import { BriefcaseMedical, LayoutGrid, Home, Menu, LogIn, UserPlus, Info, Bot } from 'lucide-vue-next';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 interface Props {
     breadcrumbs?: BreadcrumbItem[];
@@ -38,7 +38,7 @@ const activeItemStyles = computed(
     () => (url: string) => (isCurrentRoute.value(url) ? 'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100' : ''),
 );
 
-const mainNavItems: NavItem[] = [
+const mainNavItems: NavItem[] = ref([
     {
         title: 'Home',
         href: '/',
@@ -58,30 +58,30 @@ const mainNavItems: NavItem[] = [
         title: 'Dashboard',
         href: '/user/dashboard',
         icon: LayoutGrid,
-		isHidden: computed(()=>!page.props.auth.user).value
+		isHidden: computed(()=>!page.props.auth?.user).value
     },
     {
         title: 'Vet Services',
         href: '/user/vet-services',
         icon: BriefcaseMedical,
-		isHidden: computed(()=>!page.props.auth.user).value
+		isHidden: computed(()=>!page.props.auth?.user).value
     },
-];
+]);
 
-const rightNavItems: NavItem[] = [
+const rightNavItems: NavItem[] = ref([
     {
         title: 'Login',
 		href: '/user/login',
         icon: LogIn,
-		isHidden: computed(()=>page.props.auth.user).value
+		isHidden: computed(()=>page.props.auth?.user).value
     },
     {
         title: 'Register',
 		href: '/user/register',
         icon: UserPlus,
-		isHidden: computed(()=>page.props.auth.user).value
+		isHidden: computed(()=>page.props.auth?.user).value
     },
-];
+]);
 </script>
 
 <template>
@@ -106,9 +106,9 @@ const rightNavItems: NavItem[] = [
                                     <Link
                                         v-for="item in mainNavItems"
                                         :key="item.title"
-                                        :href="item.href"
+                                        :href="item.href ?? ''"
                                         class="flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm font-medium hover:bg-accent"
-                                        :class="`${activeItemStyles(item.href)} ${item?.isHidden  ? 'hidden': ''}`"
+                                        :class="`${activeItemStyles(item.href??'')} ${item?.isHidden  ? 'hidden': ''}`"
                                     >
                                         <component v-if="item.icon" :is="item.icon" class="h-5 w-5" />
                                         {{ item.title }}
@@ -140,16 +140,16 @@ const rightNavItems: NavItem[] = [
                     <NavigationMenu class="ml-10 flex h-full items-stretch">
                         <NavigationMenuList class="flex h-full items-stretch space-x-2">
                             <NavigationMenuItem v-for="(item, index) in mainNavItems" :key="index" :class="`${item.isHidden ? 'hidden': ''} relative flex h-full items-center`">
-                                <Link :href="item.href">
+                                <Link :href="item.href ?? ''">
                                     <NavigationMenuLink
-                                        :class="[navigationMenuTriggerStyle(), activeItemStyles(item.href), 'h-9 cursor-pointer px-3']"
+                                        :class="[navigationMenuTriggerStyle(), activeItemStyles(item.href ?? ''), 'h-9 cursor-pointer px-3']"
                                     >
                                         <component v-if="item.icon" :is="item.icon" class="mr-2 h-4 w-4" />
                                         {{ item.title }}
                                     </NavigationMenuLink>
                                 </Link>
                                 <div
-                                    v-if="isCurrentRoute(item.href)"
+                                    v-if="isCurrentRoute(item.href ?? '')"
                                     class="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"
                                 ></div>
                             </NavigationMenuItem>

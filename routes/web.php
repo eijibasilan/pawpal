@@ -13,8 +13,10 @@ Route::prefix('user')->group(function () {
 		return Inertia::render('user/Dashboard');
 	})->middleware(['auth', 'verified'])->name('user.dashboard');
 
-	Route::prefix('vet-services')->group(function () {
-		Route::get('/', [UserVetServiceController::class, 'index'])->name('user.services');
+	Route::middleware('auth')->group(function () {
+		Route::prefix('vet-services')->group(function () {
+			Route::get('/', [UserVetServiceController::class, 'index'])->name('user.services');
+		});
 	});
 
 	require __DIR__ . '/user/auth.php';

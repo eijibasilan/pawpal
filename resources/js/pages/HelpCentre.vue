@@ -38,7 +38,7 @@ defineOptions({
             <div class="help-card">
                 <h2>Prescriptions</h2>
                 <ul>
-                    <li><router-link to="/prescription">Prescription information</router-link></li>
+                    <li><a href="/prescription">Prescription information</a></li>
                     <li><a href="#">Ordering prescription items</a></li>
                     <li><a href="#">Written prescriptions</a></li>
                     <li><a href="#">Repeat prescriptions</a></li>
@@ -70,7 +70,11 @@ defineOptions({
                 <ul>
                     <li><a href="tel:0929 494 4937">Call us: 0929 494 4937</a></li>
                     <li><a href="email:peppapets.ph@gmail.com">Email us: peppapets.ph@gmail.com</a></li>
-                    <li><a href="loc:1 King Charles corner king alexander kingspoint subdivision, Novaliches, Philippines">Store Location: 1 King Charles corner king alexander kingspoint subdivision, Novaliches, Philippines</a></li>
+                    <li>
+                        <a href="loc:1 King Charles corner king alexander kingspoint subdivision, Novaliches, Philippines"
+                            >Store Location: 1 King Charles corner king alexander kingspoint subdivision, Novaliches, Philippines</a
+                        >
+                    </li>
                 </ul>
             </div>
         </div>
@@ -80,7 +84,11 @@ defineOptions({
             <p>Our customer service team is available from Monday to Sunday, 9am to 8pm</p>
             <div class="contact-buttons">
                 <a href="tel:0929 494 4937" class="contact-button phone">Call Us</a>
-                <a href="mailto:peppapets.ph@gmail.com?subject=Help%20Center%20Inquiry&body=Address:%201%20King%20Charles%20corner%20king%20alexander%20kingspoint%20subdivision,%20Novaliches,%20Philippines" class="contact-button email">Email Us</a>
+                <a
+                    href="mailto:peppapets.ph@gmail.com?subject=Help%20Center%20Inquiry&body=Address:%201%20King%20Charles%20corner%20king%20alexander%20kingspoint%20subdivision,%20Novaliches,%20Philippines"
+                    class="contact-button email"
+                    >Email Us</a
+                >
             </div>
         </div>
     </div>
