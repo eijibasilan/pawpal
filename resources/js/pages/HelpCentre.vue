@@ -1,94 +1,93 @@
 <script setup lang="ts">
 import UserLayout from '@/layouts/user/UserLayout.vue';
+defineOptions({ layout: UserLayout });
 </script>
 
 <template>
-    <UserLayout>
-        <div class="help-container">
-            <div class="header-section">
-                <h1>Help Centre</h1>
-                <p class="subtitle">How can we help you today?</p>
+    <div class="help-container">
+        <div class="header-section">
+            <h1>Help Centre</h1>
+            <p class="subtitle">How can we help you today?</p>
+        </div>
+
+        <div class="help-grid">
+            <div class="help-card">
+                <h2>In-Store Services</h2>
+                <ul>
+                    <li><a href="#">Store locations & hours</a></li>
+                    <li><a href="#">Available payment methods</a></li>
+                    <li><a href="#">Service booking process</a></li>
+                    <li><a href="#">Walk-in appointments</a></li>
+                </ul>
             </div>
 
-            <div class="help-grid">
-                <div class="help-card">
-                    <h2>In-Store Services</h2>
-                    <ul>
-                        <li><a href="#">Store locations & hours</a></li>
-                        <li><a href="#">Available payment methods</a></li>
-                        <li><a href="#">Service booking process</a></li>
-                        <li><a href="#">Walk-in appointments</a></li>
-                    </ul>
-                </div>
-
-                <div class="help-card">
-                    <h2>Pet Care Services</h2>
-                    <ul>
-                        <li><a href="#">Grooming Services</a></li>
-                        <li><a href="#">Pet Hotel & Boarding</a></li>
-                        <li><a href="#">Veterinary Care</a></li>
-                        <li><a href="#">Pet Health Advice</a></li>
-                    </ul>
-                </div>
-
-                <div class="help-card">
-                    <h2>Prescriptions</h2>
-                    <ul>
-                        <li><a href="/prescription">Prescription information</a></li>
-                        <li><a href="#">Ordering prescription items</a></li>
-                        <li><a href="#">Written prescriptions</a></li>
-                        <li><a href="#">Repeat prescriptions</a></li>
-                    </ul>
-                </div>
-
-                <div class="help-card">
-                    <h2>Account & Registration</h2>
-                    <ul>
-                        <li><a href="#">Managing your account</a></li>
-                        <li><a href="#">Password reset</a></li>
-                        <li><a href="#">Pet registration guide</a></li>
-                        <li><a href="#">Updating pet information</a></li>
-                    </ul>
-                </div>
-
-                <div class="help-card">
-                    <h2>Pet Health Hub</h2>
-                    <ul>
-                        <li><a href="#">Pet care guides</a></li>
-                        <li><a href="#">Nutrition advice</a></li>
-                        <li><a href="#">Health tips</a></li>
-                        <li><a href="#">Wellness resources</a></li>
-                    </ul>
-                </div>
-
-                <div class="help-card">
-                    <h2>Contact Us</h2>
-                    <ul>
-                        <li><a href="tel:0929 494 4937">Call us: 0929 494 4937</a></li>
-                        <li><a href="email:peppapets.ph@gmail.com">Email us: peppapets.ph@gmail.com</a></li>
-                        <li>
-                            <a href="loc:1 King Charles corner king alexander kingspoint subdivision, Novaliches, Philippines"
-                                >Store Location: 1 King Charles corner king alexander kingspoint subdivision, Novaliches, Philippines</a
-                            >
-                        </li>
-                    </ul>
-                </div>
+            <div class="help-card">
+                <h2>Pet Care Services</h2>
+                <ul>
+                    <li><a href="#">Grooming Services</a></li>
+                    <li><a href="#">Pet Hotel & Boarding</a></li>
+                    <li><a href="#">Veterinary Care</a></li>
+                    <li><a href="#">Pet Health Advice</a></li>
+                </ul>
             </div>
 
-            <div class="contact-section">
-                <h2>Still need help?</h2>
-                <p>Our customer service team is available from Monday to Sunday, 9am to 8pm</p>
-                <div class="contact-buttons">
-                    <a href="tel:0929 494 4937" class="contact-button phone">Call Us</a>
-                    <a
-                        href="mailto:peppapets.ph@gmail.com?subject=Help%20Center%20Inquiry&body=Address:%201%20King%20Charles%20corner%20king%20alexander%20kingspoint%20subdivision,%20Novaliches,%20Philippines"
-                        class="contact-button email"
-                        >Email Us</a
-                    >
-                </div>
+            <div class="help-card">
+                <h2>Prescriptions</h2>
+                <ul>
+                    <li><a href="/prescription">Prescription information</a></li>
+                    <li><a href="#">Ordering prescription items</a></li>
+                    <li><a href="#">Written prescriptions</a></li>
+                    <li><a href="#">Repeat prescriptions</a></li>
+                </ul>
+            </div>
+
+            <div class="help-card">
+                <h2>Account & Registration</h2>
+                <ul>
+                    <li><a href="#">Managing your account</a></li>
+                    <li><a href="#">Password reset</a></li>
+                    <li><a href="#">Pet registration guide</a></li>
+                    <li><a href="#">Updating pet information</a></li>
+                </ul>
+            </div>
+
+            <div class="help-card">
+                <h2>Pet Health Hub</h2>
+                <ul>
+                    <li><a href="#">Pet care guides</a></li>
+                    <li><a href="#">Nutrition advice</a></li>
+                    <li><a href="#">Health tips</a></li>
+                    <li><a href="#">Wellness resources</a></li>
+                </ul>
+            </div>
+
+            <div class="help-card">
+                <h2>Contact Us</h2>
+                <ul>
+                    <li><a href="tel:0929 494 4937">Call us: 0929 494 4937</a></li>
+                    <li><a href="email:peppapets.ph@gmail.com">Email us: peppapets.ph@gmail.com</a></li>
+                    <li>
+                        <a href="loc:1 King Charles corner king alexander kingspoint subdivision, Novaliches, Philippines"
+                            >Store Location: 1 King Charles corner king alexander kingspoint subdivision, Novaliches, Philippines</a
+                        >
+                    </li>
+                </ul>
             </div>
         </div>
-    </UserLayout>
+
+        <div class="contact-section">
+            <h2>Still need help?</h2>
+            <p>Our customer service team is available from Monday to Sunday, 9am to 8pm</p>
+            <div class="contact-buttons">
+                <a href="tel:0929 494 4937" class="contact-button phone">Call Us</a>
+                <a
+                    href="mailto:peppapets.ph@gmail.com?subject=Help%20Center%20Inquiry&body=Address:%201%20King%20Charles%20corner%20king%20alexander%20kingspoint%20subdivision,%20Novaliches,%20Philippines"
+                    class="contact-button email"
+                    >Email Us</a
+                >
+            </div>
+        </div>
+    </div>
 </template>
 
 <style scoped>

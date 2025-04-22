@@ -38,7 +38,7 @@ const activeItemStyles = computed(
     () => (url: string) => (isCurrentRoute.value(url) ? 'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100' : ''),
 );
 
-const mainNavItems: NavItem[] = ref([
+const mainNavItems = ref<NavItem[]>([
     {
         title: 'Home',
         href: '/',
@@ -68,7 +68,7 @@ const mainNavItems: NavItem[] = ref([
     },
 ]);
 
-const rightNavItems: NavItem[] = ref([
+const rightNavItems= ref<NavItem[]>([
     {
         title: 'Login',
 		href: '/user/login',

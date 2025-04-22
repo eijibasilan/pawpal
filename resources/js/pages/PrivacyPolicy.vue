@@ -1,110 +1,109 @@
 <script setup lang="ts">
 import UserLayout from '@/layouts/user/UserLayout.vue';
+defineOptions({ layout: UserLayout });
 </script>
 
 <template>
-    <UserLayout>
-        <div class="policy-container">
-            <h1>Privacy Policy</h1>
+    <div class="policy-container">
+        <h1>Privacy Policy</h1>
 
-            <div class="intro-section">
-                <p>
-                    At PawPal, we take your privacy seriously. This policy outlines how we collect, use, and protect your personal information when
-                    you use our veterinary services and website.
-                </p>
-            </div>
-
-            <div class="policy-section">
-                <section>
-                    <h2>Information We Collect</h2>
-                    <div class="info-grid">
-                        <div class="info-card">
-                            <h3>Personal Information</h3>
-                            <ul>
-                                <li>Name and contact details</li>
-                                <li>Address and location</li>
-                                <li>Payment information</li>
-                                <li>Emergency contact details</li>
-                            </ul>
-                        </div>
-                        <div class="info-card">
-                            <h3>Pet Information</h3>
-                            <ul>
-                                <li>Pet names and breeds</li>
-                                <li>Medical history</li>
-                                <li>Treatment records</li>
-                                <li>Vaccination records</li>
-                            </ul>
-                        </div>
-                        <div class="info-card">
-                            <h3>Website Usage</h3>
-                            <ul>
-                                <li>Browsing patterns</li>
-                                <li>Device information</li>
-                                <li>IP addresses</li>
-                                <li>Cookie data</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>How We Use Your Information</h2>
-                    <ul>
-                        <li>Provide veterinary care and services</li>
-                        <li>Process appointments and payments</li>
-                        <li>Send appointment reminders and updates</li>
-                        <li>Improve our services and website experience</li>
-                        <li>Comply with legal obligations</li>
-                        <li>Contact you in case of emergencies</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2>Information Security</h2>
-                    <p>We implement appropriate security measures to protect your information:</p>
-                    <ul>
-                        <li>Secure data storage and encryption</li>
-                        <li>Regular security assessments</li>
-                        <li>Staff training on data protection</li>
-                        <li>Limited access to personal information</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2>Your Rights</h2>
-                    <div class="rights-grid">
-                        <div class="right-item">
-                            <h3>Access</h3>
-                            <p>Request copies of your personal data</p>
-                        </div>
-                        <div class="right-item">
-                            <h3>Correction</h3>
-                            <p>Update incorrect information</p>
-                        </div>
-                        <div class="right-item">
-                            <h3>Deletion</h3>
-                            <p>Request removal of your data</p>
-                        </div>
-                        <div class="right-item">
-                            <h3>Restriction</h3>
-                            <p>Limit how we use your data</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Contact Us</h2>
-                    <p>For privacy-related inquiries:</p>
-                    <div class="contact-details">
-                        <p>Email: privacy@pawpal.com</p>
-                        <p>Phone: 099110992</p>
-                        <p>Address: 123 Pet Street, Manila</p>
-                    </div>
-                </section>
-            </div>
+        <div class="intro-section">
+            <p>
+                At PawPal, we take your privacy seriously. This policy outlines how we collect, use, and protect your personal information when you
+                use our veterinary services and website.
+            </p>
         </div>
-    </UserLayout>
+
+        <div class="policy-section">
+            <section>
+                <h2>Information We Collect</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>Personal Information</h3>
+                        <ul>
+                            <li>Name and contact details</li>
+                            <li>Address and location</li>
+                            <li>Payment information</li>
+                            <li>Emergency contact details</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h3>Pet Information</h3>
+                        <ul>
+                            <li>Pet names and breeds</li>
+                            <li>Medical history</li>
+                            <li>Treatment records</li>
+                            <li>Vaccination records</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h3>Website Usage</h3>
+                        <ul>
+                            <li>Browsing patterns</li>
+                            <li>Device information</li>
+                            <li>IP addresses</li>
+                            <li>Cookie data</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>How We Use Your Information</h2>
+                <ul>
+                    <li>Provide veterinary care and services</li>
+                    <li>Process appointments and payments</li>
+                    <li>Send appointment reminders and updates</li>
+                    <li>Improve our services and website experience</li>
+                    <li>Comply with legal obligations</li>
+                    <li>Contact you in case of emergencies</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Information Security</h2>
+                <p>We implement appropriate security measures to protect your information:</p>
+                <ul>
+                    <li>Secure data storage and encryption</li>
+                    <li>Regular security assessments</li>
+                    <li>Staff training on data protection</li>
+                    <li>Limited access to personal information</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Your Rights</h2>
+                <div class="rights-grid">
+                    <div class="right-item">
+                        <h3>Access</h3>
+                        <p>Request copies of your personal data</p>
+                    </div>
+                    <div class="right-item">
+                        <h3>Correction</h3>
+                        <p>Update incorrect information</p>
+                    </div>
+                    <div class="right-item">
+                        <h3>Deletion</h3>
+                        <p>Request removal of your data</p>
+                    </div>
+                    <div class="right-item">
+                        <h3>Restriction</h3>
+                        <p>Limit how we use your data</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Contact Us</h2>
+                <p>For privacy-related inquiries:</p>
+                <div class="contact-details">
+                    <p>Email: privacy@pawpal.com</p>
+                    <p>Phone: 099110992</p>
+                    <p>Address: 123 Pet Street, Manila</p>
+                </div>
+            </section>
+        </div>
+    </div>
 </template>
 
 <style scoped>

@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import UserLayout from '@/layouts/user/UserLayout.vue';
+defineOptions({ layout: UserLayout });
 </script>
 
 <template>
-    <UserLayout>
-        <div>delivery</div>
-    </UserLayout>
+    <div>delivery</div>
 </template>
 
 <style scoped></style>

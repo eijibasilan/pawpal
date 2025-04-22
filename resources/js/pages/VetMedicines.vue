@@ -1,92 +1,92 @@
 <script setup lang="ts">
 import UserLayout from '@/layouts/user/UserLayout.vue';
+
+defineOptions({ layout: UserLayout });
 </script>
 
 <template>
-    <UserLayout>
-        <div class="registration-container">
-            <h1>Registered Internet Retailer of Veterinary Medicines</h1>
+    <div class="registration-container">
+        <h1>Registered Internet Retailer of Veterinary Medicines</h1>
 
-            <div class="registration-section">
-                <section>
-                    <h2>Our Registration</h2>
-                    <div class="registration-info">
-                        <p>
-                            PawPal is a registered internet retailer of veterinary medicines, authorized by the Food and Drug Administration (FDA) of
-                            the Philippines.
-                        </p>
-                        <div class="registration-details">
-                            <p><strong>Registration Number:</strong> VMD-2024-001</p>
-                            <p><strong>Valid Until:</strong> December 31, 2024</p>
-                        </div>
+        <div class="registration-section">
+            <section>
+                <h2>Our Registration</h2>
+                <div class="registration-info">
+                    <p>
+                        PawPal is a registered internet retailer of veterinary medicines, authorized by the Food and Drug Administration (FDA) of the
+                        Philippines.
+                    </p>
+                    <div class="registration-details">
+                        <p><strong>Registration Number:</strong> VMD-2024-001</p>
+                        <p><strong>Valid Until:</strong> December 31, 2024</p>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                <section>
-                    <h2>Our Commitment</h2>
+            <section>
+                <h2>Our Commitment</h2>
+                <ul>
+                    <li>Supply only genuine, FDA-approved veterinary medicines</li>
+                    <li>Maintain proper storage and handling conditions</li>
+                    <li>Ensure accurate product information</li>
+                    <li>Verify prescriptions when required</li>
+                    <li>Maintain complete transaction records</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Medicine Categories We Supply</h2>
+                <div class="medicine-categories">
+                    <div class="category-card">
+                        <h3>Prescription Medicines</h3>
+                        <p>Available only with valid veterinary prescription</p>
+                    </div>
+                    <div class="category-card">
+                        <h3>Non-Prescription Medicines</h3>
+                        <p>Over-the-counter veterinary medicines</p>
+                    </div>
+                    <div class="category-card">
+                        <h3>Supplements</h3>
+                        <p>Nutritional and health supplements</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Quality Assurance</h2>
+                <ul>
+                    <li>Regular quality audits</li>
+                    <li>Temperature-controlled storage</li>
+                    <li>Batch tracking system</li>
+                    <li>Expiry date monitoring</li>
+                    <li>Staff training program</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Prescription Requirements</h2>
+                <div class="requirements-list">
+                    <p>For prescription medicines, we require:</p>
                     <ul>
-                        <li>Supply only genuine, FDA-approved veterinary medicines</li>
-                        <li>Maintain proper storage and handling conditions</li>
-                        <li>Ensure accurate product information</li>
-                        <li>Verify prescriptions when required</li>
-                        <li>Maintain complete transaction records</li>
+                        <li>Valid prescription from a licensed veterinarian</li>
+                        <li>Complete pet and owner information</li>
+                        <li>Prescription date and validity period</li>
+                        <li>Veterinarian's license number and signature</li>
                     </ul>
-                </section>
+                </div>
+            </section>
 
-                <section>
-                    <h2>Medicine Categories We Supply</h2>
-                    <div class="medicine-categories">
-                        <div class="category-card">
-                            <h3>Prescription Medicines</h3>
-                            <p>Available only with valid veterinary prescription</p>
-                        </div>
-                        <div class="category-card">
-                            <h3>Non-Prescription Medicines</h3>
-                            <p>Over-the-counter veterinary medicines</p>
-                        </div>
-                        <div class="category-card">
-                            <h3>Supplements</h3>
-                            <p>Nutritional and health supplements</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Quality Assurance</h2>
-                    <ul>
-                        <li>Regular quality audits</li>
-                        <li>Temperature-controlled storage</li>
-                        <li>Batch tracking system</li>
-                        <li>Expiry date monitoring</li>
-                        <li>Staff training program</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2>Prescription Requirements</h2>
-                    <div class="requirements-list">
-                        <p>For prescription medicines, we require:</p>
-                        <ul>
-                            <li>Valid prescription from a licensed veterinarian</li>
-                            <li>Complete pet and owner information</li>
-                            <li>Prescription date and validity period</li>
-                            <li>Veterinarian's license number and signature</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section class="contact-section">
-                    <h2>Regulatory Inquiries</h2>
-                    <div class="contact-info">
-                        <p>For questions about our registration or medicine supply:</p>
-                        <p>Email: peppapets.ph@gmail.com</p>
-                        <p>Phone: 0929 494 4937</p>
-                        <p>Office Hours: Monday to Friday, 9:00 AM - 5:00 PM</p>
-                    </div>
-                </section>
-            </div>
+            <section class="contact-section">
+                <h2>Regulatory Inquiries</h2>
+                <div class="contact-info">
+                    <p>For questions about our registration or medicine supply:</p>
+                    <p>Email: peppapets.ph@gmail.com</p>
+                    <p>Phone: 0929 494 4937</p>
+                    <p>Office Hours: Monday to Friday, 9:00 AM - 5:00 PM</p>
+                </div>
+            </section>
         </div>
-    </UserLayout>
+    </div>
 </template>
 
 <style scoped>

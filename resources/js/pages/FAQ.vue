@@ -2,6 +2,8 @@
 import UserLayout from '@/layouts/user/UserLayout.vue';
 import { ref } from 'vue';
 
+defineOptions({ layout: UserLayout });
+
 const faqs = ref([
     {
         category: 'General Questions',
@@ -146,38 +148,36 @@ const toggleFAQ = (categoryIndex: number, itemIndex: number) => {
 </script>
 
 <template>
-    <UserLayout>
-        <div class="faq-container">
-            <div class="header-section">
-                <h1>Frequently Asked Questions</h1>
-                <p class="subtitle">Find answers to common questions about our services</p>
-            </div>
+    <div class="faq-container">
+        <div class="header-section">
+            <h1>Frequently Asked Questions</h1>
+            <p class="subtitle">Find answers to common questions about our services</p>
+        </div>
 
-            <div class="faq-list">
-                <div v-for="(category, categoryIndex) in faqs" :key="categoryIndex" class="faq-category">
-                    <h2 class="category-title">{{ category.category }}</h2>
-                    <div v-for="(faq, index) in category.items" :key="index" class="faq-item" :class="{ 'is-open': faq.isOpen }">
-                        <div class="faq-question" @click="toggleFAQ(categoryIndex, index)">
-                            <h3>{{ faq.question }}</h3>
-                            <span class="toggle-icon">{{ faq.isOpen ? '−' : '+' }}</span>
-                        </div>
-                        <div class="faq-answer" v-show="faq.isOpen">
-                            <p>{{ faq.answer }}</p>
-                        </div>
+        <div class="faq-list">
+            <div v-for="(category, categoryIndex) in faqs" :key="categoryIndex" class="faq-category">
+                <h2 class="category-title">{{ category.category }}</h2>
+                <div v-for="(faq, index) in category.items" :key="index" class="faq-item" :class="{ 'is-open': faq.isOpen }">
+                    <div class="faq-question" @click="toggleFAQ(categoryIndex, index)">
+                        <h3>{{ faq.question }}</h3>
+                        <span class="toggle-icon">{{ faq.isOpen ? '−' : '+' }}</span>
+                    </div>
+                    <div class="faq-answer" v-show="faq.isOpen">
+                        <p>{{ faq.answer }}</p>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="contact-section">
-                <h2>Still have questions?</h2>
-                <p>Our team is here to help! Contact us for more information.</p>
-                <div class="contact-buttons">
-                    <a href="tel:099110992" class="contact-button phone">Call Us</a>
-                    <a href="#" class="contact-button email">Email Us</a>
-                </div>
+        <div class="contact-section">
+            <h2>Still have questions?</h2>
+            <p>Our team is here to help! Contact us for more information.</p>
+            <div class="contact-buttons">
+                <a href="tel:099110992" class="contact-button phone">Call Us</a>
+                <a href="#" class="contact-button email">Email Us</a>
             </div>
         </div>
-    </UserLayout>
+    </div>
 </template>
 
 <style scoped>
