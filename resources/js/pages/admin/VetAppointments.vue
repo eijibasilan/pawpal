@@ -1,18 +1,18 @@
 <template>
-    <UserLayout>
+    <AdminLayout>
         <div class="m-3">
             <Heading :title="'Vet Appointments'" :description="'Your veterinary appointments.'" />
 
             <DataTable :columns="columns" :data="props.pagination.data" />
         </div>
-    </UserLayout>
+    </AdminLayout>
 </template>
 
 <script setup lang="ts">
 import DataTable from '@/components/DataTable.vue';
 import Heading from '@/components/Heading.vue';
-import UserLayout from '@/layouts/user/UserLayout.vue';
-import { PaginationResponse, VetAppointment, VetAppointmentSchedule } from '@/types';
+import AdminLayout from '@/layouts/admin/AdminLayout.vue';
+import { PaginationResponse, User, VetAppointment, VetAppointmentSchedule } from '@/types';
 import { ColumnDef } from '@tanstack/vue-table';
 import { h, ref } from 'vue';
 
@@ -26,6 +26,15 @@ const columns = ref<ColumnDef<VetAppointment>[]>([
             const vetAppointmentSchedule = row.getValue('schedule') as VetAppointmentSchedule;
 
             return h('div', { class: 'text-center' }, vetAppointmentSchedule.scheduled_date);
+        },
+    },
+    {
+        accessorKey: 'user',
+        header: () => h('div', { class: 'text-center' }, 'Date'),
+        cell: ({ row }) => {
+            const user = row.getValue('user') as User;
+
+            return h('div', { class: 'text-center' }, user.name);
         },
     },
     {
