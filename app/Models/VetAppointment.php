@@ -13,6 +13,12 @@ class VetAppointment extends Model
 		'details',
 		'status'
 	];
+	protected function casts(): array
+	{
+		return [
+			'details' => 'array',
+		];
+	}
 
 	public function user(): BelongsTo
 	{

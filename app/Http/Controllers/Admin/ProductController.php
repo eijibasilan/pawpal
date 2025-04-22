@@ -9,7 +9,6 @@ use App\Models\ProductCategory;
 use App\Models\Upload;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ProductController extends Controller

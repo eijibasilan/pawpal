@@ -81,6 +81,17 @@ export interface VetAppointmentSchedule {
     scheduled_date: string;
     start_time: string;
     end_time: string;
+    created_at: string;
+    updated_at: string;
     doctor: Admin;
     service: VetService;
+}
+export interface VetAppointment {
+    id: number;
+    details: [key: any];
+    status: 'Pending' | 'Confirmed';
+    created_at: string;
+    updated_at: string;
+    user: User;
+    schedule: VetAppointmentSchedule;
 }
