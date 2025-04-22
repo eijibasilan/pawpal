@@ -24,9 +24,10 @@ class UpsertProductRequest extends FormRequest
 		$rules = [
 			"name" => "required|min:3|unique:products,name,",
 			"product_category_id" => "required|exists:product_categories,id",
+			"product_brand_id" => "required|exists:product_brands,id",
 			"quantity" => "required|numeric",
 			"unit" => "nullable|string",
-			'images' => 'required|array',
+			'images' => 'nullable|array',
 			'images.*' => 'image|mimes:jpeg,png,jpg,jfif,gif|max:2048'
 		];
 

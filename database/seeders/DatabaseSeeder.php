@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
 			AdminSeeder::class,
 			VetServiceSeeder::class,
 			RoleAndPermissionSeeder::class,
-			ProductCategorySeeder::class
+			ProductBrandSeeder::class,
+			ProductCategorySeeder::class,
 		]);
 	}
 }

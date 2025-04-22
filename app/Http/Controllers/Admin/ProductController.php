@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UpsertProductRequest;
 use App\Models\Product;
+use App\Models\ProductBrand;
 use App\Models\ProductCategory;
 use App\Models\Upload;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,8 @@ class ProductController extends Controller
 	public function index()
 	{
 		return Inertia::render('admin/Products', [
-			'pagination' => Inertia::always(Inertia::merge(Product::with('uploads', 'category')->paginate(request('perPage', 5), "*", null, request('page', 1)))),
+			'pagination' => Inertia::always(Inertia::merge(Product::with(['uploads', 'category', 'brand'])->paginate(request('perPage', 5), "*", null, request('page', 1)))),
+			'productBrands' => Inertia::lazy(fn() => ProductBrand::all()),
 			'productCategories' => Inertia::lazy(fn() => ProductCategory::all())
 		]);
 	}

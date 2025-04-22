@@ -56,6 +56,16 @@ export interface VetServiceType {
     service: VetService;
 }
 
+export interface ProductBrand {
+    id: number;
+    name: string;
+    description?: string;
+    created_at: string;
+    updated_at: string;
+    products: Product[];
+    upload: Upload;
+}
+
 export interface ProductCategory {
     id: number;
     name: string;
@@ -72,6 +82,7 @@ export interface Product {
     unit: string;
     created_at: string;
     updated_at: string;
+    brand: ProductBrand;
     category: ProductCategory;
     uploads: Upload[];
 }

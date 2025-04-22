@@ -11,6 +11,7 @@ class Product extends Model
 	protected $fillable = [
 		'name',
 		'product_category_id',
+		'product_brand_id',
 		'quantity',
 		'unit',
 	];
@@ -18,6 +19,11 @@ class Product extends Model
 	public function category(): BelongsTo
 	{
 		return $this->belongsTo(ProductCategory::class, 'product_category_id');
+	}
+
+	public function brand(): BelongsTo
+	{
+		return $this->belongsTo(ProductBrand::class, 'product_brand_id');
 	}
 
 	public function uploads(): MorphMany

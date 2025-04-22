@@ -43,6 +43,23 @@
                             <InputError class="mt-2" :message="form.errors.unit" />
                         </div>
                         <div class="grid gap-2">
+                            <Label for="unit">Brand</Label>
+                            <Select v-model="form.product_brand_id">
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select a brand" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectLabel>Brand</SelectLabel>
+                                        <SelectItem :value="brand.id" v-for="brand in props.productBrands" :key="brand.id">
+                                            {{ brand.name }}
+                                        </SelectItem>
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                            <InputError class="mt-2" :message="form.errors.product_brand_id" />
+                        </div>
+                        <div class="grid gap-2">
                             <Label for="unit">Category</Label>
                             <Select v-model="form.product_category_id">
                                 <SelectTrigger>
@@ -137,7 +154,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { useToast } from '@/components/ui/toast/use-toast';
 import WarningAlert from '@/components/WarningAlert.vue';
 import AdminLayout from '@/layouts/admin/AdminLayout.vue';
-import { PaginationResponse, Product, ProductCategory, Upload, UpsertAction } from '@/types';
+import { PaginationResponse, Product, ProductBrand, ProductCategory, Upload, UpsertAction } from '@/types';
 import { router, useForm, usePage } from '@inertiajs/vue3';
 import { ColumnDef } from '@tanstack/vue-table';
 import { Loader2, Plus, X } from 'lucide-vue-next';
@@ -152,7 +169,7 @@ const warningDeleteFileVisibility = ref<boolean>(false);
 
 const selectedImage = ref<Upload>();
 
-const props = defineProps<{ pagination: PaginationResponse<Product>; productCategories?: ProductCategory[] }>();
+const props = defineProps<{ pagination: PaginationResponse<Product>; productCategories?: ProductCategory[]; productBrands?: ProductBrand[] }>();
 
 const dialogVisibility = ref<boolean>(false);
 
@@ -161,6 +178,15 @@ const columns = ref<ColumnDef<Product>[]>([
         accessorKey: 'name',
         header: () => h('div', { class: 'text-center' }, 'Name'),
         cell: ({ row }) => h('div', { class: 'text-center' }, row.getValue('name')),
+    },
+    {
+        accessorKey: 'brand',
+        header: () => h('div', { class: 'text-center' }, 'Brand'),
+        cell: ({ row }) => {
+            const brand = row.getValue('brand') as ProductBrand;
+
+            return h('div', { class: 'text-center' }, brand.name);
+        },
     },
     {
         accessorKey: 'category',
@@ -202,9 +228,18 @@ const columns = ref<ColumnDef<Product>[]>([
     },
 ]);
 
-const form = useForm<{ name: string; product_category_id: number; quantity: number; unit: string; images: File[]; _method?: string }>({
+const form = useForm<{
+    name: string;
+    product_brand_id: number;
+    product_category_id: number;
+    quantity: number;
+    unit: string;
+    images: File[];
+    _method?: string;
+}>({
     name: '',
     product_category_id: 0,
+    product_brand_id: 0,
     quantity: 0,
     unit: '',
     images: [],
@@ -216,6 +251,7 @@ const openUpsertDialog = (action: UpsertAction, data?: Product) => {
 
     form.name = data?.name ?? '';
     form.product_category_id = data?.category.id ?? 0;
+    form.product_brand_id = data?.brand.id ?? 0;
     form._method = action === 'update' ? 'patch' : '';
     form.quantity = data?.quantity ?? 0;
     form.unit = data?.unit ?? '';
@@ -223,7 +259,7 @@ const openUpsertDialog = (action: UpsertAction, data?: Product) => {
     dialogLoading.value = true;
     selectedAction.value = action;
     router.reload({
-        only: ['productCategories'],
+        only: ['productCategories', 'productBrands'],
         onSuccess: () => {
             dialogLoading.value = false;
             dialogVisibility.value = true;
