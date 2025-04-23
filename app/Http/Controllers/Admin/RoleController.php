@@ -13,7 +13,7 @@ class RoleController extends Controller
 	public function index()
 	{
 		return Inertia::render('admin/Roles', [
-			'pagination' => Inertia::always(Inertia::merge(Role::paginate(request('perPage', 20), "*", null, request('page', 1)))),
+			'pagination' => Inertia::always(Inertia::merge(Role::orderBy(request('sortField', 'name'), request('sortDirection', 'desc'))->paginate(request('perPage', 5), "*", null, request('page', 1)))),
 		]);
 	}
 

@@ -7,7 +7,7 @@
                 <Plus class="h-4 w-4" />
             </Button>
 
-            <DataTable :columns="columns" :data="props.pagination.data" />
+            <DataTable :columns="columns" :pagination="props.pagination" />
         </div>
 
         <Dialog :open="dialogVisibility">

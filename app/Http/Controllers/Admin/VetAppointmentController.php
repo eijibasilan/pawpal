@@ -13,7 +13,7 @@ class VetAppointmentController extends Controller
 	{
 		$vetAppointments = VetAppointment::with(['schedule.doctor', 'schedule.service', 'user'])->whereHas('schedule', function ($query) {
 			$query->where('doctor_id', auth('admin')->user()->id);
-		})->paginate(request('perPage', 20), "*", null, request('page', 1));
+		})->orderBy(request('sortField', ''), request('sortDirection', 'desc'))->paginate(request('perPage', 5), "*", null, request('page', 1));
 
 		return Inertia::render('admin/VetAppointments', [
 			'pagination' => Inertia::always(Inertia::merge($vetAppointments)),

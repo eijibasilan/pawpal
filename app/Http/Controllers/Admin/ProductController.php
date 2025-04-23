@@ -17,7 +17,7 @@ class ProductController extends Controller
 	public function index()
 	{
 		return Inertia::render('admin/Products', [
-			'pagination' => Inertia::always(Inertia::merge(Product::with(['uploads', 'category', 'brand'])->paginate(request('perPage', 20), "*", null, request('page', 1)))),
+			'pagination' => Inertia::always(Inertia::merge(Product::with(['uploads', 'category', 'brand'])->orderBy(request('sortField', 'name'), request('sortDirection', 'desc'))->paginate(request('perPage', 5), "*", null, request('page', 1)))),
 			'productBrands' => Inertia::lazy(fn() => ProductBrand::all()),
 			'productCategories' => Inertia::lazy(fn() => ProductCategory::all())
 		]);

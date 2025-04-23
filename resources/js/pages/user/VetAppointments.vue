@@ -3,7 +3,7 @@
         <div class="m-3">
             <Heading :title="'Vet Appointments'" :description="'Your veterinary appointments.'" />
 
-            <DataTable :columns="columns" :data="props.pagination.data" />
+            <DataTable :columns="columns" :pagination="props.pagination" />
         </div>
     </UserLayout>
 </template>
