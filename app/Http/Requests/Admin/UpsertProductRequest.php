@@ -23,6 +23,7 @@ class UpsertProductRequest extends FormRequest
 	{
 		$rules = [
 			"name" => "required|min:3|unique:products,name,",
+			"description" => "nullable|string",
 			"product_category_id" => "required|exists:product_categories,id",
 			"product_brand_id" => "required|exists:product_brands,id",
 			"quantity" => "required|numeric",
