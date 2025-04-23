@@ -25,6 +25,17 @@
                             <InputError class="mt-2" :message="form.errors.name" />
                         </div>
                         <div class="grid gap-2">
+                            <Label for="description">Description</Label>
+                            <Textarea
+                                id="description"
+                                class="mt-1 block w-full"
+                                v-model="form.description"
+                                autocomplete="description"
+                                placeholder="description"
+                            />
+                            <InputError class="mt-2" :message="form.errors.description" />
+                        </div>
+                        <div class="grid gap-2">
                             <Label for="quantity">Quantity</Label>
                             <Input
                                 type="number"
@@ -151,6 +162,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/toast/use-toast';
 import WarningAlert from '@/components/WarningAlert.vue';
 import AdminLayout from '@/layouts/admin/AdminLayout.vue';
@@ -230,6 +242,7 @@ const columns = ref<ColumnDef<Product>[]>([
 
 const form = useForm<{
     name: string;
+    description: string;
     product_brand_id: number;
     product_category_id: number;
     quantity: number;
@@ -238,6 +251,7 @@ const form = useForm<{
     _method?: string;
 }>({
     name: '',
+    description: '',
     product_category_id: 0,
     product_brand_id: 0,
     quantity: 0,

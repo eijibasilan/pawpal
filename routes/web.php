@@ -8,10 +8,7 @@ use Inertia\Inertia;
 require __DIR__ . '/publicRoutes.php';
 
 Route::prefix('user')->group(function () {
-	Route::get('dashboard', function () {
-		return Inertia::render('user/Dashboard');
-	})->middleware(['auth', 'verified'])->name('user.dashboard');
-
+	require __DIR__ . '/user/products.php';
 	require __DIR__ . '/user/vetServices.php';
 	require __DIR__ . '/user/auth.php';
 	require __DIR__ . '/user/settings.php';
