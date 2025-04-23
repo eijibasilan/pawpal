@@ -34,11 +34,15 @@ class StoreVetAppointmentRequest extends FormRequest
 		return [
 			"vet_service_id" => "required|exists:vet_services,id",
 			"vet_service_type_id" => [
-				"nullable",
+				Rule::requiredIf(function () {
+					$vetService = VetService::with('types')->find($this->vet_service_id);
+
+					return $vetService && count($vetService->types) > 0;
+				}),
 				Rule::prohibitedIf(function () {
 					$vetService = VetService::with('types')->find($this->vet_service_id);
 
-					return empty($vetService->types);
+					return $vetService && count($vetService->types) <= 0;
 				}),
 				"exists:vet_service_types,id"
 			],
