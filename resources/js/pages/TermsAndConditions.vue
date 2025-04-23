@@ -87,7 +87,7 @@ defineOptions({ layout: UserLayout });
 
         <div class="contact-info">
             <p>For questions about these terms, please contact us at:</p>
-            <p>Phone: 099110992</p>
+            <p>Phone: 0929 494 4937</p>
             <p>Email: peppapets.ph@gmail.com</p>
         </div>
     </div>

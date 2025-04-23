@@ -87,9 +87,10 @@ defineOptions({ layout: UserLayout });
                     </div>
                     <div class="contact-card">
                         <h3>Operating Hours</h3>
-                        <p>Monday to Friday: 9:00 AM - 5:00 PM</p>
-                        <p>Saturday: 9:00 AM - 12:00 PM</p>
-                        <p>Sunday: Closed</p>
+                        <p>Monday: 8:00 AM - 6:00 PM</p>
+                        <p>Tuesday: CLOSED</p>
+                        <p>Wednesday - Thursday: 8:00 AM - 6:00 PM</p>
+                        <p>Friday - Sunday: 8:00 AM - 8:00 PM</p>
                     </div>
                 </div>
             </section>

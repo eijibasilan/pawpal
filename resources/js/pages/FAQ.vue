@@ -10,7 +10,7 @@ const faqs = ref([
         items: [
             {
                 question: 'What are your clinic hours?',
-                answer: 'Our clinic is open Monday through Sunday from 9:00 AM to 8:00 PM, including public holidays. Our team is ready to assist you and your pets during these hours.',
+                answer: 'Our clinic hours are: Monday: 8:00 AM - 6:00 PM, Tuesday: CLOSED, Wednesday - Thursday: 8:00 AM - 6:00 PM, Friday - Sunday: 8:00 AM - 8:00 PM. Our team is ready to assist you and your pets during these hours.',
                 isOpen: false,
             },
             {
@@ -169,13 +169,10 @@ const toggleFAQ = (categoryIndex: number, itemIndex: number) => {
             </div>
         </div>
 
-        <div class="contact-section">
-            <h2>Still have questions?</h2>
-            <p>Our team is here to help! Contact us for more information.</p>
-            <div class="contact-buttons">
-                <a href="tel:099110992" class="contact-button phone">Call Us</a>
-                <a href="#" class="contact-button email">Email Us</a>
-            </div>
+        <div class="contact-box">
+            <h3>Still have questions?</h3>
+            <p>Our team is here to help. Contact us at:</p>
+            <a href="tel:0929 494 4937" class="phone-link">0929 494 4937</a>
         </div>
     </div>
 </template>
@@ -339,5 +336,40 @@ const toggleFAQ = (categoryIndex: number, itemIndex: number) => {
     font-size: 1.1rem;
     margin: 0;
     flex: 1;
+}
+
+.contact-box {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f0f8ff;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.contact-box h3 {
+    color: #4682b4;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.contact-box p {
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.phone-link {
+    display: inline-block;
+    color: #4682b4;
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.phone-link:hover {
+    color: #386890;
+    text-decoration: underline;
 }
 </style>

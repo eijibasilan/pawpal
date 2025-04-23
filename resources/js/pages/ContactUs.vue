@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import UserLayout from '@/layouts/user/UserLayout.vue';
+import { Facebook, Instagram } from 'lucide-vue-next';
 defineOptions({ layout: UserLayout });
 </script>
 
@@ -16,17 +17,21 @@ defineOptions({ layout: UserLayout });
         <div class="contact-details">
             <div class="detail-section">
                 <h2>Email:</h2>
-                <p><a href="mailto:support@pawpal.com" class="highlight">support@pawpal.com</a></p>
+                <p><a href="mailto:peppapets.ph@gmail.com" class="highlight">peppapets.ph@gmail.com</a></p>
             </div>
 
             <div class="detail-section">
                 <h2>Phone number:</h2>
-                <p class="highlight">099110992</p>
+                <p class="highlight">0929 494 4937
+                </p>
             </div>
 
             <div class="detail-section">
                 <h2>Our customer services team is available:</h2>
-                <p>Monday - Sunday: 9:00 AM - 8:00 PM</p>
+                <p>Monday: 8:00 AM - 6:00 PM</p>
+                <p>Tuesday: CLOSED</p>
+                <p>Wednesday - Thursday: 8:00 AM - 6:00 PM</p>
+                <p>Friday - Sunday: 8:00 AM - 8:00 PM</p>
                 <p>Including Public Holidays</p>
             </div>
 
@@ -34,16 +39,23 @@ defineOptions({ layout: UserLayout });
                 <h2>Address:</h2>
                 <div class="address">
                     <p>PawPal</p>
-                    <p>123 Pet Street</p>
-                    <p>Manila</p>
+                    <p>
+                        1 King Charles corner king alexander kingspoint subdivision,</p>
+                    <p>Novaliches, Philippines</p>
                 </div>
             </div>
 
             <div class="detail-section">
                 <h2>Social Media:</h2>
                 <div class="social-links">
-                    <a href="https://www.facebook.com/PeppaPetsPH" target="_blank">Facebook</a>
-                    <a href="https://instagram.com/peppapets" target="_blank">Instagram</a>
+                    <a href="https://www.facebook.com/PeppaPetsPH" target="_blank" class="social-link">
+                        <Facebook class="social-icon" />
+                        <span>Facebook</span>
+                    </a>
+                    <a href="https://instagram.com/peppapets" target="_blank" class="social-link">
+                        <Instagram class="social-icon" />
+                        <span>Instagram</span>
+                    </a>
                 </div>
             </div>
 
@@ -107,7 +119,25 @@ defineOptions({ layout: UserLayout });
 
 .social-links {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #4682b4;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.social-link:hover {
+    color: #386890;
+}
+
+.social-icon {
+    width: 20px;
+    height: 20px;
 }
 
 .social-links a {

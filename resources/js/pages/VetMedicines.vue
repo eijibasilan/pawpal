@@ -82,7 +82,7 @@ defineOptions({ layout: UserLayout });
                     <p>For questions about our registration or medicine supply:</p>
                     <p>Email: peppapets.ph@gmail.com</p>
                     <p>Phone: 0929 494 4937</p>
-                    <p>Office Hours: Monday to Friday, 9:00 AM - 5:00 PM</p>
+                    <p>Office Hours: Monday: 8:00 AM - 6:00 PM, Tuesday: CLOSED, Wednesday - Thursday: 8:00 AM - 6:00 PM, Friday - Saturday: 8:00 AM - 8:00 PM</p>
                 </div>
             </section>
         </div>

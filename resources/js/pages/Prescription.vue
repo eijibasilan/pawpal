@@ -49,7 +49,7 @@ defineOptions({ layout: UserLayout });
         <div class="contact-box">
             <h3>Need assistance with your prescription?</h3>
             <p>Our team is here to help. Contact us at:</p>
-            <a href="tel:099110992" class="phone-link">099110992</a>
+            <a href="tel:0929 494 4937" class="phone-link">0929 494 4937</a>
         </div>
     </div>
 </template>

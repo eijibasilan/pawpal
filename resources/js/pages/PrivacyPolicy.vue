@@ -97,9 +97,9 @@ defineOptions({ layout: UserLayout });
                 <h2>Contact Us</h2>
                 <p>For privacy-related inquiries:</p>
                 <div class="contact-details">
-                    <p>Email: privacy@pawpal.com</p>
-                    <p>Phone: 099110992</p>
-                    <p>Address: 123 Pet Street, Manila</p>
+                    <p>Email: peppapets.ph@gmail.com</p>
+                    <p>Phone: 0929 494 4937</p>
+                    <p>Address: 1 King Charles corner king alexander kingspoint subdivision, Novaliches, Philippines</p>
                 </div>
             </section>
         </div>
