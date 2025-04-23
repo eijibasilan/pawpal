@@ -18,7 +18,7 @@ class VetServiceController extends Controller
 	public function index()
 	{
 		return Inertia::render('admin/VetServices', [
-			'pagination' => Inertia::always(Inertia::merge(VetService::with('uploads', 'types')->orderBy(request('sortField', 'name'), request('sortDirection', 'desc'))->paginate(request('perPage', 5), "*", null, request('page', 1)))),
+			'pagination' => Inertia::always(Inertia::merge(VetService::with('uploads', 'types')->orderBy(request('sortField', 'created_at'), request('sortDirection', 'desc'))->paginate(request('perPage', 5), "*", null, request('page', 1)))),
 		]);
 	}
 

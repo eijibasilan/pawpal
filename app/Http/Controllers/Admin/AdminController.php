@@ -19,7 +19,7 @@ class AdminController extends Controller
 	public function index()
 	{
 		return Inertia::render('admin/Accounts', [
-			'pagination' => Inertia::always(Inertia::merge(Admin::with('roles')->orderBy(request('sortField', 'name'), request('sortDirection', 'desc'))->paginate(request('perPage', 5), "*", null, request('page', 1)))),
+			'pagination' => Inertia::always(Inertia::merge(Admin::with('roles')->orderBy(request('sortField', 'created_at'), request('sortDirection', 'desc'))->paginate(request('perPage', 5), "*", null, request('page', 1)))),
 			'roles' => Inertia::lazy(fn() => Role::all())
 		]);
 	}
