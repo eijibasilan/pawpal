@@ -18,7 +18,7 @@ import UserMenuContent from '@/components/UserMenuContent.vue';
 import { getInitials } from '@/composables/useInitials';
 import type { BreadcrumbItem, NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { BriefcaseMedical, LayoutGrid, Home, Menu, LogIn, UserPlus, Info, Calendar1 } from 'lucide-vue-next';
+import { BriefcaseMedical, HandHelping, Home, Menu, LogIn, UserPlus, Info, Calendar1, ShoppingBasket } from 'lucide-vue-next';
 import { computed, ref } from 'vue';
 
 interface Props {
