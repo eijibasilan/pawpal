@@ -11,9 +11,10 @@
 <script setup lang="ts">
 import DataTable from '@/components/DataTable.vue';
 import Heading from '@/components/Heading.vue';
+import ViewImageDialog from '@/components/user/ViewImageDialog.vue';
 import AdminLayout from '@/layouts/admin/AdminLayout.vue';
 import { PaginationResponse, Upload, User, VetAppointment, VetAppointmentSchedule } from '@/types';
-import { usePage } from '@inertiajs/vue3';
+
 import { ColumnDef } from '@tanstack/vue-table';
 import { h, ref } from 'vue';
 
@@ -22,11 +23,10 @@ const props = defineProps<{ pagination: PaginationResponse<VetAppointment> }>();
 const columns = ref<ColumnDef<VetAppointment>[]>([
     {
         accessorKey: 'upload',
-        header: () => h('div', { class: 'text-center' }, 'View'),
+        header: () => h('div', { class: 'text-center' }, 'View Transaction'),
         cell: ({ row }) => {
             const upload = row.getValue('upload') as Upload;
-
-            return h('img', { class: 'text-center max-w-[100px]', src: `${usePage().props.appUrl}${upload.url}` });
+            return h(ViewImageDialog, { upload: upload, title: 'Proof of Transaction' });
         },
     },
     {

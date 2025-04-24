@@ -131,12 +131,16 @@
                     </div>
 
                     <div class="grid grid-cols-1 gap-3" v-if="stepIndex === 2">
+                        <div class="my-5 flex justify-center">
+                            <img class="max-w-[150px]" src="../../../assets/sample_qr_code.png" alt="" />
+                        </div>
                         <div class="grid gap-2">
-                            <Label for="images">Images</Label>
+                            <Label for="images">Upload the proof of your transaction</Label>
                             <Input
                                 id="images"
                                 type="file"
                                 class="block w-full"
+                                required
                                 accept="image/png, image/jpeg"
                                 @change="handleFileUpload"
                                 autocomplete="Proof of transaction"
@@ -151,7 +155,10 @@
                             <Button :disabled="stepIndex === 1" variant="outline" size="sm" @click="stepIndex -= 1"> Back </Button>
                             <div class="flex items-center gap-3">
                                 <Button v-if="stepIndex !== steps.length" type="submit" size="sm" @click="stepIndex += 1"> Next </Button>
-                                <Button v-if="stepIndex === steps.length" size="sm" type="submit"> Submit </Button>
+                                <Button v-if="stepIndex === steps.length" size="sm" type="submit" :disabled="formProcessing">
+                                    <Loader2 v-if="formProcessing"></Loader2>
+                                    Submit
+                                </Button>
                             </div>
                         </div>
                     </DialogFooter>

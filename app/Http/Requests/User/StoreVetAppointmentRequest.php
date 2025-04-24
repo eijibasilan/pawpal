@@ -53,7 +53,7 @@ class StoreVetAppointmentRequest extends FormRequest
 
 			],
 			"time" => "required|date_format:H:i:s",
-			'image' => 'image|mimes:jpeg,png,jpg,jfif,gif|max:2048'
+			'image' => 'required|image|mimes:jpeg,png,jpg,jfif,gif|max:2048'
 		];
 	}
 

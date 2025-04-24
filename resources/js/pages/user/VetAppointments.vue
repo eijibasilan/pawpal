@@ -11,14 +11,23 @@
 <script setup lang="ts">
 import DataTable from '@/components/DataTable.vue';
 import Heading from '@/components/Heading.vue';
+import ViewImageDialog from '@/components/user/ViewImageDialog.vue';
 import UserLayout from '@/layouts/user/UserLayout.vue';
-import { PaginationResponse, VetAppointment, VetAppointmentSchedule } from '@/types';
+import { PaginationResponse, Upload, VetAppointment, VetAppointmentSchedule } from '@/types';
 import { ColumnDef } from '@tanstack/vue-table';
 import { h, ref } from 'vue';
 
 const props = defineProps<{ pagination: PaginationResponse<VetAppointment> }>();
 
 const columns = ref<ColumnDef<VetAppointment>[]>([
+    {
+        accessorKey: 'upload',
+        header: () => h('div', { class: 'text-center' }, 'View Transaction'),
+        cell: ({ row }) => {
+            const upload = row.getValue('upload') as Upload;
+            return h(ViewImageDialog, { upload: upload, title: 'Proof of Transaction' });
+        },
+    },
     {
         accessorKey: 'schedule',
         header: () => h('div', { class: 'text-center' }, 'User'),
