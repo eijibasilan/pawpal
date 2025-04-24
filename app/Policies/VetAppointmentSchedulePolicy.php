@@ -3,11 +3,10 @@
 namespace App\Policies;
 
 use App\Models\Admin;
-class AdminPolicy
+
+
+class VetAppointmentSchedulePolicy
 {
-	/**
-	 * Determine whether the user can view any models.
-	 */
 	public function viewAny(Admin $admin): bool
 	{
 		return $admin->hasRole(['Admin']);
@@ -19,7 +18,7 @@ class AdminPolicy
 	public function store(Admin $admin): bool
 	{
 
-		return $admin->hasRole(['Super Admin']);
+		return $admin->hasRole(['Admin']);
 	}
 
 	/**
@@ -28,7 +27,7 @@ class AdminPolicy
 	public function update(Admin $admin): bool
 	{
 
-		return $admin->hasRole(['Super Admin']);
+		return $admin->hasRole(['Admin']);
 	}
 
 	/**
@@ -36,6 +35,6 @@ class AdminPolicy
 	 */
 	public function delete(Admin $admin): bool
 	{
-		return $admin->hasRole(['Super Admin']);
+		return $admin->hasRole(['Admin']);
 	}
 }
