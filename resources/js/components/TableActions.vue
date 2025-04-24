@@ -17,6 +17,8 @@ import { ref } from 'vue';
 
 const emits = defineEmits(['update', 'delete']);
 
+const props = defineProps<{ hideEdit?: boolean; hideDelete?: boolean }>();
+
 interface ActionButtons {
     name: string;
     component: any;
@@ -28,7 +30,7 @@ interface ActionButtons {
 const buttons = ref<ActionButtons[]>([
     {
         name: 'Edit',
-        class: 'cursor-pointer ml-2',
+        class: `cursor-pointer ml-2 ${(props?.hideEdit ?? false) ? 'hidden' : ''}`,
         component: Pencil,
         events: {
             click: () => {
@@ -39,7 +41,7 @@ const buttons = ref<ActionButtons[]>([
     {
         name: 'Delete',
         component: Trash,
-        class: 'cursor-pointer ml-2',
+        class: `cursor-pointer ml-2 ${(props?.hideDelete ?? false) ? 'hidden' : ''}`,
         events: {
             click: () => {
                 emits('delete');

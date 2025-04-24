@@ -11,6 +11,7 @@
 <script setup lang="ts">
 import DataTable from '@/components/DataTable.vue';
 import Heading from '@/components/Heading.vue';
+import Badge from '@/components/ui/badge/Badge.vue';
 import ViewImageDialog from '@/components/user/ViewImageDialog.vue';
 import UserLayout from '@/layouts/user/UserLayout.vue';
 import { PaginationResponse, Upload, VetAppointment, VetAppointmentSchedule } from '@/types';
@@ -58,7 +59,7 @@ const columns = ref<ColumnDef<VetAppointment>[]>([
     {
         accessorKey: 'status',
         header: () => h('div', { class: 'text-center' }, 'Status'),
-        cell: ({ row }) => h('div', { class: 'text-center' }, row.getValue('status')),
+        cell: ({ row }) => h(Badge, { text: row.getValue('status') as string, variant: badgeVariant(row.getValue('status')) }),
     },
     {
         accessorKey: 'created_at',
@@ -66,4 +67,18 @@ const columns = ref<ColumnDef<VetAppointment>[]>([
         cell: ({ row }) => h('div', { class: 'text-center' }, row.getValue('created_at')),
     },
 ]);
+
+const badgeVariant: (text: string) => 'secondary' | 'destructive' | 'default' | 'outline' = (text: string) => {
+    let variant: 'secondary' | 'destructive' | 'default' | 'outline' = 'secondary';
+    switch (text) {
+        case 'Approved':
+            variant = 'default';
+            break;
+        case 'Cancelled':
+            variant = 'destructive';
+            break;
+    }
+
+    return variant;
+};
 </script>
