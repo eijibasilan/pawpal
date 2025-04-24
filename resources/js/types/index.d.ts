@@ -60,6 +60,12 @@ export interface CustomDialogEvent {
     closeDialog: void;
 }
 
+export interface StepperItemData {
+    step: number;
+    title: string;
+    description?: string;
+}
+
 export type UpsertAction = 'update' | 'insert';
 
 export * from './schema';

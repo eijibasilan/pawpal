@@ -11,7 +11,7 @@ class VetAppointmentController extends Controller
 {
 	public function index()
 	{
-		$vetAppointments = VetAppointment::with(['schedule.doctor', 'schedule.service', 'user'])->whereHas('schedule', function ($query) {
+		$vetAppointments = VetAppointment::with(['schedule.doctor', 'schedule.service', 'user', 'upload'])->whereHas('schedule', function ($query) {
 			$query->where('doctor_id', auth('admin')->user()->id);
 		})->orderBy(request('sortField', 'created_at'), request('sortDirection', 'desc'))->paginate(request('perPage', 5), "*", null, request('page', 1));
 

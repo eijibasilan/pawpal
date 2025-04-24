@@ -35,15 +35,27 @@
             </div>
         </div>
         <Dialog :open="dialogVisibility">
-            <DialogContent class="max-h-[90dvh] overflow-y-auto sm:max-w-[425px]" @close-dialog="() => (dialogVisibility = false)">
-                <form @submit.prevent="submit">
-                    <DialogHeader>
-                        <DialogTitle>Book you appointment now!</DialogTitle>
-                        <DialogDescription>
-                            <InputError class="mt-1" :message="error" v-for="(error, key) in form.errors" :key="key" />
-                        </DialogDescription>
-                    </DialogHeader>
-                    <div class="mt-4 grid grid-cols-1 gap-3">
+            <DialogContent class="max-h-[90dvh] overflow-y-auto sm:max-w-[635px]" @close-dialog="() => (dialogVisibility = false)">
+                <DialogHeader>
+                    <DialogTitle>Book you appointment now!</DialogTitle>
+                    <DialogDescription>
+                        <InputError class="mt-1" :message="error" v-for="(error, key) in form.errors" :key="key" />
+                    </DialogDescription>
+                </DialogHeader>
+
+                <Steppers :steps="steps" :stepIndex="stepIndex" />
+                <form
+                    @submit.prevent="
+                        (e) => {
+                            e.preventDefault();
+
+                            if (stepIndex === steps.length) {
+                                submit();
+                            }
+                        }
+                    "
+                >
+                    <div class="mt-4 grid grid-cols-1 gap-3" v-if="stepIndex === 1">
                         <div class="grid gap-2">
                             <Label for="vetService">Vet Service</Label>
                             <Select v-model="form.vet_service_id">
@@ -118,11 +130,30 @@
                         </div>
                     </div>
 
+                    <div class="grid grid-cols-1 gap-3" v-if="stepIndex === 2">
+                        <div class="grid gap-2">
+                            <Label for="images">Images</Label>
+                            <Input
+                                id="images"
+                                type="file"
+                                class="block w-full"
+                                accept="image/png, image/jpeg"
+                                @change="handleFileUpload"
+                                autocomplete="Proof of transaction"
+                                placeholder="Proof of transaction"
+                            />
+                            <InputError class="mt-2" :message="form.errors.image" />
+                        </div>
+                    </div>
+
                     <DialogFooter class="mt-5">
-                        <Button type="submit" :disabled="formProcessing">
-                            <Loader2 v-if="formProcessing" class="h-4 w-4 animate-spin" />
-                            Save
-                        </Button>
+                        <div class="flex items-center gap-4">
+                            <Button :disabled="stepIndex === 1" variant="outline" size="sm" @click="stepIndex -= 1"> Back </Button>
+                            <div class="flex items-center gap-3">
+                                <Button v-if="stepIndex !== steps.length" type="submit" size="sm" @click="stepIndex += 1"> Next </Button>
+                                <Button v-if="stepIndex === steps.length" size="sm" type="submit"> Submit </Button>
+                            </div>
+                        </div>
                     </DialogFooter>
                 </form>
             </DialogContent>
@@ -133,18 +164,20 @@
 <script setup lang="ts">
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
+import Steppers from '@/components/Steppers.vue';
 import Button from '@/components/ui/button/Button.vue';
 import { Calendar } from '@/components/ui/calendar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/components/ui/toast/use-toast';
 import { useDateFormat } from '@/composables/useDateFormat';
 import UserLayout from '@/layouts/user/UserLayout.vue';
-import { BreadcrumbItem, VetAppointmentSchedule, VetService } from '@/types';
+import { BreadcrumbItem, StepperItemData, VetAppointmentSchedule, VetService } from '@/types';
 import { router, useForm, usePage } from '@inertiajs/vue3';
 import { DateFormatter, type DateValue, getLocalTimeZone, today } from '@internationalized/date';
 import Autoplay from 'embla-carousel-autoplay';
@@ -165,6 +198,20 @@ const { toast } = useToast();
 const formProcessing = ref<boolean>(false);
 const dialogVisibility = ref<boolean>(false);
 const dialogLoading = ref<boolean>(false);
+
+const stepIndex = ref<number>(1);
+const steps = ref<StepperItemData[]>([
+    {
+        step: 1,
+        title: 'Pick service and date time',
+        description: 'Select your preferred service and check for available dates',
+    },
+    {
+        step: 2,
+        title: 'Proceed with the payment',
+        description: 'Pay via the QR and upload the proof of transaction',
+    },
+]);
 
 const selectedVetService: ComputedRef<VetService | undefined> = computed(() => {
     return props?.vetServices?.find((vetService) => vetService?.id == form.vet_service_id);
@@ -196,12 +243,29 @@ const isDateUnavailable: CalendarRootProps['isDateDisabled'] = (date) => {
     return !dates.some((row) => row.year === date.year && row.month === date.month && row.day === date.day);
 };
 
-const form = useForm<{ scheduled_date: DateValue; vet_service_id: number; time: string; vet_service_type_id?: number; [key: string]: any }>({
+const form = useForm<{
+    scheduled_date: DateValue;
+    vet_service_id: number;
+    time: string;
+    vet_service_type_id?: number;
+    image: File | null;
+    [key: string]: any;
+}>({
     scheduled_date: today(getLocalTimeZone()),
     time: '',
     vet_service_id: 0,
     vet_service_type_id: 0,
+    image: null,
 });
+
+const handleFileUpload = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    const files: FileList | null = target.files;
+
+    if (files) {
+        form.image = files[0];
+    }
+};
 
 const dateFormatter = new DateFormatter('en-US', {
     dateStyle: 'long',
