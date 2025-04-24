@@ -3,7 +3,7 @@
         <div class="m-3">
             <Heading :title="'Admin Accounts'" :description="'Manage your admin accounts here.'" />
 
-            <Button variant="ghost" size="icon" @click="openUpsertDialog('insert')">
+            <Button variant="ghost" size="icon" @click="openUpsertDialog('insert')" v-if="adminRoles.includes('Super Admin')">
                 <Loader2 class="h-4 w-4 animate-spin" v-if="dialogLoading" />
                 <Plus class="h-4 w-4" v-else />
             </Button>
@@ -117,11 +117,12 @@ import { useToast } from '@/components/ui/toast/use-toast';
 import WarningAlert from '@/components/WarningAlert.vue';
 import AdminLayout from '@/layouts/admin/AdminLayout.vue';
 import { Admin, PaginationResponse, Role, UpsertAction } from '@/types';
-import { router, useForm } from '@inertiajs/vue3';
+import { router, useForm, usePage } from '@inertiajs/vue3';
 import { ColumnDef } from '@tanstack/vue-table';
 import { Loader2, Plus } from 'lucide-vue-next';
 import { h, ref } from 'vue';
 
+const adminRoles = ref<string[]>(usePage().props.auth.adminRoles);
 const { toast } = useToast();
 const selectedAction = ref<UpsertAction>('insert');
 const selectedRow = ref<Admin>();
@@ -161,6 +162,8 @@ const columns = ref<ColumnDef<Admin>[]>([
         cell: ({ row }) =>
             h(TableActions, {
                 class: 'text-center',
+                hideEdit: !adminRoles.value.includes('Super Admin'),
+                hideDelete: !adminRoles.value.includes('Super Admin'),
                 onUpdate: () => openUpsertDialog('update', row.original as Admin),
                 onDelete: () => {
                     selectedRow.value = row.original as Admin;

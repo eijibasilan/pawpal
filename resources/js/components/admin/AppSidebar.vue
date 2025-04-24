@@ -5,14 +5,18 @@ import NavFooter from '@/components/admin/NavFooter.vue';
 import NavMain from '@/components/admin/NavMain.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import { AudioWaveform, BriefcaseMedical, Calendar, Calendar1, Layers, LayoutGrid, PawPrint, User, UserCog, Users } from 'lucide-vue-next';
+import { ref } from 'vue';
+
+const roles = ref<string[]>(usePage().props.auth.adminRoles);
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
         href: '/admin/dashboard',
         icon: LayoutGrid,
+        isHidden: !roles.value.includes('Super Admin') && !roles.value.includes('Admin'),
     },
     {
         title: 'Veterinary',
@@ -22,21 +26,25 @@ const mainNavItems: NavItem[] = [
                 title: 'Services',
                 href: '/admin/vet-services',
                 icon: BriefcaseMedical,
+                isHidden: !roles.value.includes('Super Admin') && !roles.value.includes('Admin'),
             },
             {
                 title: 'Services Types',
                 href: '/admin/vet-service-types',
                 icon: Layers,
+                isHidden: !roles.value.includes('Super Admin') && !roles.value.includes('Admin'),
             },
             {
                 title: 'Schedules',
                 href: '/admin/vet-appointment-schedules',
                 icon: Calendar,
+                isHidden: !roles.value.includes('Super Admin') && !roles.value.includes('Admin'),
             },
             {
                 title: 'Appointments',
                 href: '/admin/vet-appointments',
                 icon: Calendar1,
+                isHidden: !roles.value.includes('Super Admin') && !roles.value.includes('Admin') && !roles.value.includes('Doctor'),
             },
         ],
     },
@@ -44,20 +52,24 @@ const mainNavItems: NavItem[] = [
         title: 'Inventory',
         href: '/admin/products',
         icon: PawPrint,
+        isHidden: !roles.value.includes('Super Admin') && !roles.value.includes('Admin'),
     },
     {
         title: 'Admin',
         icon: User,
+        isHidden: !roles.value.includes('Super Admin') && !roles.value.includes('Admin'),
         items: [
             {
                 title: 'Roles',
                 href: '/admin/roles',
                 icon: UserCog,
+                isHidden: !roles.value.includes('Super Admin') && !roles.value.includes('Admin'),
             },
             {
                 title: 'Admin Accounts',
                 href: '/admin/accounts',
                 icon: Users,
+                isHidden: !roles.value.includes('Super Admin') && !roles.value.includes('Admin'),
             },
         ],
     },
