@@ -28,6 +28,7 @@
                         </Carousel>
                         {{ product.description }}
                     </CardContent>
+                    <CardFooter class="flex justify-between px-6 pb-6"> ₱ {{ product.price }} </CardFooter>
                 </Card>
             </div>
         </div>
@@ -36,7 +37,7 @@
 
 <script setup lang="ts">
 import Heading from '@/components/Heading.vue';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import UserLayout from '@/layouts/user/UserLayout.vue';
 import { Product } from '@/types';

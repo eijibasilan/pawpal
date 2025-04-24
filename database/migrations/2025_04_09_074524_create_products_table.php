@@ -17,7 +17,7 @@ return new class extends Migration {
 			$table->foreignId('product_category_id')->constrained();
 			$table->foreignId('product_brand_id')->constrained();
 			$table->bigInteger('quantity')->default(0);
-			$table->string('unit');
+			$table->decimal('price', 15, 2);
 			$table->timestamps();
 		});
 	}

@@ -27,7 +27,7 @@ class UpsertProductRequest extends FormRequest
 			"product_category_id" => "required|exists:product_categories,id",
 			"product_brand_id" => "required|exists:product_brands,id",
 			"quantity" => "required|numeric",
-			"unit" => "nullable|string",
+			"price" => "required|numeric",
 			'images' => 'nullable|array',
 			'images.*' => 'image|mimes:jpeg,png,jpg,jfif,gif|max:2048'
 		];

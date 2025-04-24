@@ -49,12 +49,21 @@
                             <InputError class="mt-2" :message="form.errors.quantity" />
                         </div>
                         <div class="grid gap-2">
-                            <Label for="unit">Unit</Label>
-                            <Input id="unit" class="mt-1 block w-full" v-model="form.unit" required autocomplete="name" placeholder="unit" />
-                            <InputError class="mt-2" :message="form.errors.unit" />
+                            <Label for="quantity">Price</Label>
+                            <Input
+                                type="number"
+                                id="quantity"
+                                class="mt-1 block w-full"
+                                v-model="form.price"
+                                step=".01"
+                                required
+                                autocomplete="name"
+                                placeholder="price"
+                            />
+                            <InputError class="mt-2" :message="form.errors.price" />
                         </div>
                         <div class="grid gap-2">
-                            <Label for="unit">Brand</Label>
+                            <Label for="brand">Brand</Label>
                             <Select v-model="form.product_brand_id">
                                 <SelectTrigger>
                                     <SelectValue placeholder="Select a brand" />
@@ -71,7 +80,7 @@
                             <InputError class="mt-2" :message="form.errors.product_brand_id" />
                         </div>
                         <div class="grid gap-2">
-                            <Label for="unit">Category</Label>
+                            <Label for="category">Category</Label>
                             <Select v-model="form.product_category_id">
                                 <SelectTrigger>
                                     <SelectValue placeholder="Select a category" />
@@ -215,9 +224,9 @@ const columns = ref<ColumnDef<Product>[]>([
         cell: ({ row }) => h('div', { class: 'text-center' }, row.getValue('quantity')),
     },
     {
-        accessorKey: 'unit',
-        header: () => h('div', { class: 'text-center' }, 'Unit'),
-        cell: ({ row }) => h('div', { class: 'text-center' }, row.getValue('unit')),
+        accessorKey: 'price',
+        header: () => h('div', { class: 'text-center' }, 'Price'),
+        cell: ({ row }) => h('div', { class: 'text-center' }, row.getValue('price')),
     },
     {
         accessorKey: 'updated_at',
@@ -246,7 +255,7 @@ const form = useForm<{
     product_brand_id: number;
     product_category_id: number;
     quantity: number;
-    unit: string;
+    price: number;
     images: File[];
     _method?: string;
 }>({
@@ -255,7 +264,7 @@ const form = useForm<{
     product_category_id: 0,
     product_brand_id: 0,
     quantity: 0,
-    unit: '',
+    price: 0.0,
     images: [],
     _method: '',
 });
@@ -268,7 +277,7 @@ const openUpsertDialog = (action: UpsertAction, data?: Product) => {
     form.product_brand_id = data?.brand.id ?? 0;
     form._method = action === 'update' ? 'patch' : '';
     form.quantity = data?.quantity ?? 0;
-    form.unit = data?.unit ?? '';
+    form.price = data?.price ?? 0.0;
 
     dialogLoading.value = true;
     selectedAction.value = action;
@@ -318,7 +327,7 @@ const submit = () => {
             });
         },
         onFinish: () => {
-            form.reset('name', 'product_category_id', 'quantity', 'unit');
+            form.reset('name', 'product_category_id', 'quantity', 'price');
             dialogVisibility.value = false;
         },
     });

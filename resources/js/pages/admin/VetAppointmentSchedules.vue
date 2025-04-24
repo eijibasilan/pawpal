@@ -66,7 +66,7 @@
                             <InputError class="mt-2" :message="form.errors.end_time" />
                         </div>
                         <div class="grid gap-2">
-                            <Label for="unit">Doctors</Label>
+                            <Label for="doctor">Doctors</Label>
                             <Select v-model="form.doctor_id">
                                 <SelectTrigger>
                                     <SelectValue placeholder="Assign a doctor" />
@@ -84,7 +84,7 @@
                         </div>
 
                         <div class="grid gap-2">
-                            <Label for="unit">Vet Service</Label>
+                            <Label for="vetService">Vet Service</Label>
                             <Select v-model="form.vet_service_id">
                                 <SelectTrigger>
                                     <SelectValue placeholder="Select a service" />

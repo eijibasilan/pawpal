@@ -45,7 +45,7 @@
                     </DialogHeader>
                     <div class="mt-4 grid grid-cols-1 gap-3">
                         <div class="grid gap-2">
-                            <Label for="unit">Vet Service</Label>
+                            <Label for="vetService">Vet Service</Label>
                             <Select v-model="form.vet_service_id">
                                 <SelectTrigger>
                                     <SelectValue placeholder="Select a service" />
@@ -61,7 +61,7 @@
                             </Select>
                         </div>
                         <div class="grid gap-2" v-if="selectedVetService?.types.length">
-                            <Label for="unit">{{ selectedVetService.name.toUpperCase() }} TYPE</Label>
+                            <Label for="vetService">{{ selectedVetService.name.toUpperCase() }} TYPE</Label>
                             <Select v-model="form.vet_service_type_id">
                                 <SelectTrigger>
                                     <SelectValue />
@@ -101,7 +101,7 @@
                             </Popover>
                         </div>
                         <div class="grid gap-2" v-if="timeSlots?.length">
-                            <Label for="unit">Time</Label>
+                            <Label for="time">Time</Label>
                             <Select v-model="form.time">
                                 <SelectTrigger>
                                     <SelectValue />

@@ -36,7 +36,7 @@
                             <InputError class="mt-2" :message="form.errors.description" />
                         </div>
                         <div class="grid gap-2">
-                            <Label for="unit">Service</Label>
+                            <Label for="vetServiceType">Service</Label>
                             <Select v-model="form.vet_service_id">
                                 <SelectTrigger>
                                     <SelectValue placeholder="Select a vet service" />
