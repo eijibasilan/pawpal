@@ -37,7 +37,7 @@
                             />
                             <InputError class="mt-2" :message="form.errors.email" />
                         </div>
-                        <div class="grid gap-2">
+                        <div class="grid gap-2" v-if="selectedAction === 'insert'">
                             <Label for="password">Password</Label>
                             <Input
                                 id="password"
@@ -51,7 +51,7 @@
                             <InputError :message="form.errors.password" />
                         </div>
 
-                        <div class="grid gap-2">
+                        <div class="grid gap-2" v-if="selectedAction === 'insert'">
                             <Label for="password_confirmation">Confirm password</Label>
                             <Input
                                 id="password_confirmation"
@@ -83,8 +83,8 @@
                     </div>
 
                     <DialogFooter class="mt-5">
-                        <Button type="submit" :disabled="form.processing">
-                            <Loader2 v-if="form.processing" class="h-4 w-4 animate-spin" />
+                        <Button type="submit" :disabled="formProcessing">
+                            <Loader2 v-if="formProcessing" class="h-4 w-4 animate-spin" />
                             Save
                         </Button>
                     </DialogFooter>
@@ -125,6 +125,7 @@ import { h, ref } from 'vue';
 const { toast } = useToast();
 const selectedAction = ref<UpsertAction>('insert');
 const selectedRow = ref<Admin>();
+const formProcessing = ref<boolean>(false);
 const warningAlertVisibility = ref<boolean>(false);
 const dialogLoading = ref<boolean>(false);
 const props = defineProps<{ pagination: PaginationResponse<Admin>; roles?: Role[] }>();
@@ -198,10 +199,19 @@ const openUpsertDialog = (action: UpsertAction, data?: Admin) => {
 };
 
 const submit = () => {
+    const payload: any = { ...form };
+
     const method = selectedAction.value === 'insert' ? 'post' : 'patch';
     const routeParams = selectedAction.value === 'update' ? `/${selectedRow.value?.id}` : '';
 
-    form[method](`/admin/accounts${routeParams}`, {
+    if (selectedAction.value === 'update') {
+        delete payload['password'];
+        delete payload['password_confirmation'];
+    }
+
+    formProcessing.value = true;
+
+    router[method](`/admin/accounts${routeParams}`, payload, {
         onSuccess: () => {
             toast({
                 duration: 1000,
@@ -220,6 +230,7 @@ const submit = () => {
         },
         onFinish: () => {
             form.reset('name');
+            formProcessing.value = false;
             dialogVisibility.value = false;
         },
     });

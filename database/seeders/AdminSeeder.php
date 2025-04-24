@@ -12,6 +12,23 @@ class AdminSeeder extends Seeder
 	 */
 	public function run(): void
 	{
-		Admin::factory(5)->create();
+		Admin::factory(1)
+			->create()
+			->each(function ($admin) {
+				$admin->assignRole('Super Admin');
+			});
+
+		Admin::factory(3)
+			->create()
+			->each(function ($admin) {
+				$admin->assignRole('Admin');
+			});
+
+		Admin::factory(3)
+			->create()
+			->each(function ($admin) {
+				$admin->assignRole('Doctor');
+			});
+
 	}
 }

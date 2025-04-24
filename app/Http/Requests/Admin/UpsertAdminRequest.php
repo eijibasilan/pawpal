@@ -36,6 +36,7 @@ class UpsertAdminRequest extends FormRequest
 			$routeParam = $explodedPaths[count($explodedPaths) - 1];
 
 			$rules['email'] .= $routeParam;
+			$rules['password'] = 'prohibited';
 		}
 
 		return $rules;
@@ -44,7 +45,10 @@ class UpsertAdminRequest extends FormRequest
 	protected function passedValidation(): void
 	{
 		$validated = $this->validated();
-		$validated['password'] = Hash::make($this->password);
+
+		if ($this->method() === 'POST') {
+			$validated['password'] = Hash::make($this->password);
+		}
 
 		$this->replace($validated);
 	}

@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\UpsertAdminRequest;
 use App\Models\Admin;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\DB;
 
 use function Illuminate\Log\log;
@@ -18,6 +19,7 @@ class AdminController extends Controller
 	 */
 	public function index()
 	{
+		Gate::authorize('viewAny', Admin::class);
 		return Inertia::render('admin/Accounts', [
 			'pagination' => Inertia::always(Inertia::merge(Admin::with('roles')->orderBy(request('sortField', 'created_at'), request('sortDirection', 'desc'))->paginate(request('perPage', 5), "*", null, request('page', 1)))),
 			'roles' => Inertia::lazy(fn() => Role::all())
@@ -29,6 +31,7 @@ class AdminController extends Controller
 	 */
 	public function store(UpsertAdminRequest $request)
 	{
+		Gate::authorize('store', Admin::class);
 		DB::transaction(function () use ($request) {
 			$data = Admin::create($request->all());
 			log($request->roles);
@@ -42,6 +45,7 @@ class AdminController extends Controller
 	 */
 	public function update(UpsertAdminRequest $request, string $id)
 	{
+		Gate::authorize('update', Admin::class);
 		DB::transaction(function () use ($request, $id) {
 			$data = Admin::findOrFail($id);
 			$data->update($request->all());
@@ -56,6 +60,7 @@ class AdminController extends Controller
 	 */
 	public function destroy(string $id)
 	{
+		Gate::authorize('delete', Admin::class);
 		$row = Admin::findOrFail($id);
 		$row->delete();
 
