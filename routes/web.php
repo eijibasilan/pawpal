@@ -16,9 +16,6 @@ Route::prefix('user')->group(function () {
 });
 
 Route::prefix('admin')->group(function () {
-	Route::get('dashboard', function () {
-		return Inertia::render('admin/Dashboard');
-	})->middleware(['auth:admin', 'verified'])->name('admin.dashboard');
 
 	require __DIR__ . '/admin/auth.php';
 

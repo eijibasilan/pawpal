@@ -6,30 +6,12 @@ import NavMain from '@/components/admin/NavMain.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import {
-    AudioWaveform,
-    BriefcaseMedical,
-    Calendar,
-    Calendar1,
-    Layers,
-    LayoutGrid,
-    PawPrint,
-    User,
-    UserCog,
-    Users,
-    UsersRound,
-} from 'lucide-vue-next';
+import { AudioWaveform, BriefcaseMedical, Calendar, Calendar1, Layers, PawPrint, User, UserCog, Users, UsersRound } from 'lucide-vue-next';
 import { ref } from 'vue';
 
 const roles = ref<string[]>(usePage().props.auth.adminRoles);
 
 const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: '/admin/dashboard',
-        icon: LayoutGrid,
-        isHidden: !roles.value.includes('Super Admin') && !roles.value.includes('Admin'),
-    },
     {
         title: 'Veterinary',
         icon: AudioWaveform,
