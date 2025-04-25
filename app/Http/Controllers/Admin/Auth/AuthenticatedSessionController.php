@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
 
 		$request->session()->regenerate();
 
-		if (auth()->guard('admin')->user()->hasAnyRole(['Super Admin', 'Admin'])) {
+		if (auth()->guard('admin')->user()->hasAnyRole(['Business Admin', 'Admin'])) {
 			return redirect()->intended('/admin/admins');
 		}
 

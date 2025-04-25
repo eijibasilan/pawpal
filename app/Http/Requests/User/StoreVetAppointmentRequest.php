@@ -69,12 +69,6 @@ class StoreVetAppointmentRequest extends FormRequest
 					return;
 				}
 
-				if ($this->hasEnoughVetServiceTypeStocks())
-					$validator->errors()->add(
-						'vet_service_type_id',
-						'The service type is out of stock.'
-					);
-
 				if ($this->existingAppointment())
 					$validator->errors()->add(
 						'scheduled_date',
@@ -120,17 +114,6 @@ class StoreVetAppointmentRequest extends FormRequest
 			})
 			->where('status', 'Pending')
 			->first();
-	}
-
-	private function hasEnoughVetServiceTypeStocks()
-	{
-		if (!isset($this->vet_service_type_id)) {
-			return true;
-		}
-
-		$vetServiceType = VetServiceType::findOrFail($this->vet_service_type_id);
-
-		return $vetServiceType->quantity <= 0;
 	}
 
 }

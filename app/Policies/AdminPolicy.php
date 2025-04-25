@@ -19,7 +19,7 @@ class AdminPolicy
 	public function store(Admin $admin): bool
 	{
 
-		return $admin->hasRole(['Super Admin']);
+		return $admin->hasRole(['Business Admin']);
 	}
 
 	/**
@@ -28,7 +28,7 @@ class AdminPolicy
 	public function update(Admin $admin): bool
 	{
 
-		return $admin->hasRole(['Super Admin']);
+		return $admin->hasRole(['Business Admin']);
 	}
 
 	/**
@@ -36,6 +36,6 @@ class AdminPolicy
 	 */
 	public function delete(Admin $admin): bool
 	{
-		return $admin->hasRole(['Super Admin']);
+		return $admin->hasRole(['Business Admin']);
 	}
 }

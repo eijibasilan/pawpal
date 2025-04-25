@@ -15,15 +15,21 @@ class VetAppointmentController extends Controller
 		Gate::authorize('viewAny', VetAppointment::class);
 		$vetAppointments = VetAppointment::with(['schedule.doctor', 'schedule.service', 'user', 'upload']);
 
-		if (!auth('admin')->user()->hasAnyRole('Super Admin', 'Admin')) {
+		if (!auth('admin')->user()->hasAnyRole('Business Admin', 'Admin')) {
 			$vetAppointments = $vetAppointments->whereHas('schedule', function ($query) {
 				$query->where('doctor_id', auth('admin')->user()->id);
 			});
 		}
 
+		if (request('status') !== null) {
+			$vetAppointments = $vetAppointments->where('status', request('status'));
+		}
+
 		$vetAppointments = $vetAppointments->orderBy(request('sortField', 'created_at'), request('sortDirection', 'desc'))->paginate(request('perPage', 5), "*", null, request('page', 1));
 
-		return Inertia::render('admin/VetAppointments', [
+		$route = request('status') ? 'admin/VetAppointmentHistories' : 'admin/VetAppointments';
+
+		return Inertia::render($route, [
 			'pagination' => Inertia::always(Inertia::merge($vetAppointments)),
 		]);
 	}

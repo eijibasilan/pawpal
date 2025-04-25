@@ -3,7 +3,7 @@
         <div class="m-3">
             <Heading :title="'Admin Accounts'" :description="'Manage your admin accounts here.'" />
 
-            <Button variant="ghost" size="icon" @click="openUpsertDialog('insert')" v-if="adminRoles.includes('Super Admin')">
+            <Button variant="ghost" size="icon" @click="openUpsertDialog('insert')" v-if="adminRoles.includes('Business Admin')">
                 <Loader2 class="h-4 w-4 animate-spin" v-if="dialogLoading" />
                 <Plus class="h-4 w-4" v-else />
             </Button>
@@ -162,8 +162,8 @@ const columns = ref<ColumnDef<Admin>[]>([
         cell: ({ row }) =>
             h(TableActions, {
                 class: 'text-center',
-                hideEdit: !adminRoles.value.includes('Super Admin'),
-                hideDelete: !adminRoles.value.includes('Super Admin'),
+                hideEdit: !adminRoles.value.includes('Business Admin'),
+                hideDelete: !adminRoles.value.includes('Business Admin'),
                 onUpdate: () => openUpsertDialog('update', row.original as Admin),
                 onDelete: () => {
                     selectedRow.value = row.original as Admin;

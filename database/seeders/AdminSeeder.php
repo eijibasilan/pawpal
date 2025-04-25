@@ -15,7 +15,7 @@ class AdminSeeder extends Seeder
 		Admin::factory(1)
 			->create()
 			->each(function ($admin) {
-				$admin->assignRole('Super Admin');
+				$admin->assignRole('Business Admin');
 			});
 
 		Admin::factory(3)
