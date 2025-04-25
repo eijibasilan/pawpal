@@ -15,7 +15,7 @@ class VetAppointmentController extends Controller
 		Gate::authorize('viewAny', VetAppointment::class);
 		$vetAppointments = VetAppointment::with(['schedule.doctor', 'schedule.service', 'user', 'upload']);
 
-		if (!auth('admin')->user()->hasRole('Admin')) {
+		if (!auth('admin')->user()->hasAnyRole('Super Admin', 'Admin')) {
 			$vetAppointments = $vetAppointments->whereHas('schedule', function ($query) {
 				$query->where('doctor_id', auth('admin')->user()->id);
 			});
@@ -31,14 +31,9 @@ class VetAppointmentController extends Controller
 	public function update(UpdateVetAppointmentRequest $request, string $id)
 	{
 		Gate::authorize('update', VetAppointment::class);
-		$data = VetAppointment::whereHas('schedule', function ($query) {
-			$query->where('doctor_id', auth('admin')->user()->id);
-		})->where('id', $id)->first();
-
+		$data = VetAppointment::where('id', $id)->firstOrFail();
 		$data->update($request->all());
 
 		return redirect('/admin/vet-appointments');
-
-
 	}
 }
