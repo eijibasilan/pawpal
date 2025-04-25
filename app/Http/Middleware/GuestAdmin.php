@@ -18,7 +18,7 @@ class GuestAdmin
 	public function handle(Request $request, Closure $next): Response
 	{
 		if (Auth::guard('admin')->check()) {
-			return redirect()->intended('/admin/admins');
+			return redirect()->intended('/admin/dashboard');
 		}
 
 		return $next($request);

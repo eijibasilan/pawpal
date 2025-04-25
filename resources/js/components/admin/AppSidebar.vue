@@ -8,6 +8,7 @@ import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
 import {
     AudioWaveform,
+    Bell,
     BriefcaseMedical,
     Calendar,
     Calendar1,
@@ -62,7 +63,7 @@ const mainNavItems: NavItem[] = [
                 title: 'Histories',
                 href: '/admin/vet-appointments?status=""',
                 icon: Calendar1,
-                isHidden: !roles.value.includes('Business Admin') && !roles.value.includes('Admin') && !roles.value.includes('Doctor'),
+                isHidden: !roles.value.includes('Business Admin') && !roles.value.includes('Admin'),
             },
         ],
     },
@@ -96,6 +97,11 @@ const mainNavItems: NavItem[] = [
                 isHidden: !roles.value.includes('Business Admin') && !roles.value.includes('Admin'),
             },
         ],
+    },
+    {
+        title: 'Notification',
+        href: '/admin/notifications',
+        icon: Bell,
     },
 ];
 

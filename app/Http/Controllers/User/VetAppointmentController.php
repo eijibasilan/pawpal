@@ -5,7 +5,9 @@ namespace App\Http\Controllers\User;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\StoreVetAppointmentRequest;
+use App\Models\Admin;
 use App\Models\VetAppointment;
+use App\Notifications\BookedVetAppointment;
 use Illuminate\Support\Facades\DB;
 
 class VetAppointmentController extends Controller
@@ -20,6 +22,7 @@ class VetAppointmentController extends Controller
 	{
 		DB::transaction(function () use ($request) {
 			$vetAppointment = VetAppointment::create($request->all());
+			$vetAppointment->load(['schedule.service', 'user']);
 
 			$fileDirectory = "storage/user/transactions/";
 			$fileName = now()->format('M-d-Y_H-i-s') . '.' . $request->image->extension();
@@ -30,6 +33,14 @@ class VetAppointmentController extends Controller
 				'file_extension' => $request->image->getMimeType(),
 				'url' => $fileDirectory . $fileName
 			]);
+
+
+			$doctor = Admin::where('id', $vetAppointment->schedule->doctor_id)->first();
+			$doctor->notify(new BookedVetAppointment([
+				'message' => 'A user has booked appointment',
+				'data' => $vetAppointment
+			]));
+
 		});
 		return redirect('/user/vet-services');
 

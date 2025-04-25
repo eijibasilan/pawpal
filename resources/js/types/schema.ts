@@ -109,3 +109,14 @@ export interface VetAppointment {
     user: User;
     schedule: VetAppointmentSchedule;
 }
+
+export interface Notification {
+    id: number;
+    type: string;
+    notifiable_id: number;
+    notifiable_type: string;
+    data: [key: any];
+    read_at: string;
+    created_at: string;
+    updated_at: string;
+}

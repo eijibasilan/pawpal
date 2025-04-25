@@ -18,7 +18,7 @@ import UserMenuContent from '@/components/UserMenuContent.vue';
 import { getInitials } from '@/composables/useInitials';
 import type { BreadcrumbItem, NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { BriefcaseMedical, HandHelping, Home, Menu, LogIn, UserPlus, Info, Calendar1, ShoppingBasket } from 'lucide-vue-next';
+import { BriefcaseMedical, HandHelping, Home, Menu, LogIn, UserPlus, Info, Calendar1, ShoppingBasket, Bell } from 'lucide-vue-next';
 import { computed, ref } from 'vue';
 
 interface Props {
@@ -69,6 +69,12 @@ const mainNavItems = ref<NavItem[]>([
         title: 'Vet Appointments',
         href: '/user/vet-appointments',
         icon: Calendar1,
+		isHidden: computed(()=>!page.props.auth?.user).value
+    },
+    {
+        title: 'Notifications',
+        href: '/user/notifications',
+        icon: Bell,
 		isHidden: computed(()=>!page.props.auth?.user).value
     },
 ]);

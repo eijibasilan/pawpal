@@ -6,9 +6,11 @@ use Inertia\Inertia;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Admin\UpdateVetAppointmentRequest;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\VetAppointment;
 use App\Models\VetServiceType;
+use App\Notifications\ApprovedVetAppointment;
 use Illuminate\Http\Request;
 
 class VetAppointmentController extends Controller
@@ -21,7 +23,7 @@ class VetAppointmentController extends Controller
 		if (!auth('admin')->user()->hasAnyRole('Business Admin', 'Admin')) {
 			$vetAppointments = $vetAppointments->whereHas('schedule', function ($query) {
 				$query->where('doctor_id', auth('admin')->user()->id);
-			});
+			})->where('status', 'For Approval');
 		}
 
 		if (request('status') !== null) {
@@ -39,9 +41,13 @@ class VetAppointmentController extends Controller
 
 	public function update(UpdateVetAppointmentRequest $request, string $id)
 	{
-		Gate::authorize('update', VetAppointment::class);
-		$data = VetAppointment::where('id', $id)->firstOrFail();
-		$data->update($request->all());
+		DB::transaction(function () use ($id, $request) {
+			Gate::authorize('update', VetAppointment::class);
+			$data = VetAppointment::with('schedule')->where('id', $id)->firstOrFail();
+			$data->update($request->all());
+
+			//$doctor = 
+		});
 
 		return redirect('/admin/vet-appointments');
 	}
@@ -50,7 +56,7 @@ class VetAppointmentController extends Controller
 	{
 		//Gate::authorize('update', VetAppointment::class);
 		DB::transaction(function () use ($id, $request) {
-			$data = VetAppointment::where('id', $id)->firstOrFail();
+			$data = VetAppointment::with('schedule.service')->where('id', $id)->firstOrFail();
 			$data->update(['status' => 'Approved']);
 
 			$details = json_decode($data->details);
@@ -59,6 +65,13 @@ class VetAppointmentController extends Controller
 
 			$vetServiceType->quantity -= $details->quantity;
 			$vetServiceType->save();
+
+			$user = User::where('id', $data->user_id)->first();
+
+			$user->notify(new ApprovedVetAppointment([
+				'message' => 'Your appointment has been approved on ' . $data->schedule->scheduled_date,
+				'data' => $data,
+			]));
 		});
 
 		return redirect('/admin/vet-appointments');
