@@ -20,6 +20,11 @@ Route::prefix('admin')->group(function () {
 	require __DIR__ . '/admin/auth.php';
 
 	Route::middleware('auth:admin')->group(function () {
+		Route::get('/dashboard', function () {
+			return Inertia::render('admin/Dashboard');
+		})->name('admin.dashboard');
+
+
 		Route::apiResource('roles', RoleController::class)->except('show');
 		Route::apiResource('admins', AdminController::class)->except('show');
 		Route::apiResource('users', UserController::class)->only('index');
