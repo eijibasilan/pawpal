@@ -3,7 +3,22 @@
         <div class="m-3">
             <Heading :title="'Vet Appointments'" :description="'Your veterinary appointments.'" />
 
-            <DataTable :columns="columns" :pagination="props.pagination" />
+            <div class="max-w-[50%]">
+                <Select v-model="status">
+                    <SelectTrigger>
+                        <SelectValue placeholder="Select a vet service" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            <SelectLabel>Filter by Status</SelectLabel>
+                            <SelectItem :value="status" v-for="(status, key) in statuses" :key="key">
+                                {{ status }}
+                            </SelectItem>
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
+            </div>
+            <DataTable :columns="columns" :pagination="props.pagination" :additional-params="{ status: status }" />
         </div>
     </AdminLayout>
 </template>
@@ -11,15 +26,19 @@
 <script setup lang="ts">
 import DataTable from '@/components/DataTable.vue';
 import Heading from '@/components/Heading.vue';
+import Badge from '@/components/ui/badge/Badge.vue';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import ViewImageDialog from '@/components/user/ViewImageDialog.vue';
 import AdminLayout from '@/layouts/admin/AdminLayout.vue';
 import { PaginationResponse, Upload, User, VetAppointment, VetAppointmentSchedule } from '@/types';
-
-import Badge from '@/components/ui/badge/Badge.vue';
+import { router } from '@inertiajs/vue3';
 import { ColumnDef } from '@tanstack/vue-table';
-import { h, ref } from 'vue';
+import { h, ref, watch } from 'vue';
 
 const props = defineProps<{ pagination: PaginationResponse<VetAppointment> }>();
+
+const statuses = ref<string[]>(['Pending', 'For Approval', 'Approved', 'Cancelled']);
+const status = ref<string>('');
 
 const columns = ref<ColumnDef<VetAppointment>[]>([
     {
@@ -91,4 +110,17 @@ const badgeVariant: (text: string) => 'secondary' | 'destructive' | 'default' | 
 
     return variant;
 };
+
+const reloadTable = () => {
+    router.get('/admin/vet-appointments', {
+        status: status.value,
+    });
+};
+
+watch(
+    () => status.value,
+    (val) => {
+        if (val) reloadTable();
+    },
+);
 </script>

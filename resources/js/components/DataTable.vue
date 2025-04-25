@@ -21,6 +21,7 @@ const props = defineProps<{
     noDataText?: string;
     columns: ColumnDef<TData, TValue>[];
     pagination: PaginationResponse<TData>;
+    additionalParams?: Record<string, any>;
 }>();
 
 const sorting = ref<any[]>([]);
@@ -57,6 +58,7 @@ const table = useVueTable({
             perPage: paginationPayload.value.pageSize,
             sortField: sorting.value[0]?.id,
             sortDirection: sorting.value.length == 0 ? undefined : sorting.value[0]?.desc ? 'desc' : 'asc',
+            ...props?.additionalParams,
         });
     },
     onSortingChange: (updaterOrValue) => {

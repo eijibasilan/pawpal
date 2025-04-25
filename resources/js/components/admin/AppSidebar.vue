@@ -42,7 +42,7 @@ const mainNavItems: NavItem[] = [
             },
             {
                 title: 'Histories',
-                href: '/admin/vet-appointments?status=',
+                href: '/admin/vet-appointments?status=""',
                 icon: Calendar1,
                 isHidden: !roles.value.includes('Business Admin') && !roles.value.includes('Admin') && !roles.value.includes('Doctor'),
             },
