@@ -214,7 +214,7 @@ const submit = () => {
 
     formProcessing.value = true;
 
-    router[method](`/admin/accounts${routeParams}`, payload, {
+    router[method](`/admin/admins${routeParams}`, payload, {
         onSuccess: () => {
             toast({
                 duration: 1000,
@@ -240,7 +240,7 @@ const submit = () => {
 };
 
 const deleteRow = () => {
-    form.delete(`/admin/accounts/${selectedRow.value?.id}`, {
+    form.delete(`/admin/admins/${selectedRow.value?.id}`, {
         preserveScroll: true,
         //onSuccess: () => closeModal(),
         //onError: () => passwordInput.value?.focus(),

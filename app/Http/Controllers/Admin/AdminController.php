@@ -20,7 +20,7 @@ class AdminController extends Controller
 	public function index()
 	{
 		Gate::authorize('viewAny', Admin::class);
-		return Inertia::render('admin/Accounts', [
+		return Inertia::render('admin/Admins', [
 			'pagination' => Inertia::always(Inertia::merge(Admin::with('roles')->orderBy(request('sortField', 'created_at'), request('sortDirection', 'desc'))->paginate(request('perPage', 5), "*", null, request('page', 1)))),
 			'roles' => Inertia::lazy(fn() => Role::all())
 		]);
@@ -37,7 +37,7 @@ class AdminController extends Controller
 			log($request->roles);
 			$data->assignRole($request->roles);
 		});
-		return redirect('/admin/accounts');
+		return redirect('/admin/admins');
 	}
 
 	/**
@@ -52,7 +52,7 @@ class AdminController extends Controller
 
 			$data->syncRoles($request->roles);
 		});
-		return redirect('/admin/accounts');
+		return redirect('/admin/admins');
 	}
 
 	/**
@@ -64,6 +64,6 @@ class AdminController extends Controller
 		$row = Admin::findOrFail($id);
 		$row->delete();
 
-		return redirect('/admin/accounts');
+		return redirect('/admin/admins');
 	}
 }

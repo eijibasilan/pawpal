@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -23,7 +24,8 @@ Route::prefix('admin')->group(function () {
 
 	Route::middleware('auth:admin')->group(function () {
 		Route::apiResource('roles', RoleController::class)->except('show');
-		Route::apiResource('accounts', AdminController::class)->except('show');
+		Route::apiResource('admins', AdminController::class)->except('show');
+		Route::apiResource('users', UserController::class)->only('index');
 
 		require __DIR__ . '/admin/vetServices.php';
 		require __DIR__ . '/admin/settings.php';
