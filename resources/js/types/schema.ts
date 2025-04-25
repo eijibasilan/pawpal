@@ -20,6 +20,7 @@ export interface User {
     id: number;
     name: string;
     email: string;
+    mobile_number: string;
     avatar?: string;
     email_verified_at: string | null;
     created_at: string;
@@ -101,7 +102,7 @@ export interface VetAppointmentSchedule {
 }
 export interface VetAppointment {
     id: number;
-    details: [key: any];
+    details: string;
     status: 'Pending' | 'Confirmed';
     created_at: string;
     updated_at: string;

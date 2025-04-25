@@ -23,7 +23,7 @@ const mainNavItems: NavItem[] = [
                 isHidden: !roles.value.includes('Business Admin') && !roles.value.includes('Admin'),
             },
             {
-                title: 'Services Types',
+                title: 'Inventories',
                 href: '/admin/vet-service-types',
                 icon: Layers,
                 isHidden: !roles.value.includes('Business Admin') && !roles.value.includes('Admin'),

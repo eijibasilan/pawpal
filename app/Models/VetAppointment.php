@@ -17,7 +17,7 @@ class VetAppointment extends Model
 	protected function casts(): array
 	{
 		return [
-			'details' => 'array',
+			'details' => 'json',
 		];
 	}
 

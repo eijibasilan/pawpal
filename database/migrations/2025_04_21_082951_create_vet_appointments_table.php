@@ -15,7 +15,7 @@ return new class extends Migration {
 			$table->foreignId('user_id')->constrained();
 			$table->foreignId('vet_appointment_schedule_id')->constrained();
 			$table->text('details')->nullable();
-			$table->enum('status', ['Pending', 'Approved', 'Cancelled'])->default('Pending');
+			$table->enum('status', ['Pending', 'For Approval', 'Approved', 'Cancelled'])->default('Pending');
 			$table->timestamps();
 		});
 	}

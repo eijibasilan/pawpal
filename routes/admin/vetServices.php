@@ -11,6 +11,9 @@ Route::apiResource('vet-service-types', VetServiceTypeController::class)->except
 Route::apiResource('vet-appointment-schedules', VetAppointmentScheduleController::class)->except('show');
 Route::apiResource('vet-appointments', VetAppointmentController::class)->only(['index', 'update']);
 
+Route::patch('/vet-appointments/approve/{id}', [VetAppointmentController::class, 'approveVetAppointment'])
+	->name('vet_appointments.status.approve');
+
 Route::delete('/vet-services/image/{id}', [VetServiceController::class, 'deleteImage'])
 	->name('vet_service.image.delete');
 

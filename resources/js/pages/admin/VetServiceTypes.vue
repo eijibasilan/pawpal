@@ -1,7 +1,7 @@
 <template>
     <AdminLayout>
         <div class="m-3">
-            <Heading :title="'Veterinary Services'" :description="'Manage your vet service types here.'" />
+            <Heading :title="'Veterinary Inventories'" />
 
             <Button variant="ghost" size="icon" @click="openUpsertDialog('insert')">
                 <Loader2 class="h-4 w-4 animate-spin" v-if="dialogLoading" />

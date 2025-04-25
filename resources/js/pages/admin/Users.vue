@@ -29,5 +29,10 @@ const columns = ref<ColumnDef<User>[]>([
         header: () => h('div', { class: 'text-center' }, 'Email'),
         cell: ({ row }) => h('div', { class: 'text-center' }, row.getValue('email')),
     },
+    {
+        accessorKey: 'mobile_number',
+        header: () => h('div', { class: 'text-center' }, 'Contact Number'),
+        cell: ({ row }) => h('div', { class: 'text-center' }, row.getValue('mobile_number')),
+    },
 ]);
 </script>

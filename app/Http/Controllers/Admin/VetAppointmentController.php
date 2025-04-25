@@ -6,7 +6,10 @@ use Inertia\Inertia;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Admin\UpdateVetAppointmentRequest;
+use Illuminate\Support\Facades\DB;
 use App\Models\VetAppointment;
+use App\Models\VetServiceType;
+use Illuminate\Http\Request;
 
 class VetAppointmentController extends Controller
 {
@@ -39,6 +42,24 @@ class VetAppointmentController extends Controller
 		Gate::authorize('update', VetAppointment::class);
 		$data = VetAppointment::where('id', $id)->firstOrFail();
 		$data->update($request->all());
+
+		return redirect('/admin/vet-appointments');
+	}
+
+	public function approveVetAppointment(Request $request, string $id)
+	{
+		//Gate::authorize('update', VetAppointment::class);
+		DB::transaction(function () use ($id, $request) {
+			$data = VetAppointment::where('id', $id)->firstOrFail();
+			$data->update(['status' => 'Approved']);
+
+			$details = json_decode($data->details);
+
+			$vetServiceType = VetServiceType::where('name', $details->type)->first();
+
+			$vetServiceType->quantity -= $details->quantity;
+			$vetServiceType->save();
+		});
 
 		return redirect('/admin/vet-appointments');
 	}
