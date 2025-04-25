@@ -14,6 +14,7 @@ return new class extends Migration {
 			$table->id();
 			$table->string('name');
 			$table->text('description')->nullable();
+			$table->bigInteger('quantity')->default(0);
 			$table->foreignId('vet_service_id')->constrained();
 			$table->timestamps();
 		});

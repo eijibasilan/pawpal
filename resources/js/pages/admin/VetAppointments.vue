@@ -164,6 +164,7 @@ const openUpdateDialog = (data: VetAppointment) => {
 const submit = () => {
     form.patch(`/admin/vet-appointments/${selectedRow.value?.id}`, {
         onSuccess: () => {
+            dialogVisibility.value = false;
             toast({
                 duration: 1000,
                 title: 'Success!!',
@@ -178,9 +179,6 @@ const submit = () => {
                 description: 'There was a problem with your request.',
                 variant: 'destructive',
             });
-        },
-        onFinish: () => {
-            dialogVisibility.value = false;
         },
     });
 };

@@ -216,6 +216,7 @@ const submit = () => {
 
     router[method](`/admin/admins${routeParams}`, payload, {
         onSuccess: () => {
+            dialogVisibility.value = false;
             toast({
                 duration: 1000,
                 title: 'Success!!',
@@ -234,7 +235,6 @@ const submit = () => {
         onFinish: () => {
             form.reset('name');
             formProcessing.value = false;
-            dialogVisibility.value = false;
         },
     });
 };

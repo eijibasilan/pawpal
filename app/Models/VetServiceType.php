@@ -10,6 +10,7 @@ class VetServiceType extends Model
 	protected $fillable = [
 		'name',
 		'description',
+		'quantity',
 		'vet_service_id',
 	];
 

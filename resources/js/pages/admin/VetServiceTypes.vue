@@ -36,6 +36,19 @@
                             <InputError class="mt-2" :message="form.errors.description" />
                         </div>
                         <div class="grid gap-2">
+                            <Label for="quantity">Quantity</Label>
+                            <Input
+                                id="quantity"
+                                type="number"
+                                class="mt-1 block w-full"
+                                v-model="form.quantity"
+                                required
+                                autocomplete="quantity"
+                                placeholder="quantity"
+                            />
+                            <InputError class="mt-2" :message="form.errors.quantity" />
+                        </div>
+                        <div class="grid gap-2">
                             <Label for="vetServiceType">Service</Label>
                             <Select v-model="form.vet_service_id">
                                 <SelectTrigger>
@@ -116,6 +129,11 @@ const columns = ref<ColumnDef<VetServiceType>[]>([
         cell: ({ row }) => h('div', { class: 'text-center' }, row.getValue('description')),
     },
     {
+        accessorKey: 'quantity',
+        header: () => h('div', { class: 'text-center' }, 'Quantity'),
+        cell: ({ row }) => h('div', { class: 'text-center' }, row.getValue('quantity')),
+    },
+    {
         accessorKey: 'service',
         header: () => h('div', { class: 'text-center' }, 'Service'),
         cell: ({ row }) => {
@@ -143,6 +161,7 @@ const columns = ref<ColumnDef<VetServiceType>[]>([
 const form = useForm({
     name: '',
     description: '',
+    quantity: 0,
     vet_service_id: 0,
 });
 
@@ -151,6 +170,7 @@ const openUpsertDialog = (action: UpsertAction, data?: VetServiceType) => {
 
     form.name = data?.name ?? '';
     form.description = data?.description ?? '';
+    form.quantity = data?.quantity ?? 0;
     form.vet_service_id = data?.service.id ?? 0;
 
     selectedAction.value = action;
@@ -196,6 +216,7 @@ const deleteRow = () => {
     form.delete(`/admin/vet-service-types/${selectedRow.value?.id}`, {
         preserveScroll: true,
         onSuccess: () => {
+            warningAlertVisibility.value = false;
             toast({
                 duration: 1000,
                 title: 'Success!!',
@@ -210,9 +231,6 @@ const deleteRow = () => {
                 description: 'There was a problem with your request.',
                 variant: 'destructive',
             });
-        },
-        onFinish: () => {
-            warningAlertVisibility.value = false;
         },
     });
 };

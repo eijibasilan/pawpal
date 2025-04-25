@@ -322,6 +322,7 @@ const submit = () => {
         onFinish: () => {
             form.reset('scheduled_date', 'vet_service_id', 'vet_service_type_id', 'time');
             formProcessing.value = false;
+            stepIndex.value = 1;
         },
     });
 };

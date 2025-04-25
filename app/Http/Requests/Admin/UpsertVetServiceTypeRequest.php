@@ -25,6 +25,7 @@ class UpsertVetServiceTypeRequest extends FormRequest
 			"name" => "required|min:3|unique:vet_service_types,name,",
 			"vet_service_id" => "required|exists:vet_services,id",
 			"description" => "nullable|string",
+			"quantity" => "required|numeric|gt:0",
 		];
 
 		if ($this->method() === 'PUT' || $this->method() === 'PATCH') {

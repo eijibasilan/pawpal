@@ -311,6 +311,7 @@ const submit = () => {
 
     form.post(`/admin/products${routeParams}`, {
         onSuccess: () => {
+            dialogVisibility.value = false;
             toast({
                 duration: 1000,
                 title: 'Success!!',
@@ -328,7 +329,6 @@ const submit = () => {
         },
         onFinish: () => {
             form.reset('name', 'product_category_id', 'quantity', 'price');
-            dialogVisibility.value = false;
         },
     });
 };

@@ -112,6 +112,7 @@ const submit = () => {
 
     form[method](`/admin/roles${routeParams}`, {
         onSuccess: () => {
+            dialogVisibility.value = false;
             toast({
                 duration: 1000,
                 title: 'Success!!',
@@ -129,7 +130,6 @@ const submit = () => {
         },
         onFinish: () => {
             form.reset('name');
-            dialogVisibility.value = false;
         },
     });
 };
