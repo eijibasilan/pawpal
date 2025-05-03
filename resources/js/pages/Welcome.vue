@@ -223,13 +223,7 @@ const prevDeal = () => {
                         </ul>
                     </div>
 
-                    <div class="footer-column">
-                        <h3>Educational</h3>
-                        <ul>
-                            <li><a href="/pet-care">Pet Care Hub</a></li>
-                        </ul>
-                    </div>
-
+                    <!-- Remove Educational section and directly show Connect with us -->
                     <div class="footer-column">
                         <h3>Connect with us</h3>
                         <ul>

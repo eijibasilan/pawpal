@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 import UserLayout from '@/layouts/user/UserLayout.vue';
 defineOptions({ layout: UserLayout });
 </script>
