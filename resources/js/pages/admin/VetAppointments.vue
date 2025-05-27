@@ -9,7 +9,7 @@
             <DialogContent class="max-h-[90dvh] overflow-y-auto sm:max-w-[425px]" @close-dialog="() => (dialogVisibility = false)">
                 <form @submit.prevent="submit">
                     <DialogHeader>
-                        <DialogTitle>Inventory Stocks</DialogTitle>
+                        <DialogTitle>Action</DialogTitle>
                         <DialogDescription> </DialogDescription>
                     </DialogHeader>
                     <div class="mt-2 grid grid-cols-1 gap-3">
@@ -21,8 +21,8 @@
                             </div>
                         </div>
                         <div class="grid gap-2">
-                            <Label for="quantity">Desired Quantity</Label>
-                            <Input
+                            <!-- <Label for="quantity">Desired Quantity</Label> -->
+                            <!-- <Input
                                 type="number"
                                 id="name"
                                 class="mt-1 block w-full"
@@ -30,14 +30,18 @@
                                 required
                                 autocomplete="quantity"
                                 placeholder="quantity"
-                            />
-                            <InputError class="mt-2" :message="form.errors.quantity" />
+                            /> -->
+                            <!-- <InputError class="mt-2" :message="form.errors.quantity" /> -->
                         </div>
                     </div>
                     <DialogFooter class="mt-5">
-                        <Button type="submit" :disabled="form.processing">
+                        <!-- <Button type="submit" class="bg-red-500 text-color-white hover:bg-red-700" :disabled="form.processing">
                             <Loader2 v-if="form.processing" class="h-4 w-4 animate-spin" />
-                            Save
+                            Decline
+                        </Button> -->
+                        <Button type="submit" class="bg-green-500 text-color-white hover:bg-red-700" :disabled="form.processing">
+                            <Loader2 v-if="form.processing" class="h-4 w-4 animate-spin" />
+                            Accept
                         </Button>
                     </DialogFooter>
                 </form>
@@ -85,7 +89,8 @@ const selectedRow = ref<VetAppointment>();
 const roles = ref<string[]>(usePage().props.auth.adminRoles);
 
 const form = useForm({
-    quantity: 0,
+    id: 1,
+    status: 'Approved',
 });
 
 const props = defineProps<{ pagination: PaginationResponse<VetAppointment> }>();
@@ -211,6 +216,7 @@ const approveStatus = () => {
 };
 
 const submit = () => {
+    // console.log(selectedRow.value?.id)
     form.patch(`/admin/vet-appointments/${selectedRow.value?.id}`, {
         onSuccess: () => {
             dialogVisibility.value = false;

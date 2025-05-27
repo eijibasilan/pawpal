@@ -24,3 +24,4 @@ class GuestAdmin
 		return $next($request);
 	}
 }
+
